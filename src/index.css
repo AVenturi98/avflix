@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+button:hover {
+    cursor: pointer;
+}
+
+nav a:hover {
+    color: blue;
+}
+
+a.active {
+    color: darkblue;
+}
+
+.img_popular_card {
+    position: relative;
+}
+
+.hover_el_popular_card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    height: 100%;
+    width: 100%;
+}
+
+.arrow-show-more {
+    opacity: 0;
+    margin-left: 15px;
+    transition: opacity 500ms ease-in-out;
+}
+
+.arrow-show-more.visible {
+    margin-left: 10px;
+    animation-name: arrowMore;
+    animation-duration: 400ms;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-delay: 100ms;
+}
+
+@keyframes arrowMore {
+    from {
+        opacity: 0;
+
+    }
+
+    to {
+        opacity: 1;
+        margin-left: 20px;
+        transition: 800ms;
+    }
+}
+
+.arrow-show-minus {
+    opacity: 0;
+    transition: opacity 500ms ease-in-out;
+}
+
+.arrow-show-minus.visible {
+    margin-left: 10px;
+    animation-name: arrowMinus;
+    animation-duration: 400ms;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-delay: 100ms;
+}
+
+@keyframes arrowMinus {
+    from {
+        opacity: 0;
+        margin-left: 20px;
+
+    }
+
+    to {
+        opacity: 1;
+        margin-left: 15px;
+        transition: 800ms;
+    }
+}
