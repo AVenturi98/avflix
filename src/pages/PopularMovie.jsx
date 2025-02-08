@@ -91,11 +91,11 @@ export default function PopularMovie() {
             <div>
                 <h1 className='text-4xl font-bold mb-5'>Film Popolari</h1>
                 {!showMore &&
-                    <button type="button" onClick={() => open(setShowMore)} onMouseOver={() => open(setArrow)} onMouseOut={() => close(setArrow)}>
-                        <h2 className='uppercase text-xl my-4 opacity-60 transform transition hover:-translate-y-1 hover:opacity-100'>Mostra di più
+                    <button type="button" onClick={() => open(setShowMore)} onMouseOver={() => open(setArrow)} onMouseOut={() => close(setArrow)} className='transform transition hover:-translate-y-1 inset-shadow-sm inset-shadow-indigo-500 hover:inset-shadow-gray-500 px-2 rounded-md my-3'>
+                        <h2 className='uppercase text-xl my-4 opacity-60 hover:opacity-100'>Mostra di più
                             {arrow &&
                                 <span>
-                                    <FontAwesomeIcon icon={faArrowRight} className={`arrow-show-more ${arrow ? 'visible' : ''}`} />
+                                    <FontAwesomeIcon icon={faArrowRight} className={`arrow-show-more ${arrow ? 'visible ' : ''}`} />
                                 </span>}
                         </h2>
                     </button>}
@@ -111,8 +111,8 @@ export default function PopularMovie() {
                 </div>
                 <div className='flex justify-center items-center mt-9' >
                     {showMore &&
-                        <button type="button" onClick={() => { close(setShowMore), BackTop() }} onMouseOver={() => open(setArrow)} onMouseOut={() => close(setArrow)}>
-                            <h2 className='uppercase text-xl my-4 opacity-60 transform transition hover:-translate-y-1 hover:opacity-100'>Mostra di meno
+                        <button type="button" onClick={() => { close(setShowMore), BackTop() }} onMouseOver={() => open(setArrow)} onMouseOut={() => close(setArrow)} className='transform transition hover:-translate-y-1 inset-shadow-sm inset-shadow-indigo-500 hover:inset-shadow-gray-500 p-1 rounded-md'>
+                            <h2 className='contain-arrow-show-minus uppercase text-xl my-4 opacity-60  hover:opacity-100'>Mostra di meno
                                 {arrow &&
                                     <span>
                                         <FontAwesomeIcon icon={faArrowLeft} className={`arrow-show-minus ${arrow ? 'visible' : ''}`} />
