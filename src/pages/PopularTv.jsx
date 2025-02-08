@@ -2,6 +2,7 @@ import * as React from 'react'
 import axios from 'axios'
 import { Link } from 'react-router'
 import KEY from '../KEY'
+import { FlagIcon } from 'react-flag-kit'
 
 // Context
 import { useWindowWidth } from '../context/WindowContext'
@@ -22,13 +23,13 @@ export default function PopularMovie() {
     const [movies, setMovies] = React.useState([]) // fetch Movies
     const [page, setPage] = React.useState(1) // set Page
     const [totalPage, setTotalPage] = React.useState([]) // set Total Page
-    const [showMore, setShowMore] = React.useState(false) //set Show More
-    const [arrow, setArrow] = React.useState(false) //set Arrow Show More
 
-    const [genresMovie, setGenresMovie] = React.useState([]) //set Genres Movie
-    const [genre, setGenre] = React.useState([]) //set Genres
     const [secondPage, setSecondPage] = React.useState([]) //set Second Page
     const [thirtyPage, setThirtyPage] = React.useState([]) //set Thirty Page
+
+    // Set Buttons
+    const [arrow, setArrow] = React.useState(false) //set Arrow Show More
+    const [showMore, setShowMore] = React.useState(false) //set Show More
 
 
 
@@ -47,7 +48,6 @@ export default function PopularMovie() {
             .then(res => {
                 setMovies(res.data.results);
                 setTotalPage(new Array('1', '2', '3', '4', '5'))
-                setGenresMovie(res.data.results.map(e => e.genre_ids))
                 console.log(res)
             })
             .catch(err => {
@@ -94,7 +94,6 @@ export default function PopularMovie() {
 
     React.useEffect(() => {
         fetchMovies()
-        fetchGenre()
         fetchSecondPageMovies()
         fetchThirtyPageMovies()
     }, [page])
@@ -105,27 +104,13 @@ export default function PopularMovie() {
     }
 
 
-    // Toggle movies
+    // Toggle button movies
     function showMoreChange() {
         setShowMore(true)
     }
 
     function showMinusChange() {
         setShowMore(false)
-    }
-
-
-    // Chiamata per i generi
-    const fetchGenre = () => {
-
-        axios.get(`https://api.themoviedb.org/3/genre/tv/list${KEY}`, options)
-            .then(res => {
-                setGenre(res.data.genres)
-                console.log('genres', res.data.genres)
-            })
-            .catch(err => {
-                console.log(err)
-            })
     }
 
 
@@ -149,7 +134,7 @@ export default function PopularMovie() {
     const hasComedyGenre = (movieGenres) => {
         return movieGenres.includes(35)
     }
-    const comedyMovies = thirtyPage.filter(movie => hasComedyGenre(movie.genre_ids))
+    const comedyMovies = secondPage.filter(movie => hasComedyGenre(movie.genre_ids))
     // console.log('Adventure movies:', actionMovies)
 
 
@@ -175,7 +160,7 @@ export default function PopularMovie() {
                                 </span>}
                         </h2>
                     </button>}
-                <div className={!showMore ? 'flex items-center gap-2 overflow-x-auto whitespace-nowrap pb-5' : 'flex justify-center items-center gap-2 flex-wrap'}>
+                <div className={!showMore ? 'flex items-center gap-2 overflow-x-auto pb-5' : 'flex justify-center items-center gap-2 flex-wrap'}>
                     {!showMore ?
                         movies.slice(0, 10).map(e =>
                             <Link key={e.id} to={`/tv/${e.id}`}>
@@ -194,7 +179,7 @@ export default function PopularMovie() {
                 </div>
                 <div className='flex justify-center items-center mt-9' >
                     {showMore &&
-                        <button type="button" onClick={() => { showMoreChange(), BackTop() }} onMouseOver={setArrowShowMore} onMouseOut={setArrowShowMinus}>
+                        <button type="button" onClick={() => { showMinusChange(), BackTop() }} onMouseOver={setArrowShowMore} onMouseOut={setArrowShowMinus}>
                             <h2 className='uppercase text-xl my-4 opacity-60 transform transition hover:-translate-y-1 hover:opacity-100'>Mostra di meno
                                 {arrow &&
                                     <span>
@@ -251,7 +236,7 @@ export default function PopularMovie() {
                     {/* COMMEDY   */}
                     <section className='my-10'>
                         <h2 className='text-4xl font-bold my-6'>Commedia</h2>
-                        <div className='flex items-center gap-2 overflow-x-scroll pb-5'>
+                        <div className='flex items-center gap-2 overflow-x-auto pb-5'>
                             {comedyMovies.slice(0, 10).map(e =>
                                 <Link key={e.id} to={`/tv/${e.id}`}>
                                     <div className='img_popular_card'>

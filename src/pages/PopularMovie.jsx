@@ -23,7 +23,6 @@ export default function PopularMovie() {
     const [page, setPage] = React.useState(1) // set Page
     const [totalPage, setTotalPage] = React.useState([]) // set Total Page
     const [showMore, setShowMore] = React.useState(false) //set Show More
-    const [arrow, setArrow] = React.useState(false) //set Arrow Show More
 
     const [genresMovie, setGenresMovie] = React.useState([]) //set Genres Movie
     const [genre, setGenre] = React.useState([]) //set Genres
@@ -153,13 +152,9 @@ export default function PopularMovie() {
     // console.log('Adventure movies:', actionMovies)
 
 
-
-    function setArrowShowMore() {
-        setArrow(true)
-    }
-    function setArrowShowMinus() {
-        setArrow(false)
-    }
+    // Mobile Width
+    const windowWidth = useWindowWidth();
+    const mobileWidth = windowWidth >= 640
 
 
     return (
@@ -167,15 +162,14 @@ export default function PopularMovie() {
             <div>
                 <h1 className='text-4xl font-bold mb-5'>Popolari</h1>
                 {!showMore &&
-                    <button type="button" onClick={showMoreChange} onMouseOver={setArrowShowMore} onMouseOut={setArrowShowMinus}>
-                        <h2 className='uppercase text-xl my-4 opacity-60 transform transition hover:-translate-y-1 hover:opacity-100'>Mostra di più
-                            {arrow &&
-                                <span>
-                                    <FontAwesomeIcon icon={faArrowRight} className={`arrow-show-more ${arrow ? 'visible' : ''}`} />
-                                </span>}
+                    <button type="button" onClick={showMoreChange}>
+                        <h2 className='uppercase text-xl my-4'>Mostra di più
+                            <span>
+                                <FontAwesomeIcon icon={faArrowRight} />
+                            </span>
                         </h2>
                     </button>}
-                <div className={!showMore ? 'flex items-center gap-2 overflow-x-auto whitespace-nowrap pb-5' : 'flex justify-center items-center gap-2 flex-wrap'}>
+                <div className={!showMore ? 'flex items-center gap-2 overflow-x-auto pb-5' : 'flex justify-center items-center gap-2 flex-wrap'}>
                     {!showMore ?
                         movies.slice(0, 10).map(e =>
                             <Link key={e.id} to={`/movie/${e.id}`}>
@@ -191,17 +185,10 @@ export default function PopularMovie() {
                                 </div>
                             </Link>
                         )}
-                </div>
-                <div className='flex justify-center items-center mt-9' >
-                    {showMore &&
-                        <button type="button" onClick={() => { showMoreChange(), BackTop() }} onMouseOver={setArrowShowMore} onMouseOut={setArrowShowMinus}>
-                            <h2 className='uppercase text-xl my-4 opacity-60 transform transition hover:-translate-y-1 hover:opacity-100'>Mostra di meno
-                                {arrow &&
-                                    <span>
-                                        <FontAwesomeIcon icon={faArrowLeft} className={`arrow-show-minus ${arrow ? 'visible' : ''}`} />
-                                    </span>}
-                            </h2>
-                        </button>}
+                    <div className='col-start-1 col-end-4 lg:col-start-1 lg:col-end-5' >
+                        {showMore &&
+                            <button type="button" onClick={() => { showMinusChange(), BackTop() }} className='uppercase text-xl my-5'>Mostra meno <span><FontAwesomeIcon icon={faArrowLeft} /></span></button>}
+                    </div>
                 </div>
 
                 {/* PAGINATION */}
@@ -223,7 +210,7 @@ export default function PopularMovie() {
                     {/* ACTION */}
                     <section className='my-10'>
                         <h2 className='text-4xl font-bold my-6'>Action</h2>
-                        <div className='flex items-center gap-2 overflow-x-auto pb-5'>
+                        <div className='flex items-center gap-2 overflow-x-scroll pb-5'>
                             {actionMovies.slice(0, 10).map(e =>
                                 <Link key={e.id} to={`/movie/${e.id}`}>
                                     <div className='img_popular_card'>
@@ -237,7 +224,7 @@ export default function PopularMovie() {
                     {/* ADVENTURE  */}
                     <section className='my-10'>
                         <h2 className='text-4xl font-bold my-6'>Avventura</h2>
-                        <div className='flex items-center gap-2 overflow-x-auto pb-5' >
+                        <div className='flex items-center gap-2 overflow-x-scroll pb-5' >
                             {adventureMovies.slice(0, 10).map(e =>
                                 <Link key={e.id} to={`/movie/${e.id}`}>
                                     <div className='img_popular_card'>

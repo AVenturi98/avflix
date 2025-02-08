@@ -9,6 +9,8 @@ lerna-debug.log*
 
 
 KEY.js
+vite.config.js
+
 node_modules
 dist
 dist-ssr
