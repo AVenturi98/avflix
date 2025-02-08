@@ -1,11 +1,6 @@
 import * as React from 'react'
 import axios from 'axios'
-import { Link } from 'react-router'
 import KEY from '../KEY'
-import { FlagIcon } from 'react-flag-kit'
-
-// Context
-import { useWindowWidth } from '../context/WindowContext'
 
 // Components
 import Card from '../components/Card'
@@ -19,6 +14,8 @@ import {
 
 export default function PopularMovie() {
 
+    // Path Image
+    const path_img = 'https://image.tmdb.org/t/p/w200'
 
     const [movies, setMovies] = React.useState([]) // fetch Movies
     const [page, setPage] = React.useState(1) // set Page
@@ -32,21 +29,15 @@ export default function PopularMovie() {
     const [showMore, setShowMore] = React.useState(false) //set Show More
 
 
-
-
-    // Option di default
-    const options = {
-        params: {
-            language: 'it-IT',
-            page
-        },
-    };
-
-    // Chiamata per i movies
-    const fetchMovies = () => {
-        axios.get(`https://api.themoviedb.org/3/tv/popular${KEY}`, options)
+    function fetchMovies(indexPage, set) {
+        axios.get(`https://api.themoviedb.org/3/tv/popular${KEY}`, {
+            params: {
+                language: 'it-IT',
+                page: indexPage
+            },
+        })
             .then(res => {
-                setMovies(res.data.results);
+                set(res.data.results);
                 setTotalPage(new Array('1', '2', '3', '4', '5'))
                 console.log(res)
             })
@@ -56,46 +47,10 @@ export default function PopularMovie() {
             })
     }
 
-    // Chiamata per i movies page 2
-    const fetchSecondPageMovies = () => {
-        axios.get(`https://api.themoviedb.org/3/tv/popular${KEY}`, {
-            params: {
-                language: 'it-IT',
-                page: 2
-            }
-        })
-            .then(res => {
-                setSecondPage(res.data.results);
-                // console.log(res)
-            })
-            .catch(err => {
-                setTotalPage([])
-                console.log(err)
-            })
-    }
-
-    // Chiamata per i movies page 3
-    const fetchThirtyPageMovies = () => {
-        axios.get(`https://api.themoviedb.org/3/tv/popular${KEY}`, {
-            params: {
-                language: 'it-IT',
-                page: 3
-            }
-        })
-            .then(res => {
-                setThirtyPage(res.data.results);
-                // console.log(res)
-            })
-            .catch(err => {
-                setTotalPage([])
-                console.log(err)
-            })
-    }
-
     React.useEffect(() => {
-        fetchMovies()
-        fetchSecondPageMovies()
-        fetchThirtyPageMovies()
+        fetchMovies(page, setMovies)
+        fetchMovies(2, setSecondPage)
+        fetchMovies(3, setThirtyPage)
     }, [page])
 
     // Back top after click
@@ -104,55 +59,39 @@ export default function PopularMovie() {
     }
 
 
-    // Toggle button movies
-    function showMoreChange() {
-        setShowMore(true)
+    // Toggle elements
+    function open(set) {
+        set(true)
+    }
+    function close(set) {
+        set(false)
     }
 
-    function showMinusChange() {
-        setShowMore(false)
+
+
+    // Function to filter movies by genre
+    function filterMoviesByGenre(movies, genreId) {
+        return movies.filter(movie => movie.genre_ids.includes(genreId));
     }
 
+    // Filtered Movies
+    const crimeMovies = filterMoviesByGenre(thirtyPage, 80);
+    const realitySoapMovies = filterMoviesByGenre(thirtyPage, 10764).concat(filterMoviesByGenre(thirtyPage, 10766));
+    const comedyMovies = filterMoviesByGenre(secondPage, 35);
 
-
-    // Filter Crime Movies
-    const hasCrimeGenre = (movieGenres) => {
-        return movieGenres.includes(80)
-    }
-    const actionMovies = thirtyPage.filter(movie => hasCrimeGenre(movie.genre_ids))
-    // console.log('Action movies:', actionMovies)
-
-
-    // Filter Reality & Soap Movies
-    const hasRealitySoapGenre = (movieGenres) => {
-        return movieGenres.includes(10764) || movieGenres.includes(10766)
-    }
-    const adventureMovies = thirtyPage.filter(movie => hasRealitySoapGenre(movie.genre_ids))
-    // console.log('Adventure movies:', actionMovies)
-
-    // Filter Comedy Movies
-    const hasComedyGenre = (movieGenres) => {
-        return movieGenres.includes(35)
-    }
-    const comedyMovies = secondPage.filter(movie => hasComedyGenre(movie.genre_ids))
-    // console.log('Adventure movies:', actionMovies)
-
-
-
-    function setArrowShowMore() {
-        setArrow(true)
-    }
-    function setArrowShowMinus() {
-        setArrow(false)
-    }
-
+    // Array of filters
+    const filters = [
+        { title: 'Crime', movies: crimeMovies },
+        { title: 'Reality & Soap', movies: realitySoapMovies },
+        { title: 'Commedia', movies: comedyMovies }
+    ];
 
     return (
         <>
             <div>
-                <h1 className='text-4xl font-bold mb-5'>Popolari</h1>
+                <h1 className='text-4xl font-bold mb-5'>Serie Tv Popolari</h1>
                 {!showMore &&
-                    <button type="button" onClick={showMoreChange} onMouseOver={setArrowShowMore} onMouseOut={setArrowShowMinus}>
+                    <button type="button" onClick={() => open(setShowMore)} onMouseOver={() => open(setArrow)} onMouseOut={() => close(setArrow)}>
                         <h2 className='uppercase text-xl my-4 opacity-60 transform transition hover:-translate-y-1 hover:opacity-100'>Mostra di più
                             {arrow &&
                                 <span>
@@ -163,23 +102,16 @@ export default function PopularMovie() {
                 <div className={!showMore ? 'flex items-center gap-2 overflow-x-auto pb-5' : 'flex justify-center items-center gap-2 flex-wrap'}>
                     {!showMore ?
                         movies.slice(0, 10).map(e =>
-                            <Link key={e.id} to={`/tv/${e.id}`}>
-                                <div className='img_popular_card'>
-                                    <Card item={e} />
-                                </div>
-                            </Link>)
+                            <Card key={e.id} type='tv' item={e} image={path_img + e.poster_path} />
+                        )
                         :
                         movies.map(e =>
-                            <Link key={e.id} to={`/tv/${e.id}`}>
-                                <div className='img_popular_card'>
-                                    <Card item={e} />
-                                </div>
-                            </Link>
+                            <Card key={e.id} type='tv' item={e} image={path_img + e.poster_path} />
                         )}
                 </div>
                 <div className='flex justify-center items-center mt-9' >
                     {showMore &&
-                        <button type="button" onClick={() => { showMinusChange(), BackTop() }} onMouseOver={setArrowShowMore} onMouseOut={setArrowShowMinus}>
+                        <button type="button" onClick={() => { close(setShowMore), BackTop() }} onMouseOver={() => open(setArrow)} onMouseOut={() => close(setArrow)}>
                             <h2 className='uppercase text-xl my-4 opacity-60 transform transition hover:-translate-y-1 hover:opacity-100'>Mostra di meno
                                 {arrow &&
                                     <span>
@@ -205,47 +137,16 @@ export default function PopularMovie() {
 
             {!showMore ?
                 <>
-                    {/* CRIME */}
-                    <section className='my-10'>
-                        <h2 className='text-4xl font-bold my-6'>Crime</h2>
-                        <div className='flex items-center gap-2 overflow-x-auto pb-5'>
-                            {actionMovies.slice(0, 10).map(e =>
-                                <Link key={e.id} to={`/tv/${e.id}`}>
-                                    <div className='img_popular_card'>
-                                        <Card item={e} />
-                                    </div>
-                                </Link>
-                            )}
-                        </div>
-                    </section>
-
-                    {/* REALITY e SOAP */}
-                    <section className='my-10'>
-                        <h2 className='text-4xl font-bold my-6'>Reality & Soap</h2>
-                        <div className='flex items-center gap-2 overflow-x-auto pb-5' >
-                            {adventureMovies.slice(0, 10).map(e =>
-                                <Link key={e.id} to={`/tv/${e.id}`}>
-                                    <div className='img_popular_card'>
-                                        <Card item={e} />
-                                    </div>
-                                </Link>
-                            )}
-                        </div>
-                    </section>
-
-                    {/* COMMEDY   */}
-                    <section className='my-10'>
-                        <h2 className='text-4xl font-bold my-6'>Commedia</h2>
-                        <div className='flex items-center gap-2 overflow-x-auto pb-5'>
-                            {comedyMovies.slice(0, 10).map(e =>
-                                <Link key={e.id} to={`/tv/${e.id}`}>
-                                    <div className='img_popular_card'>
-                                        <Card item={e} />
-                                    </div>
-                                </Link>
-                            )}
-                        </div>
-                    </section>
+                    {filters.map(filter => (
+                        <section className='my-10' key={filter.title}>
+                            <h2 className='text-4xl font-bold my-6'>{filter.title}</h2>
+                            <div className='flex items-center gap-2 overflow-x-auto pb-5'>
+                                {filter.movies.slice(0, 10).map(e =>
+                                    <Card key={e.id} type='tv' item={e} image={path_img + e.poster_path} />
+                                )}
+                            </div>
+                        </section>
+                    ))}
                 </> : ''}
         </>
     )

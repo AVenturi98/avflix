@@ -1,6 +1,8 @@
-import { NavLink } from "react-router"
+import { useNavigate, NavLink } from "react-router"
 
 export default function Nav() {
+
+    const navigate = useNavigate('')
 
     return (
         <nav className="flex justify-around items-center bg-blue-400 py-5 text-white">

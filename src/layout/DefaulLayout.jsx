@@ -1,17 +1,20 @@
-import { Outlet, useNavigate } from "react-router";
+import { Outlet } from "react-router";
+import { useWindowWidth } from "../context/WindowContext";
 
-import Nav from "../Nav";
+import Nav from '../components/Nav'
 
 export default function DefaultLayout() {
 
-    const navigate = useNavigate()
+    // Mobile Width
+    const { windowWidth } = useWindowWidth();
+    const mobileWidth = windowWidth <= 640
 
     return (
         <>
             <header>
                 <Nav />
             </header>
-            <main className="p-5">
+            <main className={mobileWidth ? 'p-5' : "px-50 my-16"}>
                 <Outlet />
             </main>
         </>
