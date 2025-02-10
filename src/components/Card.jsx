@@ -1,7 +1,5 @@
 import * as React from 'react'
 import { Link } from 'react-router'
-import axios from 'axios'
-import KEY from '../KEY'
 
 // Components
 import VoteStar from './VoteStar'
@@ -11,7 +9,7 @@ import Typography from '@mui/joy/Typography';
 import { CircularProgress } from '@mui/joy'
 import { useCountUp } from 'use-count-up'
 
-export default function Card({ item, image, backdrop, type, styleCard, styleImg, overview, votes = false, language = false, stars = false }) {
+export default function Card({ item, image, backdrop, type, styleCard, styleImg, overview, votes = false, language = false, stars = false, onMouseEnter }) {
 
     const { id, title, name, original_language, vote_average } = item
 
@@ -19,7 +17,7 @@ export default function Card({ item, image, backdrop, type, styleCard, styleImg,
     function overTextLimit(text) {
         const textLimited = text.split(' ')
         if (textLimited.length > 20) {
-            return textLimited.slice(0, 20).join(' ') + '...'
+            return textLimited.slice(0, 10).join(' ') + '...'
         }
         return text
     }
@@ -32,15 +30,8 @@ export default function Card({ item, image, backdrop, type, styleCard, styleImg,
         end: parseInt(vote_average * 10),
     });
 
-    function fetchImages(event) {
-        const containDrop = document.getElementById('votes')
-        if (event.currentTarget.closest('#popular')) {
-            containDrop.style.backgroundImage = `url('https://image.tmdb.org/t/p/w500${backdrop}')`;
-        }
-    }
-
     return (
-        <Link to={`/${type}/${id}`} onMouseOver={fetchImages} onMouseOut={fetchImages}>
+        <Link to={`/${type}/${id}`} onMouseEnter={onMouseEnter}>
             <div className='img_popular_card'>
                 <div className={`${styleCard} shadow-card rounded-2xl`}>
                     <img src={image} alt={title} className={`${styleImg} rounded-2xl relative`} />

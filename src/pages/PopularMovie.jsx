@@ -4,6 +4,7 @@ import KEY from '../KEY'
 
 // Components
 import Card from '../components/Card'
+import Carousel from '../components/carousel/Carousel'
 
 // Context
 import { useWindowWidth } from '../context/WindowContext'
@@ -15,9 +16,9 @@ export default function PopularMovie() {
     const path_img = 'https://image.tmdb.org/t/p/w200'
 
     const [movies, setMovies] = React.useState([]) // fetch Movies
+
     const [page, setPage] = React.useState(1) // set Page
     const [totalPage, setTotalPage] = React.useState([]) // set Total Page
-
     const [secondPage, setSecondPage] = React.useState([]) //set Second Page
     const [thirtyPage, setThirtyPage] = React.useState([]) //set Thirty Page
 
@@ -25,6 +26,9 @@ export default function PopularMovie() {
     const [showMore, setShowMore] = React.useState(false) //set Show More
 
     const [voteAvg, setVoteAvg] = React.useState([]) //set Vote Average
+    const [backgroundImage, setBackgroundImage] = React.useState(''); // set Background Image
+    const [cast, setCast] = React.useState([]) // set Cast
+    const [top5Cast, setTop5Cast] = React.useState([]); // set Top 5 Cast
 
 
     function fetchMovies(indexPage, set) {
@@ -38,6 +42,7 @@ export default function PopularMovie() {
                 set(res.data.results);
                 setTotalPage(new Array('1', '2', '3', '4', '5'))
                 // console.log(res)
+                res.data.results.forEach(movie => fetchCreditsId(movie.id));// Fetch credits for each movie
             })
             .catch(err => {
                 setTotalPage([])
@@ -46,7 +51,38 @@ export default function PopularMovie() {
     }
 
 
+    // Handle images
+    function fetchImages(movie_id) {
+        axios.get(`https://api.themoviedb.org/3/movie/${movie_id}/images${KEY}`)
+            .then(res => {
+                if (res.data.backdrops.length > 0) {
+                    setBackgroundImage(`https://image.tmdb.org/t/p/w500${res.data.backdrops[0].file_path}`);
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
 
+    function fetchCreditsId(movie_id) {
+        const options = {
+            method: 'GET',
+            url: `https://api.themoviedb.org/3/movie/${movie_id}/credits${KEY}`,
+            params: { language: 'it-IT' },
+        };
+
+        axios
+            .request(options)
+            .then(res => {
+                setCast(prevCast => {
+                    const newCast = [...prevCast, ...res.data.cast];
+                    // Remove duplicates
+                    const uniqueCast = newCast.filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i);
+                    return uniqueCast;
+                });
+            })
+            .catch(err => console.error(err));
+    }
 
     React.useEffect(() => {
         fetchMovies(page, setMovies)
@@ -54,6 +90,14 @@ export default function PopularMovie() {
         fetchMovies(3, setThirtyPage)
         fetchMovies(page, setVoteAvg)
     }, [page])
+
+    React.useEffect(() => {
+        // Filter for Casting
+        const sortedCast = cast
+            .sort((a, b) => parseInt(b.popularity) - parseInt(a.popularity)) // Sort in descending order by popularity
+            .slice(0, 10); // Get the top 5 elements
+        setTop5Cast(sortedCast);
+    }, [cast]);
 
     // Back top after click
     function BackTop() {
@@ -95,7 +139,6 @@ export default function PopularMovie() {
         .slice(0, 5); // Get the top 5 elements
     // console.log('Top 5 votes:', top5Votes);
 
-
     // Mobile Width
     const { windowWidth } = useWindowWidth();
     const mobileWidth = windowWidth <= 640
@@ -117,7 +160,7 @@ export default function PopularMovie() {
                             <polyline points="8 1 12 5 8 9"></polyline>
                         </svg>
                     </button>}
-                <div className={!showMore ? 'flex items-center gap-2 overflow-x-auto overflow-y-hidden pb-5' : 'flex justify-center items-center gap-2 flex-wrap'}>
+                <div className={!showMore ? 'flex items-center gap-5 overflow-x-auto overflow-y-hidden pb-5' : 'flex justify-center items-center gap-2 flex-wrap'}>
                     {!showMore ?
                         movies.slice(0, 10).map(e =>
                             <Card key={e.id} type='movie' item={e} image={path_img + e.poster_path} language={true} stars={true} overview={e.overview} styleCard={'w-[240px]'} styleImg={'w-xs h-[350px]'} />
@@ -158,9 +201,9 @@ export default function PopularMovie() {
                     <>
                         {filtersGenres.map(filter => (
                             filter.movies.length > 5 &&
-                            <div className="filtered-genres-content" key={filter.title}>
+                            <div className="filtered-genres-content mb-10" key={filter.title}>
                                 <h2 className='filtered-genres-title text-4xl font-bold my-6'>{filter.title}</h2>
-                                <div className='flex items-center gap-2 overflow-x-scroll overflow-y-hidden pb-8'>
+                                <div className='flex items-center gap-2 sm:gap-5 overflow-x-scroll overflow-y-hidden pb-8'>
                                     {filter.movies.slice(0, 8).map(e =>
                                         <Card key={e.id} type='movie' item={e} image={path_img + e.poster_path} language={true} stars={true} styleCard={mobileWidth ? 'w-[150px]' : 'w-[200px]'} styleImg={mobileWidth ? 'w-xs h-[220px]' : 'w-[200px] h-[300px]'} />
                                     )}
@@ -171,14 +214,30 @@ export default function PopularMovie() {
             </section>
 
             {/* BACK IMG */}
-            <section className='relative' id='popular'>
-                <div id='votes' className='relative popular' style={{ backgroundImage: `url('https://image.tmdb.org/t/p/w500${mobileWidth ? posterPath : backdropPath}')` }}></div>
+            <section className='relative mb-17' id='popular'>
+                <div id='votes' className='relative popular' style={{ backgroundImage: `url(${backgroundImage || `https://image.tmdb.org/t/p/w500${mobileWidth ? posterPath : backdropPath}`})` }}></div>
                 <div className='contain-top5 absolute'>
                     <div className={`flex items-center overflow-y-hidden pb-8 ${mobileWidth ? 'overflow-x-scroll gap-3 px-3' : 'justify-center gap-8'}`}>
                         {top5Votes.map((e, i) => (
-                            <Card key={i} type='movie' item={e} image={path_img + e.poster_path} styleCard={mobileWidth ? 'w-[180px]' : 'w-[240px]'} styleImg={mobileWidth ? 'w-[180px] h-[200px]' : 'w-xs h-[350px]'} sty backdrop={e.backdrop_path} back={path_img + e.backdrop_path} votes={true} />
+                            <Card key={i}
+                                type='movie'
+                                item={e}
+                                image={path_img + e.poster_path}
+                                styleCard={mobileWidth ? 'w-[180px]' : 'w-[240px]'}
+                                styleImg={mobileWidth ? 'w-[240px]' : 'w-xs h-[350px]'}
+                                backdrop={e.backdrop_path}
+                                votes={true}
+                                onMouseEnter={() => fetchImages(e.id)} />
                         ))}
                     </div>
+                </div>
+            </section>
+
+            {/* TOP CAST */}
+            <section id='contain-top-cast'>
+                <h2 className='text-4xl font-bold my-6'>Top Cast</h2>
+                <div className='flex justify-center items-center gap-2 sm:gap-8 overflow-y-hidden pb-8'>
+                    <Carousel images={top5Cast} />
                 </div>
             </section>
         </>

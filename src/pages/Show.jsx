@@ -82,7 +82,9 @@ export default function Show({ type }) {
                 <h3>Actors</h3>
                 <div>
                     {cast.map(e =>
-                        <div key={e.id}>{e.name}</div>
+                        <div key={e.id}>{e.name}
+                            <img src={'https://image.tmdb.org/t/p/w200' + e.profile_path} alt="" />
+                        </div>
                     )}
                 </div>
             </section>
