@@ -1,23 +1,20 @@
 import * as React from 'react'
 import { Link } from 'react-router'
+import axios from 'axios'
+import KEY from '../KEY'
 
 // Components
 import VoteStar from './VoteStar'
 import Flags from '../Flags'
+import Stack from '@mui/joy/Stack';
+import Typography from '@mui/joy/Typography';
+import { CircularProgress } from '@mui/joy'
+import { useCountUp } from 'use-count-up'
 
-export default function Card({ item, image, type }) {
+export default function Card({ item, image, backdrop, type, styleCard, styleImg, overview, votes = false, language = false, stars = false }) {
 
-    const { id, title, name, original_language, overview, vote_average } = item
+    const { id, title, name, original_language, vote_average } = item
 
-    const [hoverStyle, setHoverStyle] = React.useState(false)
-
-    function upMouseCard() {
-        setHoverStyle(true)
-    }
-
-    function downMouseCard() {
-        setHoverStyle(false)
-    }
 
     function overTextLimit(text) {
         const textLimited = text.split(' ')
@@ -27,29 +24,53 @@ export default function Card({ item, image, type }) {
         return text
     }
 
+
+    const { value: value2, reset } = useCountUp({
+        isCounting: true,
+        duration: 1,
+        start: 0,
+        end: parseInt(vote_average * 10),
+    });
+
+    function fetchImages(event) {
+        const containDrop = document.getElementById('votes')
+        if (event.currentTarget.closest('#popular')) {
+            containDrop.style.backgroundImage = `url('https://image.tmdb.org/t/p/w500${backdrop}')`;
+        }
+    }
+
     return (
-        <Link to={`/${type}/${id}`}>
+        <Link to={`/${type}/${id}`} onMouseOver={fetchImages} onMouseOut={fetchImages}>
             <div className='img_popular_card'>
-                <div onMouseOver={upMouseCard} onMouseOut={downMouseCard} className='w-2xs'>
-                    <img src={image} alt={title} className='w-md sm:h-[450px] rounded-md' />
-                    {hoverStyle &&
-                        <div className='hover_el_popular_card flex justify-center items-start flex-col gap-5 p-3 rounded-md' >
-                            <h2 className='text-3xl'>{title || name}</h2>
+                <div className={`${styleCard} shadow-card rounded-2xl`}>
+                    <img src={image} alt={title} className={`${styleImg} rounded-2xl relative`} />
+
+                    <div className='hover_el_popular_card flex justify-center items-start flex-col gap-5 p-3 rounded-2xl' >
+                        <h2 className='text-3xl'>{title || name}</h2>
+                        {language &&
                             <div className='flex justify-center items-center gap-5'>
                                 <div className='font-semibold'>Lingua Originale:</div>
                                 <span>
                                     <Flags lang={original_language} />
                                 </span>
-                            </div>
-                            <div>{overview ? overTextLimit(overview) : '...'}</div>
+                            </div>}
+                        <div>{overview ? overTextLimit(overview) : ''}</div>
+                        {stars &&
                             <div className='flex justify-center items-center gap-3'>
                                 <VoteStar vote={vote_average} />
                                 <span className='opacity-70'>
                                     ({vote_average.toFixed(1)})
                                 </span>
-                            </div>
-                        </div>
-                    }
+                            </div>}
+                    </div>
+                    {votes === true &&
+                        <div className='absolute progressVote' >
+                            <Stack spacing={2} onMouseOver={votes ? () => reset() : null}>
+                                <CircularProgress size="lg" determinate value={Number(value2)} variant='solid'>
+                                    <Typography level='h4' color='primary'>{value2}%</Typography>
+                                </CircularProgress>
+                            </Stack>
+                        </div>}
                 </div>
             </div>
         </Link >

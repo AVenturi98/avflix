@@ -8,13 +8,14 @@ export default function DefaultLayout() {
     // Mobile Width
     const { windowWidth } = useWindowWidth();
     const mobileWidth = windowWidth <= 640
+    const tabletWidth = windowWidth >= 640 && windowWidth <= 1000
 
     return (
         <>
             <header>
                 <Nav />
             </header>
-            <main className={mobileWidth ? 'p-5' : "px-50 my-16"}>
+            <main className='my-16'>
                 <Outlet />
             </main>
         </>

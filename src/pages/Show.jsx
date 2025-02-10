@@ -9,7 +9,6 @@ export default function Show({ type }) {
     const [genres, setGenres] = React.useState([])
     const [cast, setCast] = React.useState([])
 
-
     const { id } = useParams()
 
     function fetchMovieId() {
@@ -45,11 +44,24 @@ export default function Show({ type }) {
             .catch(err => console.error(err));
     }
 
-
     React.useEffect(() => {
         fetchMovieId()
         fetchCreditsId()
+        fetchImages()
     }, [id])
+
+    const [img, setImg] = React.useState([])
+
+
+    function fetchImages() {
+        axios.get(`https://api.themoviedb.org/3/movie/${id}/images${KEY}`)
+            .then(res => {
+                setImg(res.data.backdrops)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
 
     return (
         <>
@@ -78,6 +90,11 @@ export default function Show({ type }) {
             <h3>Trama</h3>
             <div>{post.overview}</div>
 
+            {img &&
+                img.map(e =>
+                    <img src={'https://image.tmdb.org/t/p/w500' + e.file_path} alt="" />
+                )
+            }
         </>
     )
 }

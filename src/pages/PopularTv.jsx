@@ -6,11 +6,7 @@ import KEY from '../KEY'
 import Card from '../components/Card'
 
 // Icons
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-    faArrowRight,
-    faArrowLeft
-} from '@fortawesome/free-solid-svg-icons'
+
 
 export default function PopularMovie() {
 
@@ -88,16 +84,15 @@ export default function PopularMovie() {
 
     return (
         <>
-            <div>
+            <div className='container'>
                 <h1 className='text-4xl font-bold mb-5'>Serie Tv Popolari</h1>
                 {!showMore &&
-                    <button type="button" onClick={() => open(setShowMore)} onMouseOver={() => open(setArrow)} onMouseOut={() => close(setArrow)}>
-                        <h2 className='uppercase text-xl my-4 opacity-60 transform transition hover:-translate-y-1 hover:opacity-100'>Mostra di più
-                            {arrow &&
-                                <span>
-                                    <FontAwesomeIcon icon={faArrowRight} className={`arrow-show-more ${arrow ? 'visible' : ''}`} />
-                                </span>}
-                        </h2>
+                    <button type='button' onClick={() => open(setShowMore)} className="cta flex justify-center items-center">
+                        <span>Mostra di più</span>
+                        <svg width="15px" height="10px" viewBox="0 0 13 10">
+                            <path d="M1,5 L11,5"></path>
+                            <polyline points="8 1 12 5 8 9"></polyline>
+                        </svg>
                     </button>}
                 <div className={!showMore ? 'flex items-center gap-2 overflow-x-auto pb-5' : 'flex justify-center items-center gap-2 flex-wrap'}>
                     {!showMore ?
@@ -111,13 +106,12 @@ export default function PopularMovie() {
                 </div>
                 <div className='flex justify-center items-center mt-9' >
                     {showMore &&
-                        <button type="button" onClick={() => { close(setShowMore), BackTop() }} onMouseOver={() => open(setArrow)} onMouseOut={() => close(setArrow)}>
-                            <h2 className='uppercase text-xl my-4 opacity-60 transform transition hover:-translate-y-1 hover:opacity-100'>Mostra di meno
-                                {arrow &&
-                                    <span>
-                                        <FontAwesomeIcon icon={faArrowLeft} className={`arrow-show-minus ${arrow ? 'visible' : ''}`} />
-                                    </span>}
-                            </h2>
+                        <button type='button' onClick={() => { close(setShowMore), BackTop() }} className="cta cta-back flex justify-center items-center">
+                            <span>Mostra di meno</span>
+                            <svg width="15px" height="10px" viewBox="0 0 13 10">
+                                <path d="M1,5 L11,5"></path>
+                                <polyline points="8 1 12 5 8 9"></polyline>
+                            </svg>
                         </button>}
                 </div>
 

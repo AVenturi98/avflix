@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+main>*:not(#popular) {
+    margin: 0 auto;
+}
+
 button:hover {
     cursor: pointer;
 }
@@ -12,10 +16,113 @@ a.active {
     color: darkblue;
 }
 
+
+/* CONTAINER ELEMENT */
+.container {
+    border-radius: 100%;
+    width: 100%;
+    height: 100%;
+    /* control ize */
+    --u: 5px;
+    --c1: #ffffff;
+    --c2: #c2c2c2;
+    --c3: #dfdfdf;
+    --gp: 50% / calc(var(--u) * 16.9) calc(var(--u) * 12.8);
+    background: conic-gradient(from 122deg at 50% 85.15%,
+            var(--c2) 0 58deg,
+            var(--c3) 0 116deg,
+            rgba(184, 184, 184, 0) 0 100%) var(--gp),
+        conic-gradient(from 122deg at 50% 72.5%, var(--c1) 0 116deg, #fff0 0 100%) var(--gp),
+        conic-gradient(from 58deg at 82.85% 50%, var(--c3) 0 64deg, #fff0 0 100%) var(--gp),
+        conic-gradient(from 58deg at 66.87% 50%,
+            var(--c1) 0 64deg,
+            var(--c2) 0 130deg,
+            rgba(19, 19, 19, 0) 0 100%) var(--gp),
+        conic-gradient(from 238deg at 17.15% 50%, var(--c2) 0 64deg, #fff0 0 100%) var(--gp),
+        conic-gradient(from 172deg at 33.13% 50%,
+            var(--c3) 0 66deg,
+            var(--c1) 0 130deg,
+            #fff0 0 100%) var(--gp),
+        linear-gradient(98deg, var(--c3) 0 15%, #fff0 calc(15% + 1px) 100%) var(--gp),
+        linear-gradient(-98deg, var(--c2) 0 15%, #fff0 calc(15% + 1px) 100%) var(--gp),
+        conic-gradient(from -58deg at 50.25% 14.85%,
+            var(--c3) 0 58deg,
+            var(--c2) 0 116deg,
+            #fff0 0 100%) var(--gp),
+        conic-gradient(from -58deg at 50% 28.125%, var(--c1) 0 116deg, rgba(141, 141, 141, 0) 0 100%) var(--gp),
+        linear-gradient(90deg, var(--c2) 0 50%, var(--c3) 0 100%) var(--gp);
+}
+
+/* BUTTON ANIMATED */
+.cta {
+    position: relative;
+    margin: auto;
+    padding: 12px 18px;
+    transition: all 0.2s ease;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.cta:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    border-radius: 50px;
+    background: #ccdcfc;
+    width: 45px;
+    height: 45px;
+    transition: all 0.5s ease;
+}
+
+.cta span {
+    position: relative;
+    font-family: "Ubuntu", sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #076ace;
+}
+
+.cta svg {
+    position: relative;
+    top: 0;
+    margin-left: 10px;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke: #2f5d8b;
+    stroke-width: 2;
+    transform: translateX(-5px);
+    transition: all 0.5s ease;
+    opacity: 0
+}
+
+.cta:hover:before {
+    width: 100%;
+    background: #fffec0;
+}
+
+.cta:hover svg {
+    transform: translateX(0);
+    opacity: 1;
+    transition: opacity 500ms;
+}
+
+.cta-back:hover svg {
+    transform: rotate(180deg);
+}
+
+.cta:active {
+    transform: scale(0.95);
+}
+
+/* CARD */
 .img_popular_card {
     position: relative;
 }
-
 
 .hover_el_popular_card {
     position: absolute;
@@ -23,13 +130,82 @@ a.active {
     left: 50%;
     transform: translate(-50%, -50%);
 
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.9);
     color: white;
     height: 100%;
+    width: 100%;
+    transition: 500ms;
+    opacity: 0;
+}
+
+.hover_el_popular_card:hover {
+    opacity: 1
+}
+
+.shadow-card {
+    box-shadow: 10px 10px 10px rgb(65, 65, 65);
+}
+
+
+
+/* "FILTERED GENRES" */
+.filtered-genres-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.filtered-genres-title {
+    margin-bottom: 1rem;
+    flex-grow: 1;
+    align-self: baseline;
+}
+
+.filtered-genres-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+    max-width: 1200px;
+}
+
+
+
+/* PROGRESS VOTE */
+.progressVote {
+    padding: 20px;
+    width: 101%;
+    border-radius: 0 0 20px 20px;
+
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+
+    background: linear-gradient(180deg, transparent, rgba(143, 214, 62, 0.74) 16%, rgba(143, 214, 62, 0.842) 80%, rgba(143, 214, 62, 0.486), transparent);
+}
+
+/* img background */
+#votes {
+    background-repeat: no-repeat;
+    background-size: cover;
+    transition: all 500ms;
+
+    padding: 14rem 0;
+    opacity: 0.8;
+}
+
+.contain-top5 {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 100%;
 }
 
 
+/* ANIMATION */
 .arrow-show-more {
     opacity: 0;
     margin-left: 15px;
@@ -86,5 +262,44 @@ a.active {
         transition: 800ms;
         margin-left: 10px;
         top: 2px
+    }
+}
+
+
+/* SCROLLBAR */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #2c4d94;
+    border-radius: 2px;
+    transform: all .3s;
+}
+
+::-webkit-scrollbar-corner {
+    color: red;
+}
+
+@media (max-width: 640px) {
+    .filtered-genres-content {
+        align-items: center;
+    }
+}
+
+@media (width < 640px) {
+    main>*:not(#popular) {
+        padding: 0 10px
     }
 }
