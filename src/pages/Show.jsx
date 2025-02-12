@@ -23,7 +23,7 @@ export default function Show({ type }) {
             .then(res => {
                 setPost(res.data)
                 setGenres(res.data.genres)
-                // console.log(res)
+                console.log(res)
             })
             .catch(err => console.error(err));
     }
@@ -57,6 +57,7 @@ export default function Show({ type }) {
         axios.get(`https://api.themoviedb.org/3/movie/${id}/images${KEY}`)
             .then(res => {
                 setImg(res.data.backdrops)
+                console.log(res.data)
             })
             .catch(err => {
                 console.log(err)

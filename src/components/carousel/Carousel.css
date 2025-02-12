@@ -56,3 +56,26 @@
     right: 0;
     transform: translateY(-50%);
 }
+
+@media (width < 640px) {
+    .carousel-container {
+        justify-content: start;
+        max-width: 400px;
+        padding: 0 20px
+    }
+
+    .carousel-item img {
+        max-width: 100px;
+        border-radius: 100px 0 100px 100px;
+    }
+
+    .prev {
+        top: 110%;
+        left: 30%
+    }
+
+    .next {
+        top: 110%;
+        right: 30%;
+    }
+}

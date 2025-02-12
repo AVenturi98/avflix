@@ -4,13 +4,15 @@ import "./Carousel.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleArrowLeft, faCircleArrowRight } from "@fortawesome/free-solid-svg-icons";
 
+import { useWindowWidth } from "../../context/WindowContext";
+
 const Carousel = ({ images }) => {
     // Stato per gestire l'indice dell'immagine corrente
     const [currentIndex, setCurrentIndex] = useState(0);
 
     // Funzione per spostarsi avanti nel carosello
     const next = () => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % (images.length - 3));
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % (images.length - (mobileWidth ? 0.9 : 3)));
     };
 
     // Funzione per spostarsi indietro nel carosello
@@ -18,8 +20,12 @@ const Carousel = ({ images }) => {
         setCurrentIndex((prevIndex) => (prevIndex - 1));
     };
 
+    // Mobile Width
+    const { windowWidth } = useWindowWidth();
+    const mobileWidth = windowWidth <= 640
+
     return (
-        <div className="carousel-container">
+        <div className='carousel-container'>
             <button type="button" disabled={currentIndex == 0} className={`prev button ${currentIndex == 0 ? 'hidden' : ''}`} id='prev' onClick={prev}>
                 <FontAwesomeIcon icon={faCircleArrowLeft} />
             </button>
@@ -44,7 +50,7 @@ const Carousel = ({ images }) => {
                     ))}
                 </div>
             </div>
-            <button type="button" disabled={currentIndex === 6} className={`next button ${currentIndex === 6 ? 'hidden' : ''}`} onClick={next}>
+            <button type="button" disabled={currentIndex === 6 && !mobileWidth} className={`next button ${currentIndex === 6 && !mobileWidth ? 'hidden' : ''} ${currentIndex === 9 && mobileWidth ? 'hidden' : ''}`} onClick={next}>
                 <FontAwesomeIcon icon={faCircleArrowRight} />
             </button>
         </div>

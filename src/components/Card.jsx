@@ -9,15 +9,23 @@ import Typography from '@mui/joy/Typography';
 import { CircularProgress } from '@mui/joy'
 import { useCountUp } from 'use-count-up'
 
-export default function Card({ item, image, backdrop, type, styleCard, styleImg, overview, votes = false, language = false, stars = false, onMouseEnter }) {
+export default function Card({ item, image, type, styleCard, styleImg, overviewSmall, overviewLong, votes = false, language = false, stars = false, videos = false, onMouseEnter }) {
 
     const { id, title, name, original_language, vote_average } = item
 
 
-    function overTextLimit(text) {
+    function overTextSmall(text) {
         const textLimited = text.split(' ')
         if (textLimited.length > 20) {
             return textLimited.slice(0, 10).join(' ') + '...'
+        }
+        return text
+    }
+
+    function overTextLong(text) {
+        const textLimited = text.split(' ')
+        if (textLimited.length > 20) {
+            return textLimited.slice(0, 20).join(' ') + '...'
         }
         return text
     }
@@ -45,7 +53,8 @@ export default function Card({ item, image, backdrop, type, styleCard, styleImg,
                                     <Flags lang={original_language} />
                                 </span>
                             </div>}
-                        <div>{overview ? overTextLimit(overview) : ''}</div>
+                        <div>{overviewSmall ? overTextSmall(overviewSmall) : ''}</div>
+                        <div>{overviewLong ? overTextLong(overviewLong) : ''}</div>
                         {stars &&
                             <div className='flex justify-center items-center gap-3'>
                                 <VoteStar vote={vote_average} />
@@ -62,6 +71,7 @@ export default function Card({ item, image, backdrop, type, styleCard, styleImg,
                                 </CircularProgress>
                             </Stack>
                         </div>}
+
                 </div>
             </div>
         </Link >
