@@ -315,7 +315,7 @@ export default function PopularMovie() {
             </section>
 
             {/* FILTERED GENRES */}
-            <section className="filtered-genres-container">
+            <section className="filtered-genres-container ">
                 {filtersGenres.slice(0, 3).map(filter => (
                     filter.movies.length > 5 &&
                     <div className="filtered-genres-content mb-10" key={filter.title}>
@@ -329,9 +329,9 @@ export default function PopularMovie() {
                 ))}
             </section>
 
-            {/* BACK IMG */}
-            <section className='relative mb-17' id='popular'>
-                <div id='votes' className='relative' style={{ backgroundImage: `linear-gradient(rgba(21, 26, 102, 0.78), rgba(21, 26, 102, 0.6)), url(${backgroundVoteImage || `https://image.tmdb.org/t/p/original${mobileWidth ? posterVotesPath : backdropVotesPath}`})` }}></div>
+            {/* TOP RATED */}
+            <section className='relative mb-17 popular'>
+                <div className='votes relative py-100' style={{ backgroundImage: `linear-gradient(rgba(21, 26, 102, 0.78), rgba(21, 26, 102, 0.6)), url(${backgroundVoteImage || `https://image.tmdb.org/t/p/original${mobileWidth ? posterVotesPath : backdropVotesPath}`})` }}></div>
                 <div className='contain-top5 absolute'>
                     <div className={`flex items-center overflow-y-hidden pb-8 ${mobileWidth ? 'overflow-x-scroll gap-3 px-3' : 'justify-center gap-8'}`}>
                         {top5Votes.slice(0, 5).map((e, i) => (
@@ -347,31 +347,39 @@ export default function PopularMovie() {
                         ))}
                     </div>
                 </div>
+                <div className="title-container-votes">
+                    <h1 className="title-3d-votes">I più votati</h1>
+                </div>
             </section>
+
 
             {/* TOP CAST */}
             <section id='contain-top-cast'>
-                <h2 className='text-4xl font-bold my-6'>Top Cast</h2>
+                <h2 className='text-4xl font-bold my-6 text-center'>Top Cast</h2>
                 <div className='flex justify-center items-center gap-2 sm:gap-8 overflow-y-hidden pb-8'>
                     <Carousel images={top5Cast} />
                 </div>
             </section>
 
-            {/* To CINEMA */}
-            <section className="filtered-genres-container">
-                <div className="filtered-genres-content mb-10">
-                    <h2 className='filtered-genres-title text-4xl font-bold my-6'>Al Cinema</h2>
-                    <div className='flex items-center gap-2 sm:gap-5 overflow-x-auto overflow-y-hidden pb-8'>
-                        {now_playing.map(e =>
-                            <Card key={e.id} type='movie' item={e} image={path_img + e.poster_path} language={true} stars={true} styleCard={mobileWidth ? 'w-[150px]' : 'w-[200px]'} styleImg={mobileWidth ? 'w-xs h-[220px]' : 'w-[200px] h-[300px]'} />
-                        )}
+            {/* FILTERED GENRES */}
+            <section className="filtered-genres-container ">
+                {filtersGenres.slice(3, 6).map(filter => (
+                    filter.movies.length > 5 &&
+                    <div className="filtered-genres-content mb-10" key={filter.title}>
+                        <h2 className='filtered-genres-title text-4xl font-bold my-6'>{filter.title}</h2>
+                        <div className='flex items-center gap-2 sm:gap-5 overflow-x-auto overflow-y-hidden pb-8'>
+                            {filter.movies.slice(0, 10).map(e =>
+                                <Card key={e.id} type='movie' item={e} image={path_img + e.poster_path} language={true} stars={true} styleCard={mobileWidth ? 'w-[150px]' : 'w-[200px]'} styleImg={mobileWidth ? 'w-xs h-[220px]' : 'w-[200px] h-[300px]'} />
+                            )}
+                        </div>
                     </div>
-                </div>
+                ))}
             </section>
 
+
             {/* UP COMING */}
-            <section className='relative mb-17' id='popular'>
-                <div id='votes' className='relative' style={{ backgroundImage: `linear-gradient(rgba(21, 26, 102, 0.78), rgba(21, 26, 102, 0.6)), url(${backgroundUpComingImage || `https://image.tmdb.org/t/p/original${mobileWidth ? posterComingPath : backdropComingPath}`})` }}></div>
+            <section className='popular relative mb-17' >
+                <div className='votes relative py-100' style={{ backgroundImage: `linear-gradient(rgba(21, 26, 102, 0.78), rgba(21, 26, 102, 0.6)), url(${backgroundUpComingImage || `https://image.tmdb.org/t/p/original${mobileWidth ? posterComingPath : backdropComingPath}`})` }}></div>
                 <div className='flex justify-center mb-5 btnSwitch'>
                     <BtnSwitchWord text1={'poster'} set1={() => setViewMode('poster')} text2={'trailer'} set2={() => setViewMode('trailer')} />
 
@@ -421,6 +429,9 @@ export default function PopularMovie() {
                             )
                         })}
                     </div>
+                </div>
+                <div className="title-container-upComing">
+                    <h1 className="title-3d-upComing">coming soon</h1>
                 </div>
             </section>
         </>
