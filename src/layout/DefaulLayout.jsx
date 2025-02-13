@@ -15,7 +15,7 @@ export default function DefaultLayout() {
             <header>
                 <Nav />
             </header>
-            <main className='my-16'>
+            <main>
                 <Outlet />
             </main>
         </>

@@ -1,11 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Doto:wght@100..900&family=Gochi+Hand&family=Jersey+15&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Lora:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,900;1,900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Parkinsans:wght@300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Quicksand:wght@300..700&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto+Slab:wght@100..900&family=Rubik+Wet+Paint&display=swap');
 @import "tailwindcss";
 
-#main>*:not(#popular) {
-    img {
-        width: 1;
-    }
+body {
+    font-family: "Josefin Sans", serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
 
-    margin: 0 auto;
+main>*:not(#hero-show) {
+    margin: 50px auto
 }
 
 button:hover {
@@ -21,7 +24,7 @@ a.active {
 }
 
 
-/* CONTAINER ELEMENT */
+/* CONTAINER HERO PAGE */
 .container {
     width: 100%;
     height: 100%;
@@ -194,6 +197,7 @@ a.active {
     background-size: cover;
     background-position: center center;
     transition: all 500ms;
+    z-index: -99;
 }
 
 .contain-top5 {
@@ -208,6 +212,39 @@ a.active {
     top: 5%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+/* Scritta principale in 3D */
+.title-3d-votes {
+    position: absolute;
+    bottom: 25%;
+    left: 5%;
+    font-size: 120px;
+    transform: translate(-50%, -50%) rotate(-90deg);
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 10px;
+    display: inline-block;
+    background: linear-gradient(135deg, #8bff1e, #f19822);
+    color: transparent;
+    -webkit-background-clip: text;
+    /* Aggiunge il gradiente solo al testo */
+    text-shadow:
+        4px 4px 8px rgba(255, 255, 255, 0.6),
+        0px 0px 25px rgba(238, 238, 238, 0.3),
+        -4px -4px 15px rgba(255, 255, 255, 0.3);
+    z-index: -1;
+}
+
+/* Efectto di sovrapposizione */
+.title-3d-votes::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(6px, 6px);
+    filter: blur(8px);
 }
 
 
@@ -240,6 +277,65 @@ a.active {
 
 .cast-info {
     text-align: center;
+}
+
+
+/* COMING SOON */
+
+.title-container-upComing {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Scritta principale in 3D */
+.title-3d-upComing {
+    position: absolute;
+    bottom: -140px;
+    font-size: 280px;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: -35px;
+    padding: 10px;
+    display: inline-block;
+    background: linear-gradient(135deg, #ff1e8e, #f19822);
+    -webkit-background-clip: text;
+    /* Aggiunge il gradiente solo al testo */
+    color: transparent;
+    z-index: -1;
+    text-shadow:
+        4px 4px 8px rgba(255, 255, 255, 0.6),
+        0px 0px 25px rgba(238, 238, 238, 0.3),
+        -4px -4px 15px rgba(255, 255, 255, 0.3);
+}
+
+/* Efectto di sovrapposizione */
+.title-3d-upComing::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(6px, 6px);
+    filter: blur(8px);
+}
+
+.title-container-upComing {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+@keyframes slide {
+    to {
+        background-position:
+            60px 0,
+            60px 0,
+            90px 30px,
+            90px 30px;
+    }
 }
 
 
@@ -336,6 +432,12 @@ a.active {
     }
 }
 
+@media (width < 1700px) {
+    .title-3d-upComing {
+        bottom: -60px
+    }
+}
+
 @media (width < 640px) {
     #main>*:not(#popular) {
         img {
@@ -352,94 +454,4 @@ a.active {
     #contain-top-cast>* {
         margin: 0
     }
-}
-
-
-.title-container-upComing {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Scritta principale in 3D */
-.title-3d-upComing {
-    position: absolute;
-    bottom: -100px;
-    font-size: 300px;
-    font-weight: bold;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: -35px;
-    padding: 10px;
-    display: inline-block;
-    background: linear-gradient(135deg, #ff1e8e, #f19822);
-    -webkit-background-clip: text;
-    color: transparent;
-    z-index: 1;
-    text-shadow:
-        4px 4px 8px rgba(255, 255, 255, 0.6),
-        0px 0px 25px rgba(238, 238, 238, 0.3),
-        -4px -4px 15px rgba(255, 255, 255, 0.3);
-}
-
-/* Efectto di sovrapposizione */
-.title-3d-votes::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    transform: translate(6px, 6px);
-    filter: blur(8px);
-}
-
-.title-container-votes {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-
-
-@keyframes slide {
-    to {
-        background-position:
-            60px 0,
-            60px 0,
-            90px 30px,
-            90px 30px;
-    }
-}
-
-/* Scritta principale in 3D */
-.title-3d-votes {
-    position: absolute;
-    bottom: 25%;
-    left: 5%;
-    font-size: 120px;
-    transform: translate(-50%, -50%) rotate(-90deg);
-    font-weight: bold;
-    text-align: center;
-    text-transform: uppercase;
-    padding: 10px;
-    display: inline-block;
-    background: linear-gradient(135deg, #8bff1e, #f19822);
-    -webkit-background-clip: text;
-    color: transparent;
-    z-index: 1;
-    text-shadow:
-        4px 4px 8px rgba(255, 255, 255, 0.6),
-        0px 0px 25px rgba(238, 238, 238, 0.3),
-        -4px -4px 15px rgba(255, 255, 255, 0.3);
-}
-
-/* Efectto di sovrapposizione */
-.title-3d-votes::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    transform: translate(6px, 6px);
-    filter: blur(8px);
 }

@@ -9,24 +9,27 @@ import Show from './pages/Show'
 
 // Context
 import { WindowProvider } from './context/WindowContext'
+import { GlobalProvider } from './context/GlobalContext'
 
 
 function App() {
 
 
   return (
-    <BrowserRouter>
-      <WindowProvider>
-        <Routes>
-          <Route path='/' element={<DefaultLayout />}>
-            <Route path='/popular-movie' element={<PopularMovie />} />
-            <Route path='/movie/:id' element={<Show type='movie' />} />
-            <Route path='/popular-tv' element={<PopularTv />} />
-            <Route path='/tv/:id' element={<Show type='tv' />} />
-          </Route>
-        </Routes>
-      </WindowProvider>
-    </BrowserRouter>
+    <WindowProvider>
+      <GlobalProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path='/' element={<DefaultLayout />}>
+              <Route path='/popular-movie' element={<PopularMovie />} />
+              <Route path='/movie/:id' element={<Show type='movie' />} />
+              <Route path='/popular-tv' element={<PopularTv />} />
+              <Route path='/tv/:id' element={<Show type='tv' />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </GlobalProvider>
+    </WindowProvider>
   )
 }
 

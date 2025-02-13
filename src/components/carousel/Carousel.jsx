@@ -36,7 +36,7 @@ const Carousel = ({ images }) => {
                 >
                     {images.map((image, index) => (
                         <div className="carousel-item" key={index}>
-                            <img src={`https://image.tmdb.org/t/p/w200${image.profile_path}`} alt={image.name} className="cast-img rounded-br-full rounded-bl-full rounded-tl-full" />
+                            <img src={`https://image.tmdb.org/t/p/w500${image.profile_path}`} alt={image.name} className="cast-img rounded-br-full rounded-bl-full rounded-tl-full" />
                             <div className="cast-info">
                                 <h3 className="font-bold">{image.name}</h3>
                                 <p className="font-medium italic">Popularity:
