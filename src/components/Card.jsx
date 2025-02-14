@@ -13,6 +13,7 @@ export default function Card({ item, image, type, styleCard, styleImg, overviewS
 
     const { id, title, name, original_language, vote_average } = item
 
+    const titleSlug = (title || name).toLowerCase().replace(/ /g, '_');
 
     function overTextSmall(text) {
         const textLimited = text.split(' ')
@@ -39,7 +40,7 @@ export default function Card({ item, image, type, styleCard, styleImg, overviewS
     });
 
     return (
-        <Link to={`/${type}/${id}`} onMouseEnter={onMouseEnter}>
+        <Link to={`/${type}/${id}` + '_' + titleSlug} onMouseEnter={onMouseEnter}>
             <div className='img_popular_card'>
                 <div className={`${styleCard} shadow-card rounded-2xl`}>
                     <img src={image} alt={title} className={`${styleImg} rounded-2xl relative`} />

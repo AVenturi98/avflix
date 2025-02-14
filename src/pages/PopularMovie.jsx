@@ -186,7 +186,7 @@ export default function PopularMovie() {
     return (
         <>
             {/* POPULARs */}
-            <HeroPage type={'Film'} myArray={movies} />
+            <HeroPage type={'Film'} check={'movie'} myArray={movies} />
             {/* PAGINATION */}
             {showMoreMovies &&
                 <ul className='flex justify-center items-center gap-3 my-15'>
@@ -201,7 +201,7 @@ export default function PopularMovie() {
                 </ul>}
 
             {/* FILTERED GENRES */}
-            <FilteredGenres myArray={filtersGenres} init={0} finish={3} />
+            <FilteredGenres myArray={filtersGenres} check={'movie'} init={0} finish={3} />
 
             {/* TOP RATED */}
             <TopRated myArray={top5Votes} check={'movie'} set={fetchImages} backgroundVoteImage={backgroundVoteImage} setBackgroundImage={setBackgroundVoteImage} />
@@ -210,13 +210,13 @@ export default function PopularMovie() {
             <TopCast myArray={top5Cast} />
 
             {/* FILTERED GENRES */}
-            <FilteredGenres myArray={filtersGenres} init={3} finish={6} />
+            <FilteredGenres myArray={filtersGenres} check={'movie'} init={3} finish={6} />
 
             {/* UP COMING */}
             <section className='popular relative mb-17' >
                 <div className='votes relative py-100' id='upComing' style={{ backgroundImage: `linear-gradient(rgba(21, 26, 102, 0.78), rgba(21, 26, 102, 0.6)), url(${backgroundUpComingImage || `https://image.tmdb.org/t/p/original${mobileWidth ? posterComingPath : backdropComingPath}`})` }}></div>
-                <div className='flex justify-center mb-5 btnSwitch'>
-                    <BtnSwitchWord text1={'poster'} set1={() => setViewMode('poster')} text2={'trailer'} set2={() => setViewMode('trailer')} />
+                <div className='flex justify-center mb-5 btnSwitch text-white'>
+                    <BtnSwitchWord text1={'poster'} set1={() => setViewMode('poster')} text2={'trailer'} set2={() => setViewMode('trailer')} flex={'flex justify-center gap-10'} styleSelected={'bg-green-500'} />
 
                 </div>
                 <div className='contain-top5 absolute'>
@@ -231,7 +231,7 @@ export default function PopularMovie() {
                                     styleCard={mobileWidth ? 'w-[180px]' : 'w-[240px]'}
                                     styleImg={mobileWidth ? 'w-[240px]' : 'w-xs h-[350px]'}
                                     overviewLong={e.overview}
-                                    onMouseEnter={() => fetchImages(e.id, 'images', setBackgroundUpComingImage)}
+                                    onMouseEnter={() => fetchImages(e.id, 'movie', 'images', setBackgroundUpComingImage)}
                                 />
                             ) : (
                                 <div key={i} className="relative w-[350px] h-[200px] transform transition-transform duration-300 hover:scale-102">
@@ -257,7 +257,7 @@ export default function PopularMovie() {
                                             allow="accelerometer; clipboard-write; autoplay; encrypted-media; gyroscope; picture-in-picture; controls"
                                             allowFullScreen
                                             className="absolute inset-0 w-full h-full rounded-xl"
-                                            onMouseEnter={() => fetchImages(e.id, 'images', setBackgroundUpComingImage)}
+                                            onMouseEnter={() => fetchImages(e.id, 'movie', 'images', setBackgroundUpComingImage)}
                                         ></iframe>
                                     )}
                                 </div>

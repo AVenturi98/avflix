@@ -3,7 +3,7 @@ import Card from './Card'
 
 import GlobalContext from '../context/GlobalContext'
 
-export default function HeroPage({ type, myArray = [] }) {
+export default function HeroPage({ type, check, myArray = [] }) {
 
     const { mobileWidth, showMoreMovies, setShowMoreMovies, showMoreSeries, setShowMoreSeries } = React.useContext(GlobalContext)
 
@@ -41,7 +41,7 @@ export default function HeroPage({ type, myArray = [] }) {
                             {!showMoreMovies ?
                                 myArray.slice(0, 10).map(e =>
                                     <Card key={e.id}
-                                        type='movie'
+                                        type={check}
                                         item={e}
                                         image={path_img + e.poster_path}
                                         language={true}
@@ -53,7 +53,7 @@ export default function HeroPage({ type, myArray = [] }) {
                                 :
                                 myArray.map(e =>
                                     <Card key={e.id}
-                                        type='movie'
+                                        type={check}
                                         item={e}
                                         image={path_img + e.poster_path}
                                         language={true}
@@ -92,7 +92,7 @@ export default function HeroPage({ type, myArray = [] }) {
                             {!showMoreSeries ?
                                 myArray.slice(0, 10).map(e =>
                                     <Card key={e.id}
-                                        type='movie'
+                                        type={check}
                                         item={e}
                                         image={path_img + e.poster_path}
                                         language={true}
@@ -104,7 +104,7 @@ export default function HeroPage({ type, myArray = [] }) {
                                 :
                                 myArray.map(e =>
                                     <Card key={e.id}
-                                        type='movie'
+                                        type={check}
                                         item={e}
                                         image={path_img + e.poster_path}
                                         language={true}

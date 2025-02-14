@@ -33,8 +33,8 @@ export function GlobalProvider({ children }) {
     }
 
     // Handle images
-    function fetchImages(movie_id, section, setImg) {
-        axios.get(`https://api.themoviedb.org/3/movie/${movie_id}/${section}${KEY}`)
+    function fetchImages(movie_id, type, section, setImg) {
+        axios.get(`https://api.themoviedb.org/3/${type}/${movie_id}/${section}${KEY}`)
             .then(res => {
                 if (res.data.backdrops.length > 0) {
                     setImg(`https://image.tmdb.org/t/p/original${res.data.backdrops[0].file_path}`)
@@ -66,7 +66,11 @@ export function GlobalProvider({ children }) {
     const { windowWidth } = useWindowWidth();
     const mobileWidth = windowWidth <= 640
     return (
-        <GlobalContext.Provider value={{ fetchSections, fetchMovies, fetchImages, mobileWidth, showMoreMovies, setShowMoreMovies, showMoreSeries, setShowMoreSeries }}>
+        <GlobalContext.Provider value={{
+            fetchSections, fetchMovies, fetchImages, mobileWidth,
+            showMoreMovies, setShowMoreMovies,
+            showMoreSeries, setShowMoreSeries
+        }}>
             {children}
         </GlobalContext.Provider>
     )

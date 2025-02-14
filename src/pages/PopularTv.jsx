@@ -118,7 +118,7 @@ export default function PopularMovie() {
     return (
         <>
             {/* POPULARs */}
-            <HeroPage type={'Serie'} myArray={series} />
+            <HeroPage type={'Serie'} check={'tv'} myArray={series} />
             {/* PAGINATION */}
             {showMoreSeries &&
                 <ul className='flex justify-center items-center gap-3 my-15'>
@@ -133,7 +133,7 @@ export default function PopularMovie() {
                 </ul>}
 
             {/* FILTERED GENRES */}
-            <FilteredGenres myArray={filtersGenres} init={0} finish={3} />
+            <FilteredGenres myArray={filtersGenres} check={'tv'} init={0} finish={3} />
 
 
             {/* TOP RATED */}
@@ -144,7 +144,7 @@ export default function PopularMovie() {
 
 
             {/* FILTERED GENRES */}
-            <FilteredGenres myArray={filtersGenres} init={3} finish={6} />
+            <FilteredGenres myArray={filtersGenres} check={'tv'} init={3} finish={6} />
 
         </>
     )
