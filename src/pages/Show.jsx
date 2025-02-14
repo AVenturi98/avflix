@@ -64,7 +64,7 @@ export default function Show({ type }) {
             .then(res => {
                 setCast(res.data.cast.slice(0, 10))
                 setCrew(res.data.crew.filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i))
-                console.log(res)
+                // console.log(res)
             })
             .catch(err => console.error(err));
     }
@@ -102,6 +102,7 @@ export default function Show({ type }) {
 
     const collageImages = img.map(e => ({ src: 'https://image.tmdb.org/t/p/original' + e.file_path })) // Set Path Image for Collage Images
 
+    // Set Budget to Dettails section
     const numBudget = post.budget
     const budget = numBudget ? numBudget.toLocaleString('en-US', {
         style: 'currency',
@@ -110,7 +111,6 @@ export default function Show({ type }) {
         maximumFractionDigits: 0
     }) : 'Non disponibile'
 
-    console.log(budget)
 
     return (
         <>
@@ -198,6 +198,8 @@ export default function Show({ type }) {
                         </div>
                     </div>
                 </section>
+
+                {/* DETTAILS */}
                 <div className='px-10'>
                     <h1 className='font-extrabold text-2xl my-3'>Dettagli</h1>
 
@@ -233,15 +235,23 @@ export default function Show({ type }) {
                             <p>{post.release_date}</p>
                         </> :
                         <>
-                            <h3 className='font-semibold text-lg my-1'>Data primo episodio</h3>
-                            <p>{post.release_date}</p>
+                            <h3 className='font-semibold text-lg my-1'>Data primo/ultimo episodio episodio</h3>
+                            <p>{post.first_air_date + ' / ' + post.last_air_date}</p>
                         </>
                     }
 
                     <hr className='opacity-30' />
 
-                    <h3 className='font-semibold text-lg my-1'>Durata</h3>
-                    <p>{post.runtime} minuti</p>
+                    {type === 'movie' ?
+                        <>
+                            <h3 className='font-semibold text-lg my-1'>Durata</h3>
+                            <p>{post.runtime} minuti</p>
+                        </> :
+                        <>
+                            <h3 className='font-semibold text-lg my-1'>Stagioni e Episodi</h3>
+                            <p>{post.number_of_seasons + ' stagioni,'}</p>
+                            <p>{post.number_of_episodes + ' episodi'}</p>
+                        </>}
 
                     <hr className='opacity-30' />
 
