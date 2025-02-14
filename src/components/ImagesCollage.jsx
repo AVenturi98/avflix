@@ -75,6 +75,9 @@ const CollageGallery = ({ images = [] }) => {
                     }
                 }}
             >
+                <div className="absolute top-5 left-5">
+                    {(selectedIndex + 1) + ' / ' + images.length}
+                </div>
                 {selectedIndex !== null && (
                     <div style={{ position: "relative", width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
                         <button onClick={prevImage} style={{ position: "absolute", left: "10px" }}>&lt;</button>

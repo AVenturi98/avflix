@@ -7,9 +7,9 @@ body {
     font-style: normal;
 }
 
-main>*:not(#hero-show) {
+/* main>*:not(#hero-show) {
     margin: 50px auto
-}
+} */
 
 button:hover {
     cursor: pointer;
@@ -338,6 +338,14 @@ a.active {
     }
 }
 
+
+/* EPISODES SHOW     */
+#episodes {
+    background-repeat: no-repeat;
+    background-size: cover;
+    transition: all 500ms;
+    z-index: -99;
+}
 
 /* ANIMATION */
 .arrow-show-more {

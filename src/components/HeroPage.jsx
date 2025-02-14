@@ -27,7 +27,7 @@ export default function HeroPage({ type, check, myArray = [] }) {
         <>
             {type === 'Film' ?
                 <section className='flex justify-center'>
-                    <div className='container'>
+                    <div className='container py-15'>
                         <h1 className='text-4xl font-bold mb-5'>{type} Popolari</h1>
                         {!showMoreMovies &&
                             <button type='button' onClick={() => open(setShowMoreMovies)} className="cta flex justify-center items-center">
@@ -78,7 +78,7 @@ export default function HeroPage({ type, check, myArray = [] }) {
 
             {type === 'Serie' ?
                 <section className='flex justify-center'>
-                    <div className='container'>
+                    <div className='container py-15'>
                         <h1 className='text-4xl font-bold mb-5'>{type} Popolari</h1>
                         {!showMoreSeries &&
                             <button type='button' onClick={() => open(setShowMoreSeries)} className="cta flex justify-center items-center">
