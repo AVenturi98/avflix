@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Link } from 'react-router'
 
 // Placeholder
-import personPlaceholder from '../assets/PersonPlaceholder.png'
+import imagePlaceholder from '../assets/ImagePlaceholder.jpg'
 
 // Components
 import VoteStar from './VoteStar'
@@ -46,7 +46,7 @@ export default function Card({ item, image, type, styleCard, styleImg, overviewS
         <Link to={`/${type}/${id}` + '_' + titleSlug} onMouseEnter={onMouseEnter}>
             <div className='img_popular_card'>
                 <div className={`${styleCard} shadow-card rounded-2xl`}>
-                    <img src={image ? image : personPlaceholder} alt={title} className={`${styleImg} rounded-2xl relative`} />
+                    <img src={image !== null ? image : imagePlaceholder} alt={title || name} className={`${styleImg} rounded-2xl relative`} />
 
                     <div className='hover_el_popular_card flex justify-center items-start flex-col gap-5 p-3 rounded-2xl' >
                         <h2 className='text-3xl'>{title || name}</h2>

@@ -154,18 +154,19 @@ export default function Show({ type }) {
                             </div>}
                     </div>
                     <div className='flex gap-5'>
-                        <div>{!undefined || !null || !isNaN(post.release_date) || isNaN(post.first_air_date) || isNaN(post.last_air_date) &&
-                            post.release_date || post.first_air_date + ' / ' + post.last_air_date}</div>
+                        <div>{!undefined || !null || !isNaN(post.release_date) || isNaN(post.first_air_date) || isNaN(post.last_air_date) ?
+                            post.release_date || post.first_air_date + ' / ' + post.last_air_date : ''}</div>
                         -
                         <div>
-                            {post.runtime || post.number_of_episodes && <FontAwesomeIcon icon={faClock} />}
+                            {post.runtime || post.number_of_episodes ? <FontAwesomeIcon icon={faClock} /> : ''}
 
-                            {type === 'movie' && post.runtime && !undefined && !null ?
+                            {type === 'movie' && post.runtime ?
                                 ' ' + post.runtime + "'"
-                                : type === 'tv' && post.number_of_episodes && !undefined && !null ? ' ' + post.number_of_episodes + ' episodi' : ''}
+                                : type === 'tv' && post.number_of_episodes ?
+                                    ' ' + post.number_of_episodes + ' episodi' : ''}
                         </div>
                     </div>
-                    <div>{post.overview && !undefined || !null && post.overview}</div>
+                    <div>{post.overview && !undefined || !null ? post.overview : ''}</div>
                     {genres &&
                         <div className='flex flex-wrap gap-1'>
                             {genres.map((e, index) =>
@@ -275,7 +276,7 @@ export default function Show({ type }) {
                     <hr className='opacity-30' />
 
                     {type === 'movie' &&
-                        post.release_date && !undefined && !null && !isNaN(post.release_date) ?
+                        post.release_date ?
                         <>
                             <h3 className='font-semibold text-lg my-1'>Data d'uscita</h3>
                             <p>{post.release_date}</p>
