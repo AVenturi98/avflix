@@ -29,7 +29,7 @@ export default function TopRated({ myArray = [], check, set = () => { }, backgro
                             styleImg={mobileWidth ? 'w-[240px]' : 'w-xs h-[350px]'}
                             backdrop={e.backdrop_path}
                             votes={true}
-                            onMouseEnter={() => set(e.id, check, 'images', setBackgroundImage)} />
+                            onMouseEnter={() => set(e.id, check, setBackgroundImage)} />
                     ))}
                 </div>
             </div>

@@ -74,20 +74,21 @@ const CollageGallery = ({ images = [] }) => {
                         justifyContent: "center",
                         borderRadius: "10px",
                         padding: "10px",
-                        textAlign: "center"
+                        textAlign: "center",
+                        overflowX: "hidden"
                     }
                 }}
             >
-                <div className="absolute top-5 left-5">
+                <div className="absolute top-5 left-5 z-50">
                     {(selectedIndex + 1) + ' / ' + images.length}
                 </div>
                 {selectedIndex !== null && (
                     <div style={{ position: "relative", width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                        <button onClick={prevImage} style={{ position: "absolute", left: "10px" }} className="text-3xl hover:bg-gray-300 p-5 rounded-xl">
+                        <button onClick={prevImage} style={{ position: "absolute", left: "10px" }} className="text-3xl bg-[rgba(4,45,73,0.3)] hover:bg-gray-300 p-5 rounded-xl">
                             <FontAwesomeIcon icon={faArrowLeft} />
                         </button>
                         <img src={images[selectedIndex].src} alt="Selected" style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain", borderRadius: "8px" }} />
-                        <button onClick={nextImage} style={{ position: "absolute", right: "10px" }} className="text-3xl hover:bg-gray-300 p-5 rounded-xl">
+                        <button onClick={nextImage} style={{ position: "absolute", right: "10px" }} className="text-3xl bg-[rgba(4,45,73,0.3)] hover:bg-gray-300 p-5 rounded-xl">
                             <FontAwesomeIcon icon={faArrowRight} />
                         </button>
                         <button onClick={closeModal} className="hover:text-gray-300 p-3">

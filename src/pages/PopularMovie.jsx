@@ -2,6 +2,9 @@ import * as React from 'react'
 import axios from 'axios'
 import KEY from '../KEY'
 
+// Placeholder
+import videoPlaceholder from '../assets/VideoPlaceholder.webp'
+
 // Components
 import Card from '../components/Card'
 import BtnSwitchWord from '../components/BtnSwitchWord'
@@ -21,7 +24,7 @@ import GlobalContext from '../context/GlobalContext'
 
 export default function PopularMovie() {
 
-    const { fetchSections, fetchMovies, fetchImages, mobileWidth, showMoreMovies } = React.useContext(GlobalContext)
+    const { fetchSections, fetchMovies, fetchMedia, mobileWidth, showMoreMovies } = React.useContext(GlobalContext)
 
     // Path Image
     const path_img = 'https://image.tmdb.org/t/p/w500'
@@ -67,7 +70,7 @@ export default function PopularMovie() {
                 });
                 // console.log(res.data)
             })
-            .catch(err => console.error(err));
+            .catch(err => console.error('Error fetching videos:', err))
     }
 
     // Handle Top Cast
@@ -88,7 +91,7 @@ export default function PopularMovie() {
                     return uniqueCast;
                 });
             })
-            .catch(err => console.error(err));
+            .catch(err => console.error('Error fetching credits:', err));
     }
 
 
@@ -120,6 +123,9 @@ export default function PopularMovie() {
         filtersGenres.forEach(genre => {
             return fetchMovies('movie', Math.floor(Math.random() * 10) + 1, genre.set) // handle genres movies
         })
+
+        document.documentElement.scrollTop = 0
+
     }, [page])
 
     // Top Cast fetch
@@ -158,7 +164,7 @@ export default function PopularMovie() {
                         }
                     })
                     .catch(err => {
-                        console.log(err)
+                        console.log('Error fetching upcoming movies:', err)
                     })
             }
         }
@@ -204,7 +210,7 @@ export default function PopularMovie() {
             <FilteredGenres myArray={filtersGenres} check={'movie'} init={0} finish={3} />
 
             {/* TOP RATED */}
-            <TopRated myArray={top5Votes} check={'movie'} set={fetchImages} backgroundVoteImage={backgroundVoteImage} setBackgroundImage={setBackgroundVoteImage} />
+            <TopRated myArray={top5Votes} check={'movie'} set={fetchMedia} backgroundVoteImage={backgroundVoteImage} setBackgroundImage={setBackgroundVoteImage} />
 
             {/* TOP CAST */}
             <TopCast myArray={top5Cast} />
@@ -216,7 +222,7 @@ export default function PopularMovie() {
             <section className='popular relative mb-17' >
                 <div className='votes relative py-100' id='upComing' style={{ backgroundImage: `linear-gradient(rgba(21, 26, 102, 0.78), rgba(21, 26, 102, 0.6)), url(${backgroundUpComingImage || `https://image.tmdb.org/t/p/original${mobileWidth ? posterComingPath : backdropComingPath}`})` }}></div>
                 <div className='flex justify-center mb-5 btnSwitch text-white'>
-                    <BtnSwitchWord text1={'poster'} set1={() => setViewMode('poster')} text2={'trailer'} set2={() => setViewMode('trailer')} flex={'flex justify-center gap-10'} styleSelected={'bg-green-500'} />
+                    <BtnSwitchWord text1={'poster'} set1={() => setViewMode('poster')} text2={'trailer'} set2={() => setViewMode('trailer')} class={'flex justify-center gap-10'} styleSelected={'bg-green-500'} />
 
                 </div>
                 <div className='contain-top5 absolute'>
@@ -231,13 +237,13 @@ export default function PopularMovie() {
                                     styleCard={mobileWidth ? 'w-[180px]' : 'w-[240px]'}
                                     styleImg={mobileWidth ? 'w-[240px]' : 'w-xs h-[350px]'}
                                     overviewLong={e.overview}
-                                    onMouseEnter={() => fetchImages(e.id, 'movie', 'images', setBackgroundUpComingImage)}
+                                    onMouseEnter={() => fetchMedia(e.id, 'movie', setBackgroundUpComingImage, () => { })}
                                 />
                             ) : (
                                 <div key={i} className="relative w-[350px] h-[200px] transform transition-transform duration-300 hover:scale-102">
-                                    <div onMouseEnter={() => fetchImages(e.id, 'images', setBackgroundUpComingImage)}>
+                                    <div onMouseEnter={() => fetchMedia(e.id, 'movie', setBackgroundUpComingImage, () => { })}>
                                         <img
-                                            src={`https://image.tmdb.org/t/p/original${e.backdrop_path}`}
+                                            src={e.backdrop_path ? `https://image.tmdb.org/t/p/original${e.backdrop_path}` : videoPlaceholder}
                                             alt={e.title}
                                             className="w-full h-full object-cover rounded-xl"
                                         />
@@ -257,7 +263,7 @@ export default function PopularMovie() {
                                             allow="accelerometer; clipboard-write; autoplay; encrypted-media; gyroscope; picture-in-picture; controls"
                                             allowFullScreen
                                             className="absolute inset-0 w-full h-full rounded-xl"
-                                            onMouseEnter={() => fetchImages(e.id, 'movie', 'images', setBackgroundUpComingImage)}
+                                            onMouseEnter={() => fetchMedia(e.id, 'movie', setBackgroundUpComingImage)}
                                         ></iframe>
                                     )}
                                 </div>

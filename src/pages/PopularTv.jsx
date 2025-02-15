@@ -14,7 +14,7 @@ import GlobalContext from '../context/GlobalContext'
 
 export default function PopularMovie() {
 
-    const { fetchSections, fetchMovies, fetchImages, mobileWidth, showMoreSeries } = React.useContext(GlobalContext)
+    const { fetchSections, fetchMovies, fetchMedia, mobileWidth, showMoreSeries } = React.useContext(GlobalContext)
 
     const [series, setSeries] = React.useState([]) // fetch Movies
 
@@ -83,13 +83,16 @@ export default function PopularMovie() {
         { title: 'Romantico', movies: documentaryMovies, set: setDocumentaryRow }
     ];
 
-    // global fetch
+    // Global fetch
     React.useEffect(() => {
         fetchMovies('tv', page, setSeries, setTotalPage, fetchCreditsId) // handle home page movies
         fetchSections('tv', 'top_rated', setTop5Votes) // handle top rated 
         filtersGenres.forEach(genre => {
             return fetchMovies('tv', Math.floor(Math.random() * 10) + 1, genre.set) // handle genres movies
         })
+
+        document.documentElement.scrollTop = 0
+
     }, [page])
 
     // fetch Cast
@@ -137,7 +140,7 @@ export default function PopularMovie() {
 
 
             {/* TOP RATED */}
-            <TopRated myArray={top5Votes} check={'tv'} set={fetchImages} backgroundVoteImage={backgroundVoteImage} setBackgroundImage={setBackgroundVoteImage} />
+            <TopRated myArray={top5Votes} check={'tv'} set={fetchMedia} backgroundVoteImage={backgroundVoteImage} setBackgroundImage={setBackgroundVoteImage} />
 
             {/* TOP CAST */}
             <TopCast myArray={top5Cast} />
