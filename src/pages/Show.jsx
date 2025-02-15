@@ -16,7 +16,7 @@ import {
     faClock,
     faStar,
     faStarHalfStroke,
-    faStarHalf
+    faStarHalf, faArrowRight
 } from '@fortawesome/free-solid-svg-icons'
 import { faStar as empty } from '@fortawesome/free-regular-svg-icons'
 
@@ -41,7 +41,11 @@ export default function Show({ type }) {
     const [season, setSeason] = React.useState([]) // set Seasons
     const [selectedSeason, setSelectedSeason] = React.useState('') // set Show Selected Season
     const [episode, setEpisode] = React.useState([]) // set Show Episode
-    const [selectedEpisode, setSelectedEpisode] = React.useState('') // set Show Selected Episode 
+    const [selectedEpisode, setSelectedEpisode] = React.useState('') // set Show Selected Episode
+
+
+
+    const [arrowMore, setArrowMore] = React.useState(false)
 
 
 
@@ -212,8 +216,10 @@ export default function Show({ type }) {
                         <div className='py-15'>
                             <h3 className='mb-8 px-8 flex items-center gap-5'>
                                 <p className='text-4xl font-bold'>Cast & Crew</p>
-                                <span>
-                                    <Link to={`/${type}/${id}/dettails/crew`}>vedi tutti &gt;</Link >
+                                <span className='flex items-baseline hover:text-gray-500 ' >
+                                    <Link to={`/${type}/${id}/dettails/crew`} onMouseOver={() => setArrowMore(true)} onMouseOut={() => setArrowMore(false)} >
+                                        vedi tutti <span className={`arrow-show-more ${arrowMore ? 'visible' : ''}`}>&gt; </span>
+                                    </Link >
                                 </span>
                             </h3>
                             <div className='flex items-center gap-8 p-3 overflow-x-auto pr-29' style={{
