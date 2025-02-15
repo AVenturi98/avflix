@@ -9,6 +9,7 @@ import imagePlaceholder from '../assets/ImagePlaceholder.jpg'
 // Components
 import BtnSwitchWord from '../components/BtnSwitchWord'
 import ImageCollage from '../components/ImagesCollage'
+import FilteredSection from '../components/FilteredSection'
 
 // Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -16,7 +17,7 @@ import {
     faClock,
     faStar,
     faStarHalfStroke,
-    faStarHalf, faArrowRight
+    faStarHalf
 } from '@fortawesome/free-solid-svg-icons'
 import { faStar as empty } from '@fortawesome/free-regular-svg-icons'
 
@@ -24,7 +25,10 @@ import GlobalContext from '../context/GlobalContext'
 
 export default function Show({ type }) {
 
-    const { fetchCreditsId, fetchMedia, fetchVideos, fetchSection,
+    // Path Image
+    const path_img = 'https://image.tmdb.org/t/p/w500'
+
+    const { fetchCreditsId, fetchMedia, fetchVideos, mobileWidth,
         cast,
         crew,
         videos } = React.useContext(GlobalContext)
@@ -42,6 +46,10 @@ export default function Show({ type }) {
     const [selectedSeason, setSelectedSeason] = React.useState('') // set Show Selected Season
     const [episode, setEpisode] = React.useState([]) // set Show Episode
     const [selectedEpisode, setSelectedEpisode] = React.useState('') // set Show Selected Episode
+
+    const [similar, setSimilar] = React.useState([]) // Set Similar Content
+    const [recommendations, setRecommendations] = React.useState([]) // Set Recommendations Content
+
 
 
 
@@ -100,6 +108,9 @@ export default function Show({ type }) {
         fetchCreditsId(type, id)
         fetchMedia(id, type, () => { }, setImg, () => { })
         fetchVideos(type, id, () => { })
+        fetchSection('similar', setSimilar) // handle similar content
+        fetchSection('recommendations', setRecommendations) // handle recommendations content
+
 
         document.documentElement.scrollTop = 0
     }, [id])
@@ -114,6 +125,23 @@ export default function Show({ type }) {
         }
 
     }, [selectedSeason])
+
+
+    // fetch Similar Content
+    function fetchSection(section, set = () => { }) {
+        axios.get(`https://api.themoviedb.org/3/movie/${id}/${section}${KEY}`, {
+            parmas: {
+                language: 'it-IT'
+            }
+        })
+            .then(res => {
+                set(res.data.results)
+                // console.log('Section', res.data.results)
+            })
+            .catch(err => {
+                console.error('Fetch Section Show Page', err)
+            })
+    }
 
 
     const vote = Math.floor(post.vote_average) / 2 // Set Vote num int e stars adapted
@@ -371,7 +399,7 @@ export default function Show({ type }) {
 
                                 {season.filter(e => e.name === selectedSeason).map(e =>
                                     <div key={e.id} className='flex gap-5'>
-                                        <img src={'https://image.tmdb.org/t/p/w500' + e.poster_path} alt={e.name} className='w-[200px] rounded-xl' />
+                                        <img src={e.poster_path ? 'https://image.tmdb.org/t/p/w500' + e.poster_path : imagePlaceholder} alt={e.name} className='w-[200px] rounded-xl' />
                                         <div className='flex flex-col justify-around'>
                                             {e.name &&
                                                 <div>
@@ -401,7 +429,7 @@ export default function Show({ type }) {
 
                                 {season.slice(0, 1).map(e =>
                                     <div key={e.name} className={`flex gap-5 ${selectedSeason ? 'hidden' : ''}`}>
-                                        <img src={'https://image.tmdb.org/t/p/w500' + e.poster_path} alt={e.name} className='w-[200px] rounded-xl' />
+                                        <img src={e.poster_path ? 'https://image.tmdb.org/t/p/w500' + e.poster_path : imagePlaceholder} alt={e.name} className='w-[200px] rounded-xl' />
                                         <div className='flex flex-col justify-around'>
                                             {e.name &&
                                                 <div>
@@ -434,7 +462,10 @@ export default function Show({ type }) {
                         {episode &&
                             <div className='w-[100%] p-10'>
                                 <h2 className='font-extrabold text-4xl my-2'>Episodi</h2>
-                                <select disabled={!selectedSeason} name="episodes" id="episodes" value={selectedEpisode} onChange={(e) => setSelectedEpisode(e.target.value)} className='mt-4 mb-6 cursor-pointer hover:bg-blue-200 p-0.5 rounded-xl border-2 border-emerald-500'>
+                                <select disabled={!selectedSeason} name="episodes" id="episodes"
+                                    value={selectedEpisode}
+                                    onChange={(e) => setSelectedEpisode(e.target.value)}
+                                    className='mt-4 mb-6 cursor-pointer hover:bg-blue-200 p-0.5 rounded-xl border-2 border-emerald-500'>
                                     <option>{selectedSeason ? 'Episodi'
                                         : !selectedSeason ? 'Scegli una stagione per selzionare gli episodi'
                                             : episode.length = 0 ? 'Nessun episodio disponibile' : ''}</option>
@@ -530,6 +561,13 @@ export default function Show({ type }) {
                     </div>
                 }
             </section>
+
+            {/* SIMILAR  */}
+            <FilteredSection myArray={similar} type={type} title={'Correlati'} />
+
+            {/* RECOMMENDATIONS */}
+            <FilteredSection myArray={recommendations} type={type} title={'Suggeriti'} />
+
         </>
     )
 }

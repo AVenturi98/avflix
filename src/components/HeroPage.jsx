@@ -27,7 +27,10 @@ export default function HeroPage({ type, check, myArray = [] }) {
         <>
             {type === 'Film' ?
                 <section className='flex justify-center'>
-                    <div className='container py-15'>
+                    <div className='container py-15' style={{
+                        WebkitMaskImage: 'linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 15%, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%)',
+                        maskImage: 'linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 1%, rgba(0,0,0,1) 95%, rgba(0,0,0,0) 100%)',
+                    }}>
                         <h1 className='text-4xl font-bold mb-5'>{type} Popolari</h1>
                         {!showMoreMovies &&
                             <button type='button' onClick={() => open(setShowMoreMovies)} className="cta flex justify-center items-center">
@@ -37,7 +40,7 @@ export default function HeroPage({ type, check, myArray = [] }) {
                                     <polyline points="8 1 12 5 8 9"></polyline>
                                 </svg>
                             </button>}
-                        <div className={!showMoreMovies ? 'flex items-center gap-5 overflow-x-auto overflow-y-hidden pb-5' : 'flex justify-center items-center gap-2 flex-wrap'}>
+                        <div className={!showMoreMovies ? 'px-15 flex items-center gap-5 overflow-x-auto overflow-y-hidden pb-5' : 'flex justify-center items-center gap-2 flex-wrap'}>
                             {!showMoreMovies ?
                                 myArray.slice(0, 10).map(e =>
                                     <Card key={e.id}
@@ -78,7 +81,10 @@ export default function HeroPage({ type, check, myArray = [] }) {
 
             {type === 'Serie' ?
                 <section className='flex justify-center'>
-                    <div className='container py-15'>
+                    <div className='container py-15' style={{
+                        WebkitMaskImage: 'linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 15%, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%)',
+                        maskImage: 'linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 1%, rgba(0,0,0,1) 95%, rgba(0,0,0,0) 100%)',
+                    }}>
                         <h1 className='text-4xl font-bold mb-5'>{type} Popolari</h1>
                         {!showMoreSeries &&
                             <button type='button' onClick={() => open(setShowMoreSeries)} className="cta flex justify-center items-center">
@@ -88,7 +94,7 @@ export default function HeroPage({ type, check, myArray = [] }) {
                                     <polyline points="8 1 12 5 8 9"></polyline>
                                 </svg>
                             </button>}
-                        <div className={!showMoreSeries ? 'flex items-center gap-5 overflow-x-auto overflow-y-hidden pb-5' : 'flex justify-center items-center gap-2 flex-wrap'}>
+                        <div className={!showMoreSeries ? 'px-15 flex items-center gap-5 overflow-x-auto overflow-y-hidden pb-5' : 'flex justify-center items-center gap-2 flex-wrap'}>
                             {!showMoreSeries ?
                                 myArray.slice(0, 10).map(e =>
                                     <Card key={e.id}

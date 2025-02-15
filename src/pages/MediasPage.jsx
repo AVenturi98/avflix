@@ -70,7 +70,7 @@ export default function MediasPage({ type }) {
                     )}
                 </div>
                 : !backdrops.length > 0 ?
-                    'Nessuno sfondo disponibile' : ''}
+                    'Nessun poster disponibile' : ''}
             {viewModeImg === 'poster' ?
                 <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
                     {posters.map((e, index) =>
@@ -79,7 +79,7 @@ export default function MediasPage({ type }) {
                         </div>
                     )}
                 </div> : !posters.length > 0 ?
-                    'Nessun poster disponibile' : ''}
+                    'Nessuno sfondo disponibile' : ''}
         </div>
     )
 } 

@@ -17,6 +17,9 @@ export function GlobalProvider({ children }) {
     const [crew, setCrew] = React.useState([]) // set Crew
 
     const [videos, setVideos] = React.useState([]) // set Videos
+    const [videoPrev, setVideoPrev] = React.useState([]) // set Videos
+    const [upComing, setUpComing] = React.useState([]) // set Up Coming
+
 
 
 
@@ -57,7 +60,7 @@ export function GlobalProvider({ children }) {
                     setFirstImg(`https://image.tmdb.org/t/p/original` + res.data.backdrops[0].file_path)
                     setImgs(res.data.backdrops)
                     setPoster(res.data.posters)
-                    console.log('Media', res.data)
+                    // console.log('Media', res.data)
                 }
             })
             .catch(err => {
@@ -71,6 +74,13 @@ export function GlobalProvider({ children }) {
             .then(res => {
                 setVideos(res.data.results[0])
                 setAllVideos(res.data.results)
+                setVideoPrev(prevVideos => {
+
+                    const newVideos = [...prevVideos, ...res.data.results.map(video => ({ ...video, movie_id: res.data.id }))]
+                    // Remove duplicates
+                    const uniqueVideos = newVideos.filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i)
+                    return uniqueVideos;
+                })
                 // console.log('videos', res.data.results)
             })
             .catch(err => {
@@ -91,7 +101,7 @@ export function GlobalProvider({ children }) {
                 console.log('Fetch Section', res)
             })
             .catch(err => {
-                console.log(err)
+                console.log('Fetch section Global Context', err)
             })
     }
 
@@ -108,9 +118,38 @@ export function GlobalProvider({ children }) {
             .then(res => {
                 setCast(res.data.cast.filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i))
                 setCrew(res.data.crew.filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i))
-                console.log('Cast', res.data)
+                // console.log('Cast', res.data)
             })
-            .catch(err => console.error('Error fetch credits Global Context', err));
+            .catch(err => console.error('Error fetch credits Global Context', err))
+    }
+
+    const currentDate = new Date().toISOString().split('T')[0];
+
+    //fetch Up Coming
+    function fetchUpComing({ init, fin, type }) {
+        let allUpComing = [];
+        for (let i = 1; i <= 10; i++) {
+            axios.get(`https://api.themoviedb.org/3/${type}/upcoming${KEY}`, {
+                params: {
+                    language: 'it-IT',
+                    page: i
+                },
+            })
+                .then(res => {
+                    const filtered = res.data.results.filter(movie => movie.release_date > currentDate);
+                    allUpComing = [...allUpComing, ...filtered];
+                    // Remove duplicates
+                    allUpComing = allUpComing.filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i);
+                    if (allUpComing.length >= 5) {
+                        setUpComing(allUpComing.slice(init, fin));
+                        allUpComing.forEach(movie => fetchVideos('movie', movie.id, () => { })); // Fetch videos for each upcoming movie
+                        return;
+                    }
+                })
+                .catch(err => {
+                    console.log('Error fetching upcoming movies:', err)
+                })
+        }
     }
 
     // Mobile Width
@@ -118,12 +157,14 @@ export function GlobalProvider({ children }) {
     const mobileWidth = windowWidth <= 640
     return (
         <GlobalContext.Provider value={{
-            fetchSections, fetchMovies, fetchMedia, fetchVideos, fetchCreditsId, mobileWidth,
+            fetchSections, fetchMovies, fetchMedia, fetchVideos, fetchCreditsId, fetchUpComing, mobileWidth,
             showMoreMovies, setShowMoreMovies,
             showMoreSeries, setShowMoreSeries,
             cast, setCast,
             crew, setCrew,
-            videos, setVideos
+            videos, setVideos,
+            videoPrev, setVideoPrev,
+            upComing
         }}>
             {children}
         </GlobalContext.Provider>

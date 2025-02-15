@@ -24,7 +24,11 @@ import GlobalContext from '../context/GlobalContext'
 
 export default function PopularMovie() {
 
-    const { fetchSections, fetchMovies, fetchMedia, mobileWidth, showMoreMovies } = React.useContext(GlobalContext)
+    const { fetchSections, fetchMovies, fetchMedia, fetchVideos, fetchUpComing, mobileWidth,
+        showMoreMovies,
+        videos,
+        videoPrev,
+        upComing } = React.useContext(GlobalContext)
 
     // Path Image
     const path_img = 'https://image.tmdb.org/t/p/w500'
@@ -47,31 +51,12 @@ export default function PopularMovie() {
     const [cast, setCast] = React.useState([]) // set Cast
     const [top5Cast, setTop5Cast] = React.useState([]); // set Top 5 Cast
 
-    const [upComing, setUpComing] = React.useState([]); // set Up Coming
     const [date, setDate] = React.useState([])// set Upcomings Date
 
     const [backgroundUpComingImage, setBackgroundUpComingImage] = React.useState(''); // set Background Image
 
-    const [videos, setVideos] = React.useState([]); // set Videos
     const [playingVideo, setPlayingVideo] = React.useState(null); // set Playing Video
     const [viewMode, setViewMode] = React.useState('poster'); // set View Mode
-
-
-    // Handle Videos
-    function fetchVideos(movie_id) {
-        axios.get(`https://api.themoviedb.org/3/movie/${movie_id}/videos${KEY}`)
-            .then(res => {
-                setVideos(prevVideos => {
-
-                    const newVideos = [...prevVideos, ...res.data.results.map(video => ({ ...video, movie_id: res.data.id }))]
-                    // Remove duplicates
-                    const uniqueVideos = newVideos.filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i)
-                    return uniqueVideos;
-                });
-                // console.log(res.data)
-            })
-            .catch(err => console.error('Error fetching videos:', err))
-    }
 
     // Handle Top Cast
     function fetchCreditsId(movie_id) {
@@ -94,8 +79,6 @@ export default function PopularMovie() {
             .catch(err => console.error('Error fetching credits:', err));
     }
 
-
-
     // Filtered Movies
     const actionMovies = filterMoviesByGenre(actionRow, 28)
     const comedyMovies = filterMoviesByGenre(comedyRow, 35)
@@ -103,7 +86,6 @@ export default function PopularMovie() {
     const horrorMovies = filterMoviesByGenre(horrorRow, 27)
     const crimeMovies = filterMoviesByGenre(crimeRow, 80)
     const romanceMovies = filterMoviesByGenre(romanceRow, 10749)
-
 
     // Array of filters
     const filtersGenres = [
@@ -115,8 +97,7 @@ export default function PopularMovie() {
         { title: 'Romantico', movies: romanceMovies, set: setRomanceRow }
     ];
 
-
-    // Global fecth
+    // Global fetch
     React.useEffect(() => {
         fetchMovies('movie', page, setMovies, setTotalPage, fetchCreditsId) // handle home page movies
         fetchSections('movie', 'top_rated', setTop5Votes) // handle top rated 
@@ -137,48 +118,15 @@ export default function PopularMovie() {
         setTop5Cast(sortedCast);
     }, [cast]);
 
-
     // Up Coming fetch
     React.useEffect(() => {
-        // Check and print dates greater than current date
-        const currentDate = new Date().toISOString().split('T')[0];
-
-        function fetchUpComing() {
-            let allUpComing = [];
-            for (let i = 1; i <= 10; i++) {
-                axios.get(`https://api.themoviedb.org/3/movie/upcoming${KEY}`, {
-                    params: {
-                        language: 'it-IT',
-                        page: i
-                    },
-                })
-                    .then(res => {
-                        const filtered = res.data.results.filter(movie => movie.release_date > currentDate);
-                        allUpComing = [...allUpComing, ...filtered];
-                        // Remove duplicates
-                        allUpComing = allUpComing.filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i);
-                        if (allUpComing.length >= 5) {
-                            setUpComing(allUpComing.slice(0, 5));
-                            allUpComing.forEach(movie => fetchVideos(movie.id)); // Fetch videos for each upcoming movie
-                            return;
-                        }
-                    })
-                    .catch(err => {
-                        console.log('Error fetching upcoming movies:', err)
-                    })
-            }
-        }
-
-        fetchUpComing();
-
+        fetchUpComing({ init: 0, fin: 5, type: 'movie' });
     }, [date]);
-
 
     // Function to filter movies by genre
     function filterMoviesByGenre(movies, genreId) {
         return movies.filter(movie => movie.genre_ids.includes(genreId));
     }
-
 
     // Get the backdrop_path of the first element in up coming
     const backdropComingPath = upComing.length > 0 ? upComing[0].backdrop_path : '';
@@ -197,13 +145,11 @@ export default function PopularMovie() {
             {showMoreMovies &&
                 <ul className='flex justify-center items-center gap-3 my-15'>
                     {totalPage.slice(0, 5).map((e, i) => {
-                        // console.log('page', e, i)
                         const pageNum = i + 1
                         return <li key={i}>
                             <button type='button' onClick={() => { setPage(pageNum), BackTop() }} className={`p-4 bg-blue-500 cursor-pointer rounded-md text-white hover:bg-amber-300 ${page == pageNum ? 'outline-2 outline-offset-3 outline-blue-500' : ''} active:bg-blue-700`}>{pageNum}</button>
                         </li>
-                    }
-                    )}
+                    })}
                 </ul>}
 
             {/* FILTERED GENRES */}
@@ -223,12 +169,11 @@ export default function PopularMovie() {
                 <div className='votes relative py-100' id='upComing' style={{ backgroundImage: `linear-gradient(rgba(21, 26, 102, 0.78), rgba(21, 26, 102, 0.6)), url(${backgroundUpComingImage || `https://image.tmdb.org/t/p/original${mobileWidth ? posterComingPath : backdropComingPath}`})` }}></div>
                 <div className='flex justify-center mb-5 btnSwitch text-white'>
                     <BtnSwitchWord text1={'poster'} set1={() => setViewMode('poster')} text2={'trailer'} set2={() => setViewMode('trailer')} class={'flex justify-center gap-10'} styleSelected={'bg-green-500'} />
-
                 </div>
                 <div className='contain-top5 absolute'>
                     <div className={`flex items-center overflow-y-hidden pb-8 ${mobileWidth ? 'overflow-x-scroll gap-3 px-3' : 'justify-center gap-4'}`}>
                         {upComing.slice(0, 5).map((e, i) => {
-                            const video = videos.find(video => video.movie_id === e.id);
+                            const video = videoPrev.find(video => video.movie_id === e.id);
                             return viewMode === 'poster' ? (
                                 <Card key={i}
                                     type='movie'
