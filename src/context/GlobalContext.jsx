@@ -34,7 +34,7 @@ export function GlobalProvider({ children }) {
             .then(res => {
                 set(res.data.results);
                 setTotalPage(new Array('1', '2', '3', '4', '5', '6', '7', '8', '9', '10'))
-                // console.log(res)
+                // console.log('Posts', res)
                 res.data.results.forEach(movie => setCast(movie.id));// Pass movie id to setCast
             })
             .catch(err => {
@@ -98,7 +98,7 @@ export function GlobalProvider({ children }) {
         })
             .then(res => {
                 set(prev => [...prev, ...res.data.results])
-                console.log('Fetch Section', res)
+                // console.log('Fetch Section', res)
             })
             .catch(err => {
                 console.log('Fetch section Global Context', err)

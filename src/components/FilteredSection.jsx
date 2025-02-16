@@ -22,7 +22,7 @@ export default function FilteredSection({ myArray = [], type, title }) {
         <>
             {myArray.length >= 5 ?
                 <section className="filtered-genres-container">
-                    <div className="filtered-genres-content mb-10" style={{
+                    <div className="filtered-genres-content sm:mb-10" style={{
                         WebkitMaskImage: 'linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 15%, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%)',
                         maskImage: 'linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 1%, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%)',
                     }}>

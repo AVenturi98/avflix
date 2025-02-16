@@ -216,7 +216,7 @@ export default function Show({ type }) {
             <section className='flex flex-wrap'>
 
                 {/* IMAGES e VIDEO */}
-                <div className={`${mobileWidth ? 'px-5 w-[100%]' : 'px-10 w-[70%]'}`}>
+                <div className={`${mobileWidth ? 'px-5 w-[100%]' : 'px-10 w-[70%]'} grow-1`}>
                     <div className='flex flex-col'>
                         <div className='pb-5'>
                             <BtnSwitchWord text1={'immagini'} set1={() => setViewMode('immagini')} text2={'video'} set2={() => setViewMode('video')} styleSelected={'bg-blue-500 text-white'} />

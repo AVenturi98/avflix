@@ -177,7 +177,7 @@ a.active {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 1rem;
+    /* padding: 1rem; */
 }
 
 .filtered-genres-title {
@@ -254,8 +254,31 @@ a.active {
     z-index: -1;
 }
 
+.title-3d-votes-mobile {
+    width: 100%;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    font-size: 50px;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    display: inline-block;
+    background: linear-gradient(135deg, #8bff1e, #f19822);
+    color: transparent;
+    -webkit-background-clip: text;
+    /* Aggiunge il gradiente solo al testo */
+    text-shadow:
+        4px 4px 8px rgba(255, 255, 255, 0.6),
+        0px 0px 25px rgba(238, 238, 238, 0.3),
+        -4px -4px 15px rgba(255, 255, 255, 0.3);
+    z-index: -1;
+}
+
 /* Efectto di sovrapposizione */
-.title-3d-votes::after {
+.title-3d-votes::after,
+.title-3d-votes-mobile::after {
     content: attr(data-text);
     position: absolute;
     top: 0;
@@ -327,8 +350,54 @@ a.active {
         -4px -4px 15px rgba(255, 255, 255, 0.3);
 }
 
+.coming-3d-upComing-mobile {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 90px;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: -10px;
+    display: inline-block;
+    background: linear-gradient(135deg, #ff1e8e, #f19822);
+    -webkit-background-clip: text;
+    /* Aggiunge il gradiente solo al testo */
+    color: transparent;
+    z-index: -1;
+    text-shadow:
+        4px 4px 8px rgba(255, 255, 255, 0.6),
+        0px 0px 25px rgba(238, 238, 238, 0.3),
+        -4px -4px 15px rgba(255, 255, 255, 0.3);
+}
+
+.soon-3d-upComing-mobile {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 90px;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: -10px;
+    display: inline-block;
+    background: linear-gradient(135deg, #ff1e8e, #f19822);
+    -webkit-background-clip: text;
+    /* Aggiunge il gradiente solo al testo */
+    color: transparent;
+    z-index: -1;
+    text-shadow:
+        4px 4px 8px rgba(255, 255, 255, 0.6),
+        0px 0px 25px rgba(238, 238, 238, 0.3),
+        -4px -4px 15px rgba(255, 255, 255, 0.3);
+}
+
 /* Efectto di sovrapposizione */
-.title-3d-upComing::after {
+.title-3d-upComing::after,
+.coming-3d-upComing-mobile::after,
+.soon-3d-upComing-mobile::after {
     content: attr(data-text);
     position: absolute;
     top: 0;
@@ -343,7 +412,7 @@ a.active {
     align-items: center;
 }
 
-
+/* 
 
 @keyframes slide {
     to {
@@ -353,7 +422,7 @@ a.active {
             90px 30px,
             90px 30px;
     }
-}
+} */
 
 
 /* EPISODES SHOW  */

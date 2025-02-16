@@ -124,7 +124,7 @@ export default function PopularMovie() {
             <HeroPage type={'Serie'} check={'tv'} myArray={series} />
             {/* PAGINATION */}
             {showMoreSeries &&
-                <ul className='flex justify-center items-center gap-3 my-15'>
+                <ul className='flex justify-center items-center gap-3 mt-3 mb-6 sm:my-15'>
                     {totalPage.slice(0, 5).map((e, i) => {
                         // console.log('page', e, i)
                         const pageNum = i + 1

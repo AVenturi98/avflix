@@ -1,14 +1,15 @@
 import { Outlet } from "react-router";
-import { useWindowWidth } from "../context/WindowContext";
 
+// Context
+import GlobalContext from "../context/GlobalContext";
+
+// Components
 import Nav from '../components/Nav'
+import { useContext } from "react";
 
 export default function DefaultLayout() {
 
-    // Mobile Width
-    const { windowWidth } = useWindowWidth();
-    const mobileWidth = windowWidth <= 640
-    const tabletWidth = windowWidth >= 640 && windowWidth <= 1000
+    const { mobileWidth } = useContext(GlobalContext)
 
     return (
         <>

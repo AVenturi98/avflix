@@ -1,6 +1,8 @@
 import * as React from 'react'
 import Card from './Card'
 
+// Context
+import GlobalContext from '../context/GlobalContext'
 import { useWindowWidth } from '../context/WindowContext'
 
 export default function TopRated({ myArray = [], check, set = () => { }, backgroundVoteImage, setBackgroundImage = () => { } }) {
@@ -8,18 +10,17 @@ export default function TopRated({ myArray = [], check, set = () => { }, backgro
     // Path Image
     const path_img = 'https://image.tmdb.org/t/p/w500'
 
+    const { mobileWidth } = React.useContext(GlobalContext)
+
     // Get the backdrop_path of the first element in top5Votes
     const backdropVotesPath = myArray.length > 0 ? myArray[0].backdrop_path : '';
     const posterVotesPath = myArray.length > 0 ? myArray[0].poster_path : '';
 
-    // Mobile Width
-    const { windowWidth } = useWindowWidth();
-    const mobileWidth = windowWidth <= 640
     return (
         <section className='relative mb-17 popular'>
-            <div className='votes relative py-100' style={{ backgroundImage: `linear-gradient(rgba(21, 26, 102, 0.78), rgba(21, 26, 102, 0.6)), url(${backgroundVoteImage || `https://image.tmdb.org/t/p/original${mobileWidth ? posterVotesPath : backdropVotesPath}`})` }}></div>
+            <div className={`votes relative py-70 sm:py-100`} style={{ backgroundImage: `linear-gradient(rgba(21, 26, 102, 0.78), rgba(21, 26, 102, 0.6)), url(${backgroundVoteImage || `https://image.tmdb.org/t/p/original${mobileWidth ? posterVotesPath : backdropVotesPath}`})` }}></div>
             <div className='contain-top5 absolute'>
-                <div className={`flex items-center overflow-y-hidden pb-8 ${mobileWidth ? 'overflow-x-scroll gap-3 px-3' : 'justify-center gap-8'}`}>
+                <div className={`flex items-center overflow-y-hidden pb-8 justify-baseline lg:justify-center sm:pl-5 px-3 ${mobileWidth ? 'overflow-x-scroll gap-3 ' : 'gap-4'}`}>
                     {myArray.slice(0, 5).map((e, i) => (
                         <Card key={i}
                             type={check}
@@ -33,8 +34,8 @@ export default function TopRated({ myArray = [], check, set = () => { }, backgro
                     ))}
                 </div>
             </div>
-            <div className="title-container-votes">
-                <h1 className="title-3d-votes">I più votati</h1>
+            <div className={mobileWidth ? "flex justify-center" : "title-container-votes"}>
+                <h1 className={mobileWidth ? "title-3d-votes-mobile" : "title-3d-votes"}>I più votati</h1>
             </div>
         </section>
     )

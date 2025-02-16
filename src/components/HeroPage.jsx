@@ -85,7 +85,7 @@ export default function HeroPage({ type, check, myArray = [] }) {
                         WebkitMaskImage: 'linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 15%, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%)',
                         maskImage: 'linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 1%, rgba(0,0,0,1) 95%, rgba(0,0,0,0) 100%)',
                     }}>
-                        <h1 className='text-4xl font-bold mb-5'>{type} Popolari</h1>
+                        <h1 className='text-4xl font-bold mb-5 px-10'>{type} Popolari</h1>
                         {!showMoreSeries &&
                             <button type='button' onClick={() => open(setShowMoreSeries)} className="cta flex justify-center items-center">
                                 <span>Mostra di più</span>
