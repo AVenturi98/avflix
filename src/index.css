@@ -357,11 +357,16 @@ a.active {
 
 
 /* EPISODES SHOW  */
-#episodes {
+#episodes,
+#seasons {
     background-repeat: no-repeat;
     background-size: cover;
     transition: all 500ms;
     z-index: -99;
+}
+
+#season {
+    background-position: center center;
 }
 
 

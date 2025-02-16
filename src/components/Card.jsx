@@ -6,13 +6,13 @@ import imagePlaceholder from '../assets/ImagePlaceholder.jpg'
 
 // Components
 import VoteStar from './VoteStar'
-import Flags from '../Flags'
+import Flags from './Flags'
 import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
 import { CircularProgress } from '@mui/joy'
 import { useCountUp } from 'use-count-up'
 
-export default function Card({ item, image, type, styleCard, styleImg, overviewSmall, overviewLong, votes = false, language = false, stars = false, videos = false, onMouseEnter }) {
+export default function Card({ item, image, type, styleCard, styleImg, overviewSmall, overviewLong, votes = false, language = Boolean, stars = Boolean, onMouseEnter }) {
 
     const { id, title, name, original_language, vote_average } = item
 
@@ -42,6 +42,9 @@ export default function Card({ item, image, type, styleCard, styleImg, overviewS
         end: parseInt(vote_average * 10),
     });
 
+    const showLanguage = title && title.length > 35 || name && name.length > 35 ? language === false : language === true
+    const showVote = title && title.length > 60 || name && name.length > 60 ? stars === false : stars === true
+
     return (
         <Link to={`/${type}/${id}` + '_' + titleSlug} onMouseEnter={onMouseEnter}>
             <div className='img_popular_card'>
@@ -50,7 +53,7 @@ export default function Card({ item, image, type, styleCard, styleImg, overviewS
 
                     <div className='hover_el_popular_card flex justify-center items-start flex-col gap-5 p-3 rounded-2xl' >
                         <h2 className='text-3xl'>{title || name}</h2>
-                        {language &&
+                        {showLanguage &&
                             <div className='flex justify-center items-center gap-5'>
                                 <div className='font-semibold'>Lingua Originale:</div>
                                 <span>
@@ -59,7 +62,7 @@ export default function Card({ item, image, type, styleCard, styleImg, overviewS
                             </div>}
                         <div>{overviewSmall ? overTextSmall(overviewSmall) : ''}</div>
                         <div>{overviewLong ? overTextLong(overviewLong) : ''}</div>
-                        {stars &&
+                        {showVote &&
                             <div className='flex justify-center items-center gap-3'>
                                 <VoteStar vote={vote_average} />
                                 <span className='opacity-70'>

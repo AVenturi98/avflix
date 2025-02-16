@@ -12,6 +12,8 @@ export default function Flags({ lang }) {
         if (language === "el") return language = "GR"
         if (language === "hi") return language = "US"
         if (language === "te") return language = "TG"
+        if (language === "ta") return language = "IN"
+
         return language.toUpperCase()
     }
 
