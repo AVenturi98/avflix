@@ -1,8 +1,8 @@
 import * as React from 'react'
-import axios from 'axios'
-import KEY from '../KEY'
 import { Link, useParams } from 'react-router'
 
+// Placeholder 
+import personPlaceholder from '../assets/PersonPlaceholder.png'
 // Context
 import GlobalContext from '../context/GlobalContext'
 
@@ -35,16 +35,16 @@ export default function PersonPage() {
         <div className='sm:my-16 p-5'>
             <div className='flex flex-col justify-center items-center gap-10 sm:gap-18'>
                 <div className='flex gap-2'>
-                    <img src={path_img + person.profile_path} alt={person.name}
+                    <img src={person.profile_path ? path_img + person.profile_path : personPlaceholder} alt={person.name}
                         className='w-[200px] h-[300px] rounded-xl' />
                     <div className='flex flex-col gap-5 sm:gap-15' >
                         <div className='flex flex-wrap items-baseline gap-5'>
-                            <div className='text-2xl font-semibold mt-3'>{person.name}</div>
+                            <div className='text-2xl font-semibold mt-3'>{person.name ? person.name : 'Sconosciuto'}</div>
                             <div className='italic text-gray-500'>{person.known_for_department + ', ' + otherRole}</div>
                         </div>
                         <div>
-                            <h4 className='text-lg font-semibold italic'>Quando e dove</h4>
-                            <div>{person.birthday},</div>
+                            <h4 className='text-lg font-semibold italic'>{person.birthday || person.place_of_birth ? 'Quando e dove' : ''}</h4>
+                            <div>{person.birthday ? person.birthday + ', ' : ''}</div>
                             <div>{person.place_of_birth}</div>
                         </div>
                         <div className='sm:w-[50%] italic hover:text-gray-500 bg-blue-500 p-1 text-white rounded-lg'>
@@ -59,7 +59,10 @@ export default function PersonPage() {
                         <h4 className='text-lg sm:text-2xl font-semibold italic'>Biografia</h4>
                         <div className='grow-1 text-center text-gray-500 italic'>Popolarità {person.popularity}</div>
                     </div>
-                    <div className='sm:text-lg'>{person.biography}</div>
+                    {person.biography ?
+                        <div className='sm:text-lg'>{person.biography}</div>
+                        : <div className='text-gray-500'>Nessuna Biografia disponibile</div>
+                    }
                 </div>
             </div>
 

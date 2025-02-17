@@ -19,9 +19,8 @@ export default function Card({ item, image, type, styleCard, styleImg, overviewS
 
     const { id, title, name, original_language, vote_average } = item
 
-    const { mobileWidth } = React.useContext(GlobalContext)
+    const { mobileWidth, titleSlug } = React.useContext(GlobalContext)
 
-    const titleSlug = (title || name).toLowerCase().replace(/ /g, '_');
 
     function overTextSmall(text) {
         const textLimited = text.split(' ')
@@ -51,7 +50,7 @@ export default function Card({ item, image, type, styleCard, styleImg, overviewS
     const showVote = title && title.length > 60 || name && name.length > 60 ? stars === false : stars === true
 
     return (
-        <Link to={`/${type}/${id}` + '-' + titleSlug} onMouseEnter={onMouseEnter}>
+        <Link to={`/${type}/${id}` + '-' + titleSlug(title || name)} onMouseEnter={onMouseEnter}>
             <div className='img_popular_card'>
                 <div className={`${styleCard} shadow-card rounded-2xl`}>
                     <img src={image !== null ? image : imagePlaceholder} alt={title || name} className={`${styleImg} rounded-2xl relative`} />

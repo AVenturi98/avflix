@@ -22,7 +22,8 @@ export function GlobalProvider({ children }) {
 
     const [person, setPerson] = React.useState([]) // set Person ID
 
-
+    // SLUG
+    const titleSlug = (title) => (title).toLowerCase().replace(/ /g, '_');
 
 
     // fetch Popular Movies
@@ -36,7 +37,7 @@ export function GlobalProvider({ children }) {
             .then(res => {
                 set(res.data.results);
                 setTotalPage(new Array('1', '2', '3', '4', '5', '6', '7', '8', '9', '10'))
-                // console.log('Posts', res)
+                // console.log('Posts Context', res)
                 res.data.results.forEach(movie => setCast(movie.id));// Pass movie id to setCast
             })
             .catch(err => {
@@ -216,7 +217,8 @@ export function GlobalProvider({ children }) {
             videos, setVideos,
             videoPrev, setVideoPrev,
             upComing,
-            person, setPerson
+            person, setPerson,
+            titleSlug
         }}>
             {children}
         </GlobalContext.Provider>

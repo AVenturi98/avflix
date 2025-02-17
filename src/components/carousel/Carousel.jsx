@@ -1,16 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { Link } from "react-router";
 import "./Carousel.css";
 
 
 // Placeholder
 import personPlaceholder from '../../assets/PersonPlaceholder.png'
 
+// Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleArrowLeft, faCircleArrowRight } from "@fortawesome/free-solid-svg-icons";
 
+// Context
 import { useWindowWidth } from "../../context/WindowContext";
+import GlobalContext from "../../context/GlobalContext";
 
 const Carousel = ({ images }) => {
+
+    const { titleSlug } = useContext(GlobalContext)
+
     // Stato per gestire l'indice dell'immagine corrente
     const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -36,21 +43,22 @@ const Carousel = ({ images }) => {
             <div className="carousel-wrapper">
                 <div
                     className="carousel-images"
-                    style={{ transform: `translateX(-${currentIndex * 220}px)` }} // sposta le immagini in base all'indice
+                    style={{ transform: `translateX(-${!mobileWidth ? currentIndex * 220 : currentIndex * 170}px)` }} // sposta le immagini in base all'indice
                 >
                     {images.map((image, index) => (
-                        <div className="carousel-item" key={index}>
-                            <img src={image.profile_path ? `https://image.tmdb.org/t/p/w500${image.profile_path}` : personPlaceholder} alt={image.name} className="cast-img rounded-br-full rounded-bl-full rounded-tl-full" />
-                            <div className="cast-info">
-                                <h3 className="font-bold">{image.name}</h3>
-                                <p className="font-medium italic">Popularity:
-                                    <span
-                                        className={image.popularity > 100 ? 'text-green-500' : '' ||
-                                            image.popularity < 100 ? 'text-blue-500' : '' ||
-                                                image.popularity < 80 ? 'text-orange-400' : '' ||
-                                                    image.popularity <= 50 ? 'text-orange-700' : ''}>{image.popularity}</span></p>
-                            </div>
-                        </div>
+                        <Link to={`/person/${image.id}` + '-' + titleSlug(image.name)} key={index}>
+                            <div className="carousel-item" >
+                                <img src={image.profile_path ? `https://image.tmdb.org/t/p/w500${image.profile_path}` : personPlaceholder} alt={image.name} className="cast-img rounded-br-full rounded-bl-full rounded-tl-full" />
+                                <div className="cast-info">
+                                    <h3 className="font-bold">{image.name}</h3>
+                                    <p className="font-medium italic">Popularity:
+                                        <span
+                                            className={image.popularity > 100 ? 'text-green-500' : '' ||
+                                                image.popularity < 100 ? 'text-blue-500' : '' ||
+                                                    image.popularity < 80 ? 'text-orange-400' : '' ||
+                                                        image.popularity <= 50 ? 'text-orange-700' : ''}>{image.popularity}</span></p>
+                                </div>
+                            </div></Link>
                     ))}
                 </div>
             </div>

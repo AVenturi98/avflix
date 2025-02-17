@@ -31,7 +31,8 @@ export default function Show({ type }) {
     const { fetchCreditsId, fetchMedia, fetchVideos, mobileWidth, fetchSectionID,
         cast,
         crew,
-        videos } = React.useContext(GlobalContext)
+        videos,
+        titleSlug } = React.useContext(GlobalContext)
 
     const [post, setPost] = React.useState([]) // set Post
     const [company, setCompany] = React.useState([]) // set Company
@@ -74,7 +75,7 @@ export default function Show({ type }) {
                 setCompany(res.data.production_companies)
                 setCountry(res.data.production_countries)
                 setSeason(res.data.seasons)
-                // console.log(res.data)
+                // console.log('Show Page', res.data)
             })
             .catch(err => {
                 console.error('Error fetch movie to Show Page', err);
@@ -138,8 +139,6 @@ export default function Show({ type }) {
     }) : 'Non disponibile'
 
     const episodeFiltered = episode.filter(e => e.season_number == seasonNumber) // set Filtered Episodes
-
-
 
 
     return (
@@ -240,7 +239,7 @@ export default function Show({ type }) {
                                 maskImage: 'linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 1%, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%)',
                             }}>
                                 {cast.slice(0, 10).map(e =>
-                                    <Link to={`/person/${e.id}` + '-' + (e.name).toLowerCase().replace(/ /g, '_')} key={e.id}>
+                                    <Link to={`/person/${e.id}` + '-' + titleSlug(e.name)} key={e.id}>
                                         <div className='flex flex-col items-center'>
                                             <img src={'https://image.tmdb.org/t/p/w500' + e.profile_path} alt={e.name}
                                                 className={`${mobileWidth ? 'min-w-30 min-h-30 max-w-30 max-h-30' : 'min-w-50 min-h-50 max-w-50 max-h-50'} rounded-full shadow-lg shadow-black object-cover`} />

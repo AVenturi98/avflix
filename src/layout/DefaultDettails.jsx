@@ -7,9 +7,10 @@ export default function DefaultDettails({ type }) {
 
     return (
         <>
-            {type === ('movie' || 'tv') ?
+            {type === 'movie' || type === 'tv' ?
                 <NavDettailsContent type={type} /> :
-                <NavDettailsPerson type={type} />}
+                type === 'person' ?
+                    <NavDettailsPerson type={type} /> : ''}
             <div>
                 <Outlet />
             </div>
