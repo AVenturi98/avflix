@@ -35,7 +35,7 @@ export default function FilteredSection({ myArray = [], type, title, init, fin, 
                                 </Link>
                                 : ''}
                         </div>
-                        <div className='flex items-center grow-1 gap-2 sm:gap-5 overflow-x-scroll overflow-y-hidden sm:pb-8 pl-2 sm:pl-5 pr-15 sm:pr-35'>
+                        <div className='flex items-center grow-1 gap-2 sm:gap-5 overflow-x-auto overflow-y-hidden sm:pb-8 pl-2 sm:pl-5 pr-15 sm:pr-35'>
                             {myArray.slice(init, fin).map((e, i) =>
                                 <Card key={i} type={!e.media_type ? type : e.media_type} item={e}
                                     image={e.poster_path ? path_img + e.poster_path : imagePlaceholder}

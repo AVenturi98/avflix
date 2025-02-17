@@ -188,9 +188,8 @@ a.active {
 }
 
 .filtered-genres-content {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    /* display: flex; */
+    /* justify-content: center; */
     width: 100%;
     max-width: 1200px;
 }
@@ -515,10 +514,6 @@ a.active {
     }
 
     /* SCROLLBAR */
-    ::-webkit-scrollbar {
-        display: none;
-    }
-
     #contain-top-cast {
         gap: 0
     }

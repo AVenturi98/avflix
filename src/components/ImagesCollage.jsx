@@ -84,10 +84,13 @@ const CollageGallery = ({ images = [] }) => {
                 </div>
                 {selectedIndex !== null && (
                     <div style={{ position: "relative", width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                        <button onClick={prevImage} style={{ position: "absolute", left: "10px" }} className="text-3xl bg-[rgba(4,45,73,0.3)] hover:bg-gray-300 p-5 rounded-xl">
+                        <button onClick={prevImage} style={{ zIndex: 100, position: "absolute", left: "10px" }} className="text-3xl bg-[rgba(4,45,73,0.3)] hover:bg-gray-300 p-5 rounded-xl">
                             <FontAwesomeIcon icon={faArrowLeft} />
                         </button>
-                        <img src={images[selectedIndex].src} alt="Selected" style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain", borderRadius: "8px" }} />
+                        <div className="absolute top-[50%] left-[50%]" style={{ transform: 'translate(-50%, -50%)', width: '100%' }}>
+                            <img src={images[selectedIndex].src} alt="Selected" style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain", borderRadius: "8px" }} />
+
+                        </div>
                         <button onClick={nextImage} style={{ position: "absolute", right: "10px" }} className="text-3xl bg-[rgba(4,45,73,0.3)] hover:bg-gray-300 p-5 rounded-xl">
                             <FontAwesomeIcon icon={faArrowRight} />
                         </button>

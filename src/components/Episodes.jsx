@@ -45,7 +45,7 @@ export default function Episodes({ id, type, episodeFiltered, seasonNumber, sele
         <>
             {/* EPISODES */}
             {episode &&
-                <div className='w-[100%] p-10'>
+                <div className='w-[100%] p-5'>
                     <h2 className='font-extrabold text-4xl my-2'>Episodi</h2>
                     <select disabled={!selectedSeason} name="episodes" id="episodes"
                         value={selectedEpisode}
@@ -66,7 +66,7 @@ export default function Episodes({ id, type, episodeFiltered, seasonNumber, sele
                     <div className='text-white'>
                         {episodeFiltered.filter((e, i) => (i + 1) == selectedEpisode).map(e =>
                             <div key={e.id} id='episodes' className='flex gap-5 rounded-2xl' style={{ backgroundImage: `linear-gradient(rgba(1, 1, 22, 0.6), rgba(1, 1, 22, 0.8)), url(${'https://image.tmdb.org/t/p/original' + e.still_path})` }}>
-                                <div className='px-4 lg:py-8 sm:py-6 grow-1'>
+                                <div className='p-5 px-4 lg:py-8 sm:py-6 grow-1'>
                                     {e.episode_number &&
                                         <div>
                                             <h3 className='font-extrabold'>Episodio
@@ -104,7 +104,7 @@ export default function Episodes({ id, type, episodeFiltered, seasonNumber, sele
                         )}
                         {episode.slice(0, 1).map(e =>
                             <div key={e.id} id='episodes' className={`flex gap-5 rounded-2xl ${selectedEpisode ? 'hidden' : ''}`} style={{ backgroundImage: `linear-gradient(rgba(1, 1, 22, 0.65), rgba(1, 1, 22, 0.8)), url(${'https://image.tmdb.org/t/p/original' + e.still_path})` }}>
-                                <div className='px-4 lg:py-8 sm:py-6 grow-1'>
+                                <div className='p-5 px-4 lg:py-8 sm:py-6 grow-1'>
                                     {e.episode_number &&
                                         <div>
                                             <h3 className='font-extrabold'>Episodio
