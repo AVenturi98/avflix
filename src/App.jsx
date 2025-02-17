@@ -8,13 +8,14 @@ import DefaultDettails from './layout/DefaultDettails'
 import PopularMovie from './pages/PopularMovie'
 import PopularTv from './pages/PopularTv'
 import Show from './pages/Show'
-import DettailsPage from './pages/DettailsPage'
 import MediasPage from './pages/movies-tvPages/MediasPage'
 import VideoPage from './pages/movies-tvPages/VideoPage'
 import CrewPage from './pages/movies-tvPages/CrewPage'
 // Person
 import PersonPage from './pages/PersonPage'
 import MediaPerson from './pages/personPages/MediaPerson'
+import MediaTaggedPerson from './pages/personPages/MediaTaggedPerson'
+import AllMovieTv from './pages/personPages/AllMovieTv'
 // Errors
 import NotFound from './erros_pages/NotFound'
 
@@ -55,7 +56,12 @@ function App() {
 
               <Route path='/person'>
                 <Route path=':id' element={<PersonPage />} />
-                <Route path=':id/dettails' element={<DefaultDettails />}>
+                <Route path=':id/dettails' element={<DefaultDettails type={'person'} />}>
+                  <Route path='media' >
+                    <Route path='person' element={<MediaPerson />} />
+                    <Route path='images' element={<MediaTaggedPerson />} />
+                    <Route path='shows' element={<AllMovieTv />} />
+                  </Route>
                 </Route>
 
               </Route>

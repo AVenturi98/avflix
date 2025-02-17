@@ -20,10 +20,12 @@ export function GlobalProvider({ children }) {
     const [videoPrev, setVideoPrev] = React.useState([]) // set Videos
     const [upComing, setUpComing] = React.useState([]) // set Up Coming
 
+    const [person, setPerson] = React.useState([]) // set Person ID
 
 
 
-    // fetch Movies
+
+    // fetch Popular Movies
     function fetchMovies(type, indexPage, set, setTotalPage = () => { }, setCast = () => { }) {
         axios.get(`https://api.themoviedb.org/3/${type}/popular${KEY}`, {
             params: {
@@ -127,7 +129,7 @@ export function GlobalProvider({ children }) {
             .then(res => {
                 setResults(res.data.results)
                 setData(res.data)
-                console.log('Section ID Global Context', res.data)
+                // console.log('Section ID Global Context', res.data)
             })
             .catch(err => {
                 console.error('Fetch Section ID GLobal Context', err)
@@ -152,7 +154,8 @@ export function GlobalProvider({ children }) {
             .catch(err => console.error('Error fetch credits Global Context', err))
     }
 
-    const currentDate = new Date().toISOString().split('T')[0];
+
+    const currentDate = new Date().toISOString().split('T')[0] //get current date
 
     //fetch Up Coming
     function fetchUpComing({ init, fin, type }) {
@@ -181,19 +184,39 @@ export function GlobalProvider({ children }) {
         }
     }
 
+
+    // fetch Global Person Id
+    function fetchPersonId(id) {
+
+        axios.get(`https://api.themoviedb.org/3/person/${id}${KEY}`, {
+            params: {
+                language: 'en-US'
+            }
+        })
+            .then(res => {
+                setPerson(res.data)
+                // console.log('Person Id Person Page', res.data)
+
+            })
+            .catch(err => {
+                console.error('Error Person Page', err)
+            })
+    }
+
     // Mobile Width
     const { windowWidth } = useWindowWidth();
     const mobileWidth = windowWidth <= 640
     return (
         <GlobalContext.Provider value={{
-            fetchSections, fetchMovies, fetchMedia, fetchVideos, fetchCreditsId, fetchUpComing, fetchSectionID, mobileWidth,
+            fetchSections, fetchMovies, fetchMedia, fetchVideos, fetchCreditsId, fetchUpComing, fetchSectionID, fetchPersonId, mobileWidth,
             showMoreMovies, setShowMoreMovies,
             showMoreSeries, setShowMoreSeries,
             cast, setCast,
             crew, setCrew,
             videos, setVideos,
             videoPrev, setVideoPrev,
-            upComing
+            upComing,
+            person, setPerson
         }}>
             {children}
         </GlobalContext.Provider>

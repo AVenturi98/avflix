@@ -12,9 +12,14 @@ import Typography from '@mui/joy/Typography';
 import { CircularProgress } from '@mui/joy'
 import { useCountUp } from 'use-count-up'
 
+// Context
+import GlobalContext from '../context/GlobalContext'
+
 export default function Card({ item, image, type, styleCard, styleImg, overviewSmall, overviewLong, votes = false, language = Boolean, stars = Boolean, onMouseEnter }) {
 
     const { id, title, name, original_language, vote_average } = item
+
+    const { mobileWidth } = React.useContext(GlobalContext)
 
     const titleSlug = (title || name).toLowerCase().replace(/ /g, '_');
 
@@ -51,25 +56,26 @@ export default function Card({ item, image, type, styleCard, styleImg, overviewS
                 <div className={`${styleCard} shadow-card rounded-2xl`}>
                     <img src={image !== null ? image : imagePlaceholder} alt={title || name} className={`${styleImg} rounded-2xl relative`} />
 
-                    <div className='hover_el_popular_card flex justify-center items-start flex-col gap-5 p-3 rounded-2xl' >
-                        <h2 className='text-3xl'>{title || name}</h2>
-                        {showLanguage &&
-                            <div className='flex justify-center items-center gap-5'>
-                                <div className='font-semibold'>Lingua Originale:</div>
-                                <span>
-                                    <Flags lang={original_language} />
-                                </span>
-                            </div>}
-                        <div>{overviewSmall ? overTextSmall(overviewSmall) : ''}</div>
-                        <div>{overviewLong ? overTextLong(overviewLong) : ''}</div>
-                        {showVote &&
-                            <div className='flex justify-center items-center gap-3'>
-                                <VoteStar vote={vote_average} />
-                                <span className='opacity-70'>
-                                    ({vote_average.toFixed(1)})
-                                </span>
-                            </div>}
-                    </div>
+                    {!mobileWidth ?
+                        <div className='hover_el_popular_card flex justify-center items-start flex-col gap-5 p-3 rounded-2xl' >
+                            <h2 className='text-3xl'>{title || name}</h2>
+                            {showLanguage &&
+                                <div className='flex justify-center items-center gap-5'>
+                                    <div className='font-semibold'>Lingua Originale:</div>
+                                    <span>
+                                        <Flags lang={original_language} />
+                                    </span>
+                                </div>}
+                            <div>{overviewSmall ? overTextSmall(overviewSmall) : ''}</div>
+                            <div>{overviewLong ? overTextLong(overviewLong) : ''}</div>
+                            {showVote &&
+                                <div className='flex justify-center items-center gap-3'>
+                                    <VoteStar vote={vote_average} />
+                                    <span className='opacity-70'>
+                                        ({vote_average.toFixed(1)})
+                                    </span>
+                                </div>}
+                        </div> : ''}
                     {votes === true &&
                         <div className='absolute progressVote' >
                             <Stack spacing={2} onMouseOver={votes ? () => reset() : null}>

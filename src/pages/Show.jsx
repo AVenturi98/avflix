@@ -51,8 +51,6 @@ export default function Show({ type }) {
     const [recommendations, setRecommendations] = React.useState([]) // Set Recommendations Content
 
 
-
-
     const [arrowMore, setArrowMore] = React.useState(false)
 
 

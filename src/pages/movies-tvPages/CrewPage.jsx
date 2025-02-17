@@ -45,7 +45,10 @@ export default function CrewPage({ type }) {
     }, [])
 
     return (
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-4 py-8" style={{
+            WebkitMaskImage: 'linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 15%, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%)',
+            maskImage: 'linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 1%, rgba(0,0,0,1) 99.5%, rgba(0,0,0,0) 100%)',
+        }}>
             <h1 className="text-4xl font-bold text-center mb-8">{post.title || post.name}</h1>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

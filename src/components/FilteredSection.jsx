@@ -10,7 +10,7 @@ import Card from '../components/Card'
 import GlobalContext from '../context/GlobalContext'
 
 
-export default function FilteredSection({ myArray = [], type, title, init, fin, viewmore }) {
+export default function FilteredSection({ myArray = [], type, title, init, fin, viewmorePerson, id }) {
 
 
     // Path Image
@@ -29,15 +29,15 @@ export default function FilteredSection({ myArray = [], type, title, init, fin, 
                     }}>
                         <div className='px-3 sm:px-10 filtered-genres-title'>
                             <h2 className='filtered-genres-title text-2xl sm:text-4xl font-bold my-6'>{title}</h2>
-                            {viewmore ?
-                                <Link to={`dettails`} >
+                            {viewmorePerson ?
+                                <Link to={`/${type}/${id}/dettails/media/shows`} >
                                     <button className='mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg'>Vedi tutti</button>
                                 </Link>
                                 : ''}
                         </div>
                         <div className='flex items-center grow-1 gap-2 sm:gap-5 overflow-x-auto overflow-y-hidden sm:pb-8 pl-2 sm:pl-5 pr-15 sm:pr-35'>
                             {myArray.slice(init, fin).map((e, i) =>
-                                <Card key={i} type={type || e.media_type} item={e}
+                                <Card key={i} type={!e.media_type ? type : e.media_type} item={e}
                                     image={e.poster_path ? path_img + e.poster_path : imagePlaceholder}
                                     language={e.title && e.title.length > 35 && e.name && e.name.length > 35 ? false : true}
                                     stars={e.title && e.title.length > 60 || e.name && e.name.length > 60 ? false : true}

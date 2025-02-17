@@ -1,7 +1,7 @@
 import * as React from 'react'
 import axios from 'axios'
 import KEY from '../KEY'
-import { useParams } from 'react-router'
+import { Link, useParams } from 'react-router'
 
 // Context
 import GlobalContext from '../context/GlobalContext'
@@ -14,37 +14,16 @@ export default function PersonPage() {
     // Path Image
     const path_img = 'https://image.tmdb.org/t/p/w500'
 
-    const { fetchSectionID } = React.useContext(GlobalContext)
+    const { fetchPersonId, person, fetchSectionID } = React.useContext(GlobalContext)
 
-    const [person, setPerson] = React.useState([]) // Set Person
     const [credits, setCredits] = React.useState({ cast: [], crew: [] }) // Set Person Credits
-    const [img, setImg] = React.useState({ profiles: [] }) // Set Person Credits
-
 
 
     const { id } = useParams() // get ID
 
-    // fetch Global Person
-    function fetchPersonId(credits) {
-
-        axios.get(`https://api.themoviedb.org/3/person/${id}${credits ? '/' + credits : ''}${KEY}`, {
-            params: {
-                language: 'en-US'
-            }
-        })
-            .then(res => {
-                setPerson(res.data)
-                // console.log('Person Id Person Page', res.data)
-
-            })
-            .catch(err => {
-                console.error('Error Person Page', err)
-            })
-    }
-
 
     React.useEffect(() => {
-        fetchPersonId()
+        fetchPersonId(id)
         fetchSectionID('person', id, 'combined_credits', () => { }, setCredits)
 
     }, [id])
@@ -53,7 +32,7 @@ export default function PersonPage() {
 
     return (
         <div className='my-16 p-5'>
-            <div className='flex flex-col justify-center items-center gap-4'>
+            <div className='flex flex-col justify-center items-center gap-18'>
                 <div className='flex gap-2'>
                     <img src={path_img + person.profile_path} alt={person.name}
                         className='w-[180px] sm:w-[200px] rounded-xl' />
@@ -66,6 +45,11 @@ export default function PersonPage() {
                             <h4 className='text-lg font-semibold italic'>Quando e dove</h4>
                             <div>{person.birthday},</div>
                             <div>{person.place_of_birth}</div>
+                        </div>
+                        <div className='italic text-gray-500 hover:text-blue-500'>
+                            <Link to='dettails/media/person'>
+                                tutti i contenuti
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -80,7 +64,7 @@ export default function PersonPage() {
 
 
             <div className='my-16'>
-                <FilteredSection myArray={credits.cast} title={'Conosciuto per'} init={0} fin={12} viewmore={true} />
+                <FilteredSection myArray={credits.cast} title={'Conosciuto per'} type='person' init={0} fin={12} viewmorePerson={true} id={id} />
             </div>
         </div >
     )

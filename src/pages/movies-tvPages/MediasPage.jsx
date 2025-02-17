@@ -2,7 +2,10 @@ import * as React from 'react'
 import { useParams } from 'react-router'
 import axios from 'axios'
 import KEY from '../../KEY'
+
+// Components
 import BtnSwitchWord from '../../components/BtnSwitchWord'
+import AllMedia from '../../components/AllMedia'
 
 import GlobalContext from '../../context/GlobalContext'
 
@@ -11,7 +14,7 @@ export default function MediasPage({ type }) {
     // Path Img
     const path_img = `https://image.tmdb.org/t/p/original`
 
-    const { fetchMedia, openModal } = React.useContext(GlobalContext)
+    const { fetchMedia } = React.useContext(GlobalContext)
 
     const [post, setPost] = React.useState([])
     const [viewModeImg, setViewModeImg] = React.useState('sfondi') // set View Mode
@@ -47,7 +50,10 @@ export default function MediasPage({ type }) {
     }, [])
 
     return (
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-4 py-8" style={{
+            WebkitMaskImage: 'linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 15%, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%)',
+            maskImage: 'linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 1%, rgba(0,0,0,1) 99.5%, rgba(0,0,0,0) 100%)',
+        }}>
             <h1 className="text-4xl font-bold text-center mb-8">{post.title || post.name}</h1>
 
             {/* IMAGES */}
@@ -62,24 +68,13 @@ export default function MediasPage({ type }) {
             </div>
 
             {viewModeImg === 'sfondi' ?
-                <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
-                    {backdrops.map((e, index) =>
-                        <div key={e.file_path} className="relative cursor-pointer" onClick={() => openModal(index)}>
-                            <img src={path_img + e.file_path} alt={post.title || post.name} className="w-full h-auto rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300" />
-                        </div>
-                    )}
-                </div>
+                <AllMedia myArray={backdrops} />
                 : !backdrops.length > 0 ?
-                    'Nessun poster disponibile' : ''}
+                    <div className='flex justify-center'>Nessun poster disponibile</div> : ''}
             {viewModeImg === 'poster' ?
-                <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
-                    {posters.map((e, index) =>
-                        <div key={e.file_path} className="relative cursor-pointer" onClick={() => openModal(index)}>
-                            <img src={path_img + e.file_path} alt={post.title || post.name} className="w-full h-auto rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300" />
-                        </div>
-                    )}
-                </div> : !posters.length > 0 ?
-                    'Nessuno sfondo disponibile' : ''}
+                <AllMedia myArray={posters} />
+                : !posters.length > 0 ?
+                    <div className='flex justify-center'>Nessun poster disponibile</div> : ''}
         </div>
     )
 } 
