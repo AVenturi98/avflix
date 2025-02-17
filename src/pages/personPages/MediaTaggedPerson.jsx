@@ -11,10 +11,14 @@ import BtnSwitchWord from "../../components/BtnSwitchWord"
 
 export default function MediaTaggedPerson() {
 
+    // Path Img
+    const path_img = `https://image.tmdb.org/t/p/original`
+
     const { fetchPersonId, person } = useContext(GlobalContext)
 
     const [backdrops, setBackdrops] = useState([]) // Set Person Image Tag Backdrop
     const [posters, setPosters] = useState([]) // Set Person Image Tag Poster
+    const [still, setStill] = useState([]) // Set Person Image Tag Still path
 
     const [viewMode, setViewMode] = useState('sfondi')
 
@@ -22,17 +26,16 @@ export default function MediaTaggedPerson() {
 
     // fetch Medias
     function fetchMedias() {
-
         axios.get(`https://api.themoviedb.org/3/person/${id}/tagged_images${KEY}`, {
             params: {
                 language: 'en-US'
             }
         })
             .then(res => {
-                setBackdrops(res.data.results.map(e => e.media.backdrop_path))
-                setPosters(res.data.results.map(e => e.media.poster_path))
+                setBackdrops(res.data.results.map(e => e.media.backdrop_path).filter(Boolean))
+                setPosters(res.data.results.map(e => e.media.poster_path).filter(Boolean))
+                setStill(res.data.results.map(e => e.media.still_path).filter(Boolean))
                 // console.log('Media Tagged Page', res.data.results.map(e => e.media.backdrop_path))
-
             })
             .catch(err => {
                 console.error('Error Person Page', err)
@@ -42,14 +45,13 @@ export default function MediaTaggedPerson() {
     useEffect(() => {
         fetchPersonId(id)
         fetchMedias()
-    }, [id])
 
+        document.documentElement.scrollTop = 0
+    }, [id])
 
     return (
         <>
             {/* IMAGES TAGGED */}
-
-
             <div className="container mx-auto px-4 py-8" style={{
                 WebkitMaskImage: 'linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 15%, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%)',
                 maskImage: 'linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 1%, rgba(0,0,0,1) 99.5%, rgba(0,0,0,0) 100%)',
@@ -57,7 +59,7 @@ export default function MediaTaggedPerson() {
 
                 <h1 className="text-4xl font-bold text-center mb-8">{person.name}</h1>
 
-                <div className={`flex justify-center mb-8 ${!backdrops.length >= 1 && !posters.length >= 1 ? 'hidden' : ''}`}>
+                <div className={`flex justify-center mb-8 ${!backdrops.length && !posters.length ? 'hidden' : ''}`}>
                     <BtnSwitchWord text1={'sfondi'}
                         length1={backdrops.length}
                         text2={'poster'}
@@ -67,17 +69,22 @@ export default function MediaTaggedPerson() {
                         styleSelected={'bg-green-500'} />
                 </div>
 
-                {viewMode === 'sfondi' ?
-                    <AllMedia myArray={backdrops} />
-                    : !backdrops.length > 0 ?
-                        <div className='flex justify-center'>Nessun poster disponibile</div> : ''}
+                {viewMode === 'sfondi' && (backdrops.length > 0 || still.length > 0) ?
+                    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
+                        {(backdrops.length > 0 ? backdrops : still).map((e, i) =>
+                            <div key={i} className="relative cursor-pointer" >
+                                <img src={path_img + e} className="w-full h-auto rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300" />
+                            </div>
+                        )}
+                    </div>
+                    : viewMode === 'sfondi' && !backdrops.length && !still.length ?
+                        <div className='flex justify-center'>Nessun sfondo disponibile</div> : ''}
 
-                {viewMode === 'poster' ?
+                {viewMode === 'poster' && posters.length > 0 ?
                     <AllMedia myArray={posters} />
-                    : !posters.length > 0 ?
+                    : viewMode === 'poster' && !posters.length ?
                         <div className='flex justify-center'>Nessun poster disponibile</div> : ''}
             </div>
-
         </>
     )
 }

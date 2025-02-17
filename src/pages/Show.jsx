@@ -145,8 +145,8 @@ export default function Show({ type }) {
     return (
         <>
             {/* HERO SHOW */}
-            <section id='hero-show' className={`mb-10 lg:px-50 py-10 sm:py-20 lg:py-40 flex items-start flex-wrap ${mobileWidth ? 'justify-center gap-5 px-5' : 'px-15'} bg-gray-100 shadow-lg`} style={{ backgroundImage: `linear-gradient(rgba(1, 1, 22, 0.7), rgba(1, 1, 22, 0.9)), url(https://image.tmdb.org/t/p/original${post.backdrop_path})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
-                <img className='w-full sm:w-48 lg:w-80 h-auto rounded-lg shadow-lg shadow-gray-600'
+            <section id='hero-show' className={`mb-10 2xl:px-50 py-10 sm:py-20 lg:py-40 flex items-start flex-wrap sm:flex-nowrap ${mobileWidth ? 'justify-center gap-5 px-5' : 'px-15'} bg-gray-100 shadow-lg`} style={{ backgroundImage: `linear-gradient(rgba(1, 1, 22, 0.7), rgba(1, 1, 22, 0.9)), url(https://image.tmdb.org/t/p/original${post.backdrop_path})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+                <img className='w-full sm:w-48 md:w-60 lg:w-80 h-auto rounded-lg shadow-lg shadow-gray-600'
                     src={post.poster_path && !mobileWidth ? path_img + post.poster_path
                         : post.backdrop_path && mobileWidth ? path_img + post.backdrop_path
                             : !post.poster_path || !post.backdrop_path ? imagePlaceholder : ''} alt={post.original_title || post.name} />

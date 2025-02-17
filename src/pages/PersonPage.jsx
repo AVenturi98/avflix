@@ -14,7 +14,7 @@ export default function PersonPage() {
     // Path Image
     const path_img = 'https://image.tmdb.org/t/p/w500'
 
-    const { fetchPersonId, person, fetchSectionID } = React.useContext(GlobalContext)
+    const { fetchPersonId, person, fetchSectionID, mobileWidth } = React.useContext(GlobalContext)
 
     const [credits, setCredits] = React.useState({ cast: [], crew: [] }) // Set Person Credits
 
@@ -26,17 +26,18 @@ export default function PersonPage() {
         fetchPersonId(id)
         fetchSectionID('person', id, 'combined_credits', () => { }, setCredits)
 
+        document.documentElement.scrollTop = 0
     }, [id])
 
     const otherRole = credits.crew.map(e => e.job).filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i)
 
     return (
-        <div className='my-16 p-5'>
-            <div className='flex flex-col justify-center items-center gap-18'>
+        <div className='sm:my-16 p-5'>
+            <div className='flex flex-col justify-center items-center gap-10 sm:gap-18'>
                 <div className='flex gap-2'>
                     <img src={path_img + person.profile_path} alt={person.name}
-                        className='w-[180px] sm:w-[200px] rounded-xl' />
-                    <div className='flex flex-col gap-15' >
+                        className='w-[200px] h-[300px] rounded-xl' />
+                    <div className='flex flex-col gap-5 sm:gap-15' >
                         <div className='flex flex-wrap items-baseline gap-5'>
                             <div className='text-2xl font-semibold mt-3'>{person.name}</div>
                             <div className='italic text-gray-500'>{person.known_for_department + ', ' + otherRole}</div>
@@ -46,7 +47,7 @@ export default function PersonPage() {
                             <div>{person.birthday},</div>
                             <div>{person.place_of_birth}</div>
                         </div>
-                        <div className='italic text-gray-500 hover:text-blue-500'>
+                        <div className='sm:w-[50%] italic hover:text-gray-500 bg-blue-500 p-1 text-white rounded-lg'>
                             <Link to='dettails/media/person'>
                                 tutti i contenuti
                             </Link>
@@ -63,7 +64,7 @@ export default function PersonPage() {
             </div>
 
 
-            <div className='my-16'>
+            <div className='my-6 sm:my-16'>
                 <FilteredSection myArray={credits.cast} title={'Conosciuto per'} type='person' init={0} fin={12} viewmorePerson={true} id={id} />
             </div>
         </div >
