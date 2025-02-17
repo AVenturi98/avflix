@@ -10,11 +10,11 @@ export default function VideoPage({ type }) {
     const { fetchVideos } = React.useContext(GlobalContext)
 
     const [post, setPost] = React.useState([])
-    const [videos, setVideos] = React.useState([]) // set Videos
+    const [videos, setVideos] = React.useState([])
+    const [playingVideo, setPlayingVideo] = React.useState(null) // Stato per il video in riproduzione
 
     const { id } = useParams()
 
-    // Global fetch
     function fetchMovieId() {
         const options = {
             method: 'GET',
@@ -26,18 +26,41 @@ export default function VideoPage({ type }) {
             .request(options)
             .then(res => {
                 setPost(res.data)
-                // console.log(res.data)
             })
             .catch(err => console.error('Error fetch movie to Video Page', err));
     }
 
     React.useEffect(() => {
-        fetchMovieId() // global fetch
-        fetchVideos(type, id, setVideos) // handle videos
+        fetchMovieId()
+        fetchVideos(type, id, setVideos)
 
         document.documentElement.scrollTop = 0
 
-    }, [])
+        // Carica l'API di YouTube
+        const tag = document.createElement('script')
+        tag.src = "https://www.youtube.com/iframe_api"
+        const firstScriptTag = document.getElementsByTagName('script')[0]
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)
+
+        window.onYouTubeIframeAPIReady = () => {
+            videos.forEach(video => {
+                new YT.Player(`player-${video.id}`, {
+                    events: {
+                        'onStateChange': event => handleVideoStateChange(event, video.id)
+                    }
+                })
+            })
+        }
+    }, [videos])
+
+    // Gestisce lo stato del video
+    function handleVideoStateChange(event, videoId) {
+        if (event.data === 1) { // 1 = Playing
+            setPlayingVideo(videoId)
+        } else {
+            setPlayingVideo(null)
+        }
+    }
 
     return (
         <div className="container mx-auto px-4 py-8" style={{
@@ -52,17 +75,20 @@ export default function VideoPage({ type }) {
                 {videos.map(e =>
                     <div key={e.id} className="relative">
                         <iframe
+                            id={`player-${e.id}`}
                             width="100%"
                             height="200px"
-                            src={`https://www.youtube.com/embed/${e.key}`}
+                            src={`https://www.youtube.com/embed/${e.key}?enablejsapi=1`}
                             title={e.name}
                             allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowFullScreen
                             className='rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300'
                         ></iframe>
-                        <div className="absolute bottom-0 left-0 bg-black bg-opacity-50 text-white p-2 rounded-b-lg w-full text-center">
-                            {e.name}
-                        </div>
+                        {playingVideo !== e.id && (
+                            <div className="absolute bottom-0 left-0 bg-black bg-opacity-50 text-white p-2 rounded-b-lg w-full text-center">
+                                {e.name}
+                            </div>
+                        )}
                     </div>
                 )}
             </div>

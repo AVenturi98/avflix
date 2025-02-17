@@ -10,6 +10,7 @@ import imagePlaceholder from '../assets/ImagePlaceholder.jpg'
 import BtnSwitchWord from '../components/BtnSwitchWord'
 import ImageCollage from '../components/ImagesCollage'
 import FilteredSection from '../components/FilteredSection'
+import Episodes from '../components/Episodes'
 
 // Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -144,13 +145,14 @@ export default function Show({ type }) {
     return (
         <>
             {/* HERO SHOW */}
-            <section id='hero-show' className={`mb-10 2xl:px-50 py-10 sm:py-20 lg:py-40 flex items-start flex-wrap sm:flex-nowrap ${mobileWidth ? 'justify-center gap-5 px-5' : 'px-15'} bg-gray-100 shadow-lg`} style={{ backgroundImage: `linear-gradient(rgba(1, 1, 22, 0.7), rgba(1, 1, 22, 0.9)), url(https://image.tmdb.org/t/p/original${post.backdrop_path})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+            <section id='hero-show' className={`max-w-screen mb-10 2xl:px-50 py-10 sm:py-20 lg:py-40 flex items-start flex-wrap sm:flex-nowrap ${mobileWidth ? 'justify-center gap-5 px-5' : 'px-15'} bg-gray-100 shadow-lg`}
+                style={{ backgroundImage: `linear-gradient(rgba(1, 1, 22, 0.7), rgba(1, 1, 22, 0.9)), url(https://image.tmdb.org/t/p/original${post.backdrop_path})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
                 <img className='w-full sm:w-48 md:w-60 lg:w-80 h-auto rounded-lg shadow-lg shadow-gray-600'
                     src={post.poster_path && !mobileWidth ? path_img + post.poster_path
                         : post.backdrop_path && mobileWidth ? path_img + post.backdrop_path
                             : !post.poster_path || !post.backdrop_path ? imagePlaceholder : ''} alt={post.original_title || post.name} />
                 <div className='sm:ml-10 text-white flex flex-col gap-8 justify-start w-full sm:w-200'>
-                    <h1 className='text-5xl text-white font-extrabold mb-2'>{post.original_title || post.name}</h1>
+                    <h1 className='text-5xl text-white font-extrabold mt-5 mb-2'>{post.original_title || post.name}</h1>
                     <div className='flex items-center justify-between grow-1'>
                         {company.length > 0 && <div className='text-lg text-white mb-4'>{company[0].name}</div>}
                         {!isNaN(vote) &&
@@ -198,7 +200,7 @@ export default function Show({ type }) {
             <section className='flex flex-wrap'>
 
                 {/* IMAGES e VIDEO */}
-                <div className={`${mobileWidth ? 'px-5 w-[100%]' : 'px-10 w-[70%]'} grow-1`}>
+                <div className={`${mobileWidth ? 'px-5 w-full' : 'px-10 w-[50%]'} grow-1`}>
                     <div className='flex flex-col'>
                         <div className='pb-5'>
                             <BtnSwitchWord text1={'immagini'} set1={() => setViewMode('immagini')} text2={'video'} set2={() => setViewMode('video')} styleSelected={'bg-blue-500 text-white'} />
@@ -208,15 +210,17 @@ export default function Show({ type }) {
                             : viewMode === 'immagini' && img.length < 4 &&
                             'Non disponibile'}
                         {viewMode === 'video' && videos ?
-                            <iframe
-                                width={mobileWidth ? '100%' : '50%'}
-                                height="300px"
-                                src={`https://www.youtube.com/embed/${videos.key}`}
-                                title={videos.key}
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowFullScreen
-                                className='rounded-lg'
-                            ></iframe> : viewMode === 'video' && !videos &&
+                            <div className='relative w-full max-w-lg'>
+                                <iframe
+                                    width='w-full h-[300px]'
+                                    height="300px"
+                                    src={`https://www.youtube.com/embed/${videos.key}`}
+                                    title={videos.key}
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                    className='rounded-lg'
+                                ></iframe>
+                            </div> : viewMode === 'video' && !videos &&
                             'Non disponibile'}
                         <Link to={`/${type}/${id}/dettails/${viewMode === 'immagini' ? 'media' : 'video'}`} >
                             <button className='mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg'>Vedi tutti</button>
@@ -369,11 +373,11 @@ export default function Show({ type }) {
             {/* SEASONS DETTAILS */}
             <section>
                 {type === 'tv' &&
-                    <div className='flex items-baseline flex-wrap'>
+                    <div className='flex items-baseline flex-wrap lg:flex-nowrap'>
 
                         {/* SEASONS */}
                         {season &&
-                            <div className='p-10 font-semibold w-[100%]'>
+                            <div className='p-10 font-semibold'>
                                 <h2 className='font-extrabold text-4xl my-2'>Stagioni</h2>
                                 <select disabled={!season.length > 0} name="seasons" id="seasons"
                                     className='mt-4 mb-6 cursor-pointer hover:bg-blue-200 p-0.5 rounded-xl border-2 border-emerald-500'
@@ -389,7 +393,8 @@ export default function Show({ type }) {
                                 {season.filter(e => e.name === selectedSeason).map(e =>
                                     <div key={e.id} className={`flex gap-5 ${mobileWidth ? 'text-white' : ''}`}>
                                         {!mobileWidth ? <img src={e.poster_path ? 'https://image.tmdb.org/t/p/w500' + e.poster_path : imagePlaceholder} alt={e.name} className='w-[200px] rounded-xl' /> : ''}
-                                        <div className='flex flex-col justify-around rounded-xl p-3' id='seasons' style={mobileWidth ? { backgroundImage: `linear-gradient(rgba(1, 1, 22, 0.6), rgba(1, 1, 22, 0.8)), url(${e.poster_path ? 'https://image.tmdb.org/t/p/w500' + e.poster_path : imagePlaceholder})` } : ''}>
+                                        <div className='flex flex-col justify-around rounded-xl p-3' id='seasons'
+                                            style={mobileWidth ? { backgroundImage: `linear-gradient(rgba(1, 1, 22, 0.6), rgba(1, 1, 22, 0.8)), url(${e.poster_path ? 'https://image.tmdb.org/t/p/w500' + e.poster_path : imagePlaceholder})` } : undefined}>
                                             {e.name &&
                                                 <div>
                                                     <h3 className='font-extrabold'>Stagione</h3>
@@ -447,7 +452,7 @@ export default function Show({ type }) {
                                 )}
                             </div>}
 
-                        {/* EPISODES */}
+                        {/* EPISODES
                         {episode &&
                             <div className='w-[100%] p-10'>
                                 <h2 className='font-extrabold text-4xl my-2'>Episodi</h2>
@@ -546,7 +551,9 @@ export default function Show({ type }) {
                                     )}
 
                                 </div>
-                            </div>}
+                            </div>} */}
+
+                        <Episodes id={id} type={type} episodeFiltered={episodeFiltered} selectedSeason={selectedSeason} seasonNumber={seasonNumber} />
                     </div>
                 }
             </section>
