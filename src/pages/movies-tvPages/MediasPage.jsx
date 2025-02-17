@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { useParams } from 'react-router'
 import axios from 'axios'
-import KEY from '../KEY'
-import BtnSwitchWord from '../components/BtnSwitchWord'
+import KEY from '../../KEY'
+import BtnSwitchWord from '../../components/BtnSwitchWord'
 
-import GlobalContext from '../context/GlobalContext'
+import GlobalContext from '../../context/GlobalContext'
 
 export default function MediasPage({ type }) {
 

@@ -9,9 +9,13 @@ import PopularMovie from './pages/PopularMovie'
 import PopularTv from './pages/PopularTv'
 import Show from './pages/Show'
 import DettailsPage from './pages/DettailsPage'
-import MediasPage from './pages/MediasPage'
-import VideoPage from './pages/VideoPage'
-import CrewPage from './pages/CrewPage'
+import MediasPage from './pages/movies-tvPages/MediasPage'
+import VideoPage from './pages/movies-tvPages/VideoPage'
+import CrewPage from './pages/movies-tvPages/CrewPage'
+// Person
+import PersonPage from './pages/PersonPage'
+import MediaPerson from './pages/personPages/MediaPerson'
+// Errors
 import NotFound from './erros_pages/NotFound'
 
 // Context
@@ -46,6 +50,14 @@ function App() {
                   <Route path='video' element={<VideoPage type='tv' />} />
                   <Route path='crew' element={<CrewPage type='tv' />} />
                 </Route>
+              </Route>
+
+
+              <Route path='/person'>
+                <Route path=':id' element={<PersonPage />} />
+                <Route path=':id/dettails' element={<DefaultDettails />}>
+                </Route>
+
               </Route>
             </Route>
             <Route path='/' element={<BlankLayout />}>

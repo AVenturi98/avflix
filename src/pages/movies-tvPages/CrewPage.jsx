@@ -1,12 +1,12 @@
 import * as React from 'react'
-import KEY from '../KEY';
+import KEY from '../../KEY';
 import axios from 'axios';
 import { useParams } from 'react-router';
 
-import personPlaceholder from '../assets/PersonPlaceholder.png'
+import personPlaceholder from '../../assets/PersonPlaceholder.png'
 
 // Context
-import GlobalContext from '../context/GlobalContext';
+import GlobalContext from '../../context/GlobalContext';
 
 export default function CrewPage({ type }) {
 

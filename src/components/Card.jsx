@@ -46,7 +46,7 @@ export default function Card({ item, image, type, styleCard, styleImg, overviewS
     const showVote = title && title.length > 60 || name && name.length > 60 ? stars === false : stars === true
 
     return (
-        <Link to={`/${type}/${id}` + '_' + titleSlug} onMouseEnter={onMouseEnter}>
+        <Link to={`/${type}/${id}` + '-' + titleSlug} onMouseEnter={onMouseEnter}>
             <div className='img_popular_card'>
                 <div className={`${styleCard} shadow-card rounded-2xl`}>
                     <img src={image !== null ? image : imagePlaceholder} alt={title || name} className={`${styleImg} rounded-2xl relative`} />

@@ -190,7 +190,6 @@ a.active {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 1rem;
     width: 100%;
     max-width: 1200px;
 }

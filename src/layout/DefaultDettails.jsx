@@ -18,7 +18,7 @@ export default function DefaultDettails({ type }) {
     return (
         <>
             <div className="my-4 px-2 flex items-center justify-center sm:gap-6 gap-3">
-                <div className="grow-1 text-center text-gray-600 hover:text-blue-400 contain-arrow-show-minus">
+                <div className="sm:grow-1 text-center text-gray-600 hover:text-blue-400 contain-arrow-show-minus">
                     <Link to={`/${type}/${id}`} onMouseOver={() => setShowBack(true)} onMouseOut={() => setShowBack(false)}>
                         {!mobileWidth ?
                             <div>
@@ -30,7 +30,7 @@ export default function DefaultDettails({ type }) {
                             </div>}
                     </Link>
                 </div>
-                <div className="flex items-center gap-4 nav-dettails">
+                <div className={`flex items-center gap-4 nav-dettails ${mobileWidth ? 'grow-1 justify-center' : ''}`}>
                     <NavLink to='media'>
                         IMMAGINI
                     </NavLink>

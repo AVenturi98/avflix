@@ -44,6 +44,7 @@ export function GlobalProvider({ children }) {
     }
 
     /**
+     * FETCH MEDIA
      * 
      * @param {*id} id 
      * @param {*movies / tv} type 
@@ -88,20 +89,48 @@ export function GlobalProvider({ children }) {
             })
     }
 
+    /**
+     * FECTH SECTIONS   
+     * 
+     * @param {movie, tv, person, ect. (String)} typeSection 
+     * @param {popular, credits, ect. (String)} section 
+     * @param {function to iterable} set 
+     * @param {page to get content} page 
+     * @param {id} id 
+     */
+
     // Handle For Section
-    function fetchSections(typeSection, section, set, page) {
-        axios.get(`https://api.themoviedb.org/3/${typeSection}/${section}${KEY}`, {
+    function fetchSections(typeSection, section, set, page, id) {
+        axios.get(`https://api.themoviedb.org/3/${typeSection}/${id ? id + '/' : ''}${section}${KEY}`, {
             params: {
                 language: 'it-IT',
-                page: page
+                page
             },
         })
             .then(res => {
                 set(prev => [...prev, ...res.data.results])
-                // console.log('Fetch Section', res)
+                console.log('Fetch Section', res)
             })
             .catch(err => {
                 console.log('Fetch section Global Context', err)
+            })
+    }
+
+
+    // fetch Section whit ID
+    function fetchSectionID(type, id, section, setResults = () => { }, setData = () => { }) {
+        axios.get(`https://api.themoviedb.org/3/${type}/${id}/${section}${KEY}`, {
+            parmas: {
+                language: 'it-IT'
+            }
+        })
+            .then(res => {
+                setResults(res.data.results)
+                setData(res.data)
+                console.log('Section ID Global Context', res.data)
+            })
+            .catch(err => {
+                console.error('Fetch Section ID GLobal Context', err)
             })
     }
 
@@ -157,7 +186,7 @@ export function GlobalProvider({ children }) {
     const mobileWidth = windowWidth <= 640
     return (
         <GlobalContext.Provider value={{
-            fetchSections, fetchMovies, fetchMedia, fetchVideos, fetchCreditsId, fetchUpComing, mobileWidth,
+            fetchSections, fetchMovies, fetchMedia, fetchVideos, fetchCreditsId, fetchUpComing, fetchSectionID, mobileWidth,
             showMoreMovies, setShowMoreMovies,
             showMoreSeries, setShowMoreSeries,
             cast, setCast,
