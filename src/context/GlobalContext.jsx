@@ -1,9 +1,9 @@
-import React, { createContext } from 'react';
+import React, { createContext, useState } from 'react';
 import axios from 'axios';
 import KEY from '../KEY';
 import { useWindowWidth } from './WindowContext';
 
-
+import Loader from '../components/loader/Loader'
 
 const GlobalContext = createContext();
 
@@ -25,9 +25,15 @@ export function GlobalProvider({ children }) {
     // SLUG
     const titleSlug = (title) => (title).toLowerCase().replace(/ /g, '_');
 
+    // Loader
+    const [loader, setLoader] = React.useState(false)
+
 
     // fetch Popular Movies
     function fetchMovies(type, indexPage, set, setTotalPage = () => { }, setCast = () => { }) {
+        
+        setLoader(true)
+
         axios.get(`https://api.themoviedb.org/3/${type}/popular${KEY}`, {
             params: {
                 language: 'it-IT',
@@ -44,6 +50,7 @@ export function GlobalProvider({ children }) {
                 setTotalPage([])
                 console.log(err)
             })
+            .finally(() => setLoader(false))
     }
 
     /**
@@ -219,7 +226,8 @@ export function GlobalProvider({ children }) {
             upComing,
             currentDate,
             person, setPerson,
-            titleSlug
+            titleSlug,
+            setLoader, loader
         }}>
             {children}
         </GlobalContext.Provider>

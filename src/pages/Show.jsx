@@ -29,11 +29,12 @@ export default function Show({ type }) {
     // Path Image
     const path_img = 'https://image.tmdb.org/t/p/w500'
 
-    const { fetchCreditsId, fetchMedia, fetchVideos, mobileWidth, fetchSectionID,
+    const { fetchCreditsId, fetchMedia, fetchVideos, mobileWidth, fetchSectionID, fetchUpComing,
         cast,
         crew,
         videos,
         currentDate,
+        upComing,
         titleSlug } = React.useContext(GlobalContext)
 
     const [post, setPost] = React.useState([]) // set Post
@@ -110,6 +111,7 @@ export default function Show({ type }) {
         fetchVideos(type, id, () => { })
         fetchSectionID(type, id, 'similar', setSimilar) // handle similar content
         fetchSectionID(type, id, 'recommendations', setRecommendations) // handle recommendations content
+        fetchUpComing({ init: 0, fin: 10, type }) // Coming Soon Movies
 
         document.documentElement.scrollTop = 0
     }, [id])
@@ -463,12 +465,19 @@ export default function Show({ type }) {
                 }
             </section >
 
+            {/* UP COMING if is it Up Coming Movie */}
+            {upComing && post.release_date > currentDate ?
+            < FilteredSection myArray={upComing} type={type} title={'In arrivo'} /> : ''}
+
             {/* SIMILAR  */}
             < FilteredSection myArray={similar} type={type} title={'Correlati'} />
 
             {/* RECOMMENDATIONS */}
             < FilteredSection myArray={recommendations} type={type} title={'Suggeriti'} />
 
+            {/* UP COMING if not Up Coming Movie */}
+            {upComing && post.release_date < currentDate ?
+            < FilteredSection myArray={upComing} type={type} title={'In arrivo'} /> : ''}
         </>
     )
 }
