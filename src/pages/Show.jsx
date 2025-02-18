@@ -33,6 +33,7 @@ export default function Show({ type }) {
         cast,
         crew,
         videos,
+        currentDate,
         titleSlug } = React.useContext(GlobalContext)
 
     const [post, setPost] = React.useState([]) // set Post
@@ -47,7 +48,6 @@ export default function Show({ type }) {
     const [season, setSeason] = React.useState([]) // set Seasons
     const [selectedSeason, setSelectedSeason] = React.useState('') // set Show Selected Season
     const [episode, setEpisode] = React.useState([]) // set Show Episode
-    const [selectedEpisode, setSelectedEpisode] = React.useState('') // set Show Selected Episode
 
     const [similar, setSimilar] = React.useState([]) // Set Similar Content
     const [recommendations, setRecommendations] = React.useState([]) // Set Recommendations Content
@@ -76,7 +76,7 @@ export default function Show({ type }) {
                 setCompany(res.data.production_companies)
                 setCountry(res.data.production_countries)
                 setSeason(res.data.seasons)
-                // console.log('Show Page', res.data)
+                console.log('Show Page', res.data)
             })
             .catch(err => {
                 console.error('Error fetch movie to Show Page', err);
@@ -145,8 +145,8 @@ export default function Show({ type }) {
     return (
         <>
             {/* HERO SHOW */}
-            <section id='hero-show' className={`max-w-screen mb-10 2xl:px-50 py-10 sm:py-20 lg:py-40 flex items-start flex-wrap sm:flex-nowrap ${mobileWidth ? 'justify-center gap-5 px-5' : 'px-15'} bg-gray-100 shadow-lg`}
-                style={{ backgroundImage: `linear-gradient(rgba(1, 1, 22, 0.7), rgba(1, 1, 22, 0.9)), url(https://image.tmdb.org/t/p/original${post.backdrop_path})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+            <section id='hero-show' className={`relative max-w-screen mb-10 2xl:px-50 py-10 sm:py-20 lg:py-40 flex items-start flex-wrap sm:flex-nowrap ${mobileWidth ? 'justify-center gap-5 px-5' : 'px-15'} bg-gray-100 shadow-lg`}
+                style={{ backgroundImage: `linear-gradient(rgba(1, 1, 22, 0.7), rgba(1, 1, 22, 0.9)), url(https://image.tmdb.org/t/p/original${post.backdrop_path})`, backgroundSize: 'cover', backgroundPosition: 'center', zIndex: -99 }}>
                 <img className='w-full sm:w-48 md:w-60 lg:w-80 h-auto rounded-lg shadow-lg shadow-gray-600'
                     src={post.poster_path && !mobileWidth ? path_img + post.poster_path
                         : post.backdrop_path && mobileWidth ? path_img + post.backdrop_path
@@ -194,6 +194,11 @@ export default function Show({ type }) {
                             )}
                         </div>}
                 </div>
+                {post.release_date > currentDate ?
+                    <div className='absolute w-full flex justify-center top-2 left-0'>
+                        <h1 className='text-6xl uppercase coming-show' >coming soon</h1>
+                    </div> : ''
+                }
             </section>
 
             {/* CONTENT */}
@@ -394,7 +399,7 @@ export default function Show({ type }) {
                                     <div key={e.id} className={`flex gap-5 ${mobileWidth ? 'text-white' : ''}`}>
                                         {!mobileWidth ? <img src={e.poster_path ? 'https://image.tmdb.org/t/p/w500' + e.poster_path : imagePlaceholder} alt={e.name} className='w-[200px] rounded-xl' /> : ''}
                                         <div className='flex flex-col justify-around rounded-xl p-3' id='seasons'
-                                            style={mobileWidth ? { backgroundImage: `linear-gradient(rgba(1, 1, 22, 0.6), rgba(1, 1, 22, 0.8)), url(${e.poster_path ? 'https://image.tmdb.org/t/p/w500' + e.poster_path : imagePlaceholder})` } : undefined}>
+                                            style={mobileWidth ? { backgroundImage: `linear-gradient(rgba(1, 1, 22, 0.6), rgba(1, 1, 22, 0.8)), url(${e.poster_path ? 'https://image.tmdb.org/t/p/w500' + e.poster_path : ''})`, minWidth: '320px', minHeight: '300px' } : undefined}>
                                             {e.name &&
                                                 <div>
                                                     <h3 className='font-extrabold'>Stagione</h3>

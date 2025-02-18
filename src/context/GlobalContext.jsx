@@ -112,7 +112,7 @@ export function GlobalProvider({ children }) {
         })
             .then(res => {
                 set(prev => [...prev, ...res.data.results])
-                console.log('Fetch Section', res)
+                // console.log('Fetch Section', res)
             })
             .catch(err => {
                 console.log('Fetch section Global Context', err)
@@ -217,6 +217,7 @@ export function GlobalProvider({ children }) {
             videos, setVideos,
             videoPrev, setVideoPrev,
             upComing,
+            currentDate,
             person, setPerson,
             titleSlug
         }}>

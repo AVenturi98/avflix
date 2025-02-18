@@ -6,6 +6,7 @@ body {
     font-optical-sizing: auto;
     font-style: normal;
     overflow-x: hidden;
+    background-color: #f5f5f5;
 }
 
 /* main>*:not(#hero-show) {
@@ -345,6 +346,23 @@ a.active {
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 90px;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: -10px;
+    display: inline-block;
+    background: linear-gradient(135deg, #ff1e8e, #f19822);
+    -webkit-background-clip: text;
+    /* Aggiunge il gradiente solo al testo */
+    color: transparent;
+    z-index: -1;
+    text-shadow:
+        4px 4px 8px rgba(255, 255, 255, 0.6),
+        0px 0px 25px rgba(238, 238, 238, 0.3),
+        -4px -4px 15px rgba(255, 255, 255, 0.3);
+}
+
+.coming-show {
     font-weight: bold;
     text-align: center;
     text-transform: uppercase;

@@ -34,8 +34,6 @@ export default function VideoPage({ type }) {
         fetchMovieId()
         fetchVideos(type, id, setVideos)
 
-        document.documentElement.scrollTop = 0
-
         // Carica l'API di YouTube
         const tag = document.createElement('script')
         tag.src = "https://www.youtube.com/iframe_api"
