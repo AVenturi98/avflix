@@ -31,8 +31,7 @@ export function GlobalProvider({ children }) {
 
     // fetch Popular Movies
     function fetchMovies(type, indexPage, set, setTotalPage = () => { }, setCast = () => { }) {
-        
-        setLoader(true)
+
 
         axios.get(`https://api.themoviedb.org/3/${type}/popular${KEY}`, {
             params: {
@@ -50,7 +49,6 @@ export function GlobalProvider({ children }) {
                 setTotalPage([])
                 console.log(err)
             })
-            .finally(() => setLoader(false))
     }
 
     /**
@@ -227,7 +225,7 @@ export function GlobalProvider({ children }) {
             currentDate,
             person, setPerson,
             titleSlug,
-            setLoader, loader
+            loader, setLoader
         }}>
             {children}
         </GlobalContext.Provider>

@@ -16,6 +16,8 @@ import PersonPage from './pages/PersonPage'
 import MediaPerson from './pages/personPages/MediaPerson'
 import MediaTaggedPerson from './pages/personPages/MediaTaggedPerson'
 import AllMovieTv from './pages/personPages/AllMovieTv'
+// Search 
+import SearchPage from './pages/SearchPage'
 // Errors
 import NotFound from './erros_pages/NotFound'
 
@@ -33,6 +35,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<DefaultLayout />}>
+
               <Route path='/popular-movie' element={<PopularMovie />} />
               <Route path='/movie' >
                 <Route path=':id' element={<Show type='movie' />} />
@@ -63,9 +66,12 @@ function App() {
                     <Route path='shows' element={<AllMovieTv />} />
                   </Route>
                 </Route>
-
               </Route>
+
+              <Route path='/search' element={<SearchPage />} />
+
             </Route>
+
             <Route path='/' element={<BlankLayout />}>
               <Route path='not-found' element={<NotFound />}></Route>
             </Route>

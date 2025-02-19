@@ -55,10 +55,7 @@ export default function PersonPage() {
                     </div>
                 </div>
                 <div className=' sm:w-[50%]'>
-                    <div className='flex justify-center'>
-                        <h4 className='text-lg sm:text-2xl font-semibold italic'>Biografia</h4>
-                        <div className='grow-1 text-center text-gray-500 italic'>Popolarità {person.popularity}</div>
-                    </div>
+                    <h4 className='text-lg sm:text-2xl font-semibold italic'>Biografia</h4>
                     {person.biography ?
                         <div className='sm:text-lg'>{person.biography}</div>
                         : <div className='text-gray-500'>Nessuna Biografia disponibile</div>

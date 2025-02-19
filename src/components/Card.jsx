@@ -15,7 +15,36 @@ import { useCountUp } from 'use-count-up'
 // Context
 import GlobalContext from '../context/GlobalContext'
 
-export default function Card({ item, image, type, styleCard, styleImg, overviewSmall, overviewLong, votes = false, language = Boolean, stars = Boolean, onMouseEnter }) {
+/**
+     * FETCH MEDIA
+     * 
+     * @param {*item for get elements} item  
+     * @param {*path_img + poster/backdrop_path} image 
+     * @param {* movie / tv} type 
+     * @param {*general style} styleCard 
+     * @param {*image item style} styleImg 
+     * @param {*return overiew slice(0, 10)} overviewSmall
+     * @param {*return overiew slice(0, 20)} overviewLong
+     * @param {*visibility vote average (true / false)} votes
+     * @param {*visibiilty orginal language (true / false)} language
+     * @param {*visibiilty stars average vote (true / false)} stars 
+     * @param {*callback for overlay content card / view image background} onMouseEnter 
+     * 
+     */
+export default function Card({
+    item,
+    image,
+    type,
+    styleCard,
+    styleImg,
+    overviewSmall,
+    overviewLong,
+    votes = false,
+    language = Boolean,
+    stars = Boolean,
+    onMouseEnter,
+    media_name,
+    media_type }) {
 
     const { id, title, name, original_language, vote_average } = item
 
@@ -83,6 +112,18 @@ export default function Card({ item, image, type, styleCard, styleImg, overviewS
                                 </CircularProgress>
                             </Stack>
                         </div>}
+                    {media_name === true && media_type === 'film' || media_type === 'serie tv' ?
+                        <div className='absolute progressVote' >
+                            <p className='italic font-bold'>{title || name}</p>
+                        </div>
+                        : media_name === true && media_type === 'personaggio' ?
+                            <div className='absolute progressVote' >
+                                <p className='italic font-bold'>{name}</p>
+                            </div> : ''}
+
+                    {image === imagePlaceholder && mobileWidth && media_name === false ?
+                        <div className='absolute top-5 bg-green-500 w-full rounded-xs p-2'>{title}</div>
+                        : ''}
 
                 </div>
             </div>

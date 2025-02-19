@@ -22,7 +22,7 @@ nav a:hover {
 }
 
 a.active {
-    color: darkblue;
+    color: greenyellow;
 }
 
 .nav-dettails a {
@@ -179,18 +179,14 @@ a.active {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* padding: 1rem; */
 }
 
 .filtered-genres-title {
     margin-bottom: 1rem;
-    flex-grow: 1;
     align-self: baseline;
 }
 
 .filtered-genres-content {
-    /* display: flex; */
-    /* justify-content: center; */
     width: 100%;
     max-width: 1200px;
 }
@@ -531,7 +527,14 @@ a.active {
         padding: 0 10px
     }
 
-    /* SCROLLBAR */
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: transparent
+    }
+
     #contain-top-cast {
         gap: 0
     }
@@ -540,6 +543,3 @@ a.active {
         margin: 0
     }
 }
-
-
-

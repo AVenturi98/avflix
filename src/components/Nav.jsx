@@ -1,18 +1,16 @@
-import { useNavigate, NavLink } from "react-router"
+import { NavLink, Link } from "react-router"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faSearch } from "@fortawesome/free-solid-svg-icons"
+import logo from '../assets/logo.png'
 
 export default function Nav() {
 
-    const navigate = useNavigate('')
 
     return (
-        <nav className="flex justify-around items-center bg-blue-400 py-5 text-white">
-            <div>
-                LOGO
-            </div>
-            <button
-                type='button'
-                onClick={() => navigate(-1)}>back
-            </button>
+        <nav className="flex justify-around items-center bg-sky-950 py-5 text-white">
+            <Link to="/">
+                <img src={logo} alt={logo} id="logo" />
+            </Link>
             <NavLink to='/'>
                 Home
             </NavLink>
@@ -22,6 +20,9 @@ export default function Nav() {
             </NavLink>
             <NavLink to='/popular-tv'>
                 Series
+            </NavLink>
+            <NavLink to='/search' className='rounded-md py-1 px-2 hover:bg-green-400' >
+                <FontAwesomeIcon icon={faSearch} />
             </NavLink>
         </nav>
     )

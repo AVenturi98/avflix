@@ -77,7 +77,7 @@ export default function Show({ type }) {
                 setCompany(res.data.production_companies)
                 setCountry(res.data.production_countries)
                 setSeason(res.data.seasons)
-                console.log('Show Page', res.data)
+                // console.log('Show Page', res.data)
             })
             .catch(err => {
                 console.error('Error fetch movie to Show Page', err);
@@ -111,7 +111,6 @@ export default function Show({ type }) {
         fetchVideos(type, id, () => { })
         fetchSectionID(type, id, 'similar', setSimilar) // handle similar content
         fetchSectionID(type, id, 'recommendations', setRecommendations) // handle recommendations content
-        fetchUpComing({ init: 0, fin: 10, type }) // Coming Soon Movies
 
         document.documentElement.scrollTop = 0
     }, [id])
@@ -127,6 +126,13 @@ export default function Show({ type }) {
 
     }, [selectedSeason])
 
+    React.useEffect(() => {
+        {
+            type === ' movie' &&
+                fetchUpComing({ init: 0, fin: 10, type })
+        } // Coming Soon Movies
+
+    }, [id, upComing])
 
     const vote = Math.floor(post.vote_average) / 2 // Set Vote num int e stars adapted
 
@@ -236,7 +242,7 @@ export default function Show({ type }) {
 
                     {/* CAST */}
                     {cast.length > 0 &&
-                        <div className={`${mobileWidth ? 'py-8' : 'py-15'}`}>
+                        <div className={`${mobileWidth ? 'pt-12 pb-3' : 'py-15'}`}>
                             <h3 className={`${mobileWidth ? 'mb-2 px-1' : 'mb-8 px-8'} flex items-center gap-5`}>
                                 <p className='text-4xl font-bold'>Cast & Crew</p>
                                 <span className='flex items-baseline hover:text-gray-500 ' >
@@ -384,7 +390,7 @@ export default function Show({ type }) {
 
                         {/* SEASONS */}
                         {season &&
-                            <div className='p-5 font-semibold'>
+                            <div className='w-full p-5 font-semibold'>
                                 <h2 className='font-extrabold text-4xl my-2'>Stagioni</h2>
                                 <select disabled={!season.length > 0} name="seasons" id="seasons"
                                     className='mt-4 mb-6 cursor-pointer hover:bg-blue-200 p-0.5 rounded-xl border-2 border-emerald-500'
@@ -466,8 +472,8 @@ export default function Show({ type }) {
             </section >
 
             {/* UP COMING if is it Up Coming Movie */}
-            {upComing && post.release_date > currentDate ?
-            < FilteredSection myArray={upComing} type={type} title={'In arrivo'} /> : ''}
+            {upComing && post.release_date > currentDate && type === 'movie' ?
+                < FilteredSection myArray={upComing} type={type} title={'In arrivo'} /> : ''}
 
             {/* SIMILAR  */}
             < FilteredSection myArray={similar} type={type} title={'Correlati'} />
@@ -476,8 +482,8 @@ export default function Show({ type }) {
             < FilteredSection myArray={recommendations} type={type} title={'Suggeriti'} />
 
             {/* UP COMING if not Up Coming Movie */}
-            {upComing && post.release_date < currentDate ?
-            < FilteredSection myArray={upComing} type={type} title={'In arrivo'} /> : ''}
+            {upComing && post.release_date < currentDate && type === 'movie' ?
+                < FilteredSection myArray={upComing} type={type} title={'In arrivo'} /> : ''}
         </>
     )
 }
