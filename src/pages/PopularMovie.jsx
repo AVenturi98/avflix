@@ -166,7 +166,8 @@ export default function PopularMovie() {
 
             {/* UP COMING */}
             <section className='popular relative mb-17' >
-                <div className='votes relative py-70 sm:py-100' id='upComing' style={{ backgroundImage: `linear-gradient(rgba(21, 26, 102, 0.78), rgba(21, 26, 102, 0.6)), url(${backgroundUpComingImage || `https://image.tmdb.org/t/p/original${mobileWidth ? posterComingPath : backdropComingPath}`})` }}></div>
+                <div className='votes relative py-70 sm:py-100' id='upComing'
+                    style={{ backgroundImage: `linear-gradient(rgba(21, 26, 102, 0.78), rgba(21, 26, 102, 0.6)), url(${backgroundUpComingImage || `https://image.tmdb.org/t/p/original${mobileWidth ? posterComingPath : backdropComingPath}`})` }}></div>
                 <div className={`flex sm:justify-center mb-5 btnSwitch text-white w-full`}>
                     {!mobileWidth ?
                         <BtnSwitchWord text1={'poster'} set1={() => setViewMode('poster')}
@@ -176,7 +177,7 @@ export default function PopularMovie() {
                 </div>
                 <div className='contain-top5 absolute'>
                     <div className={`flex items-center overflow-y-hidden pb-8 justify-baseline xl:justify-center sm:px-5 ${mobileWidth ? 'overflow-x-scroll gap-3 px-3' : 'gap-4'}`}>
-                        {upComing.slice(0, 5).map((e, i) => {
+                        {upComing.map((e, i) => {
                             const video = videoPrev.find(video => video.movie_id === e.id);
                             return viewMode === 'poster' ? (
                                 <Card key={i}

@@ -128,7 +128,7 @@ export function GlobalProvider({ children }) {
     // fetch Section whit ID
     function fetchSectionID(type, id, section, setResults = () => { }, setData = () => { }) {
         axios.get(`https://api.themoviedb.org/3/${type}/${id}/${section}${KEY}`, {
-            parmas: {
+            params: {
                 language: 'it-IT'
             }
         })

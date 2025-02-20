@@ -44,7 +44,12 @@ export default function PersonPage() {
                         </div>
                         <div>
                             <h4 className='text-lg font-semibold italic'>{person.birthday || person.place_of_birth ? 'Quando e dove' : ''}</h4>
-                            <div>{person.birthday ? person.birthday + ', ' : ''}</div>
+                            <div>
+                                {person.birthday && person.deathday ?
+                                    `${person.birthday}/${person.deathday}, `
+                                    : person.birthday && !person.deathday ? person.birthday + ', '
+                                        : ''}
+                            </div>
                             <div>{person.place_of_birth}</div>
                         </div>
                         <div className='sm:w-[50%] italic hover:text-gray-500 bg-blue-500 p-1 text-white rounded-lg'>

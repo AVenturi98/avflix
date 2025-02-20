@@ -51,7 +51,7 @@ export default function SearchPage() {
                 setPost(res.data.results)
                 setLoading(false)
                 setSearched(true)
-                console.log('Fetch Search Page', res.data)
+                // console.log('Fetch Search Page', res.data)
             })
             .catch(err => {
                 console.error('Error Search Page', err)
@@ -100,7 +100,7 @@ export default function SearchPage() {
                                         }
                                         styleCard={mobileWidth ? 'w-[150px]' : 'w-[200px]'}
                                         styleImg={mobileWidth ? 'w-xs h-[220px]' : 'w-[200px] h-[300px]'}
-                                        media_name={true}
+                                        media_name={mobileWidth ? true : false}
                                         media_type={e.media_type === 'tv' ? 'serie tv'
                                             : e.media_type === 'movie' ? 'film'
                                                 : e.media_type === 'person' ? 'personaggio' : ''} />

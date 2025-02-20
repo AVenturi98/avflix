@@ -112,11 +112,11 @@ export default function Card({
                                 </CircularProgress>
                             </Stack>
                         </div>}
-                    {media_name === true && media_type === 'film' || media_type === 'serie tv' ?
+                    {media_name === true && media_type === 'film' || media_type === 'serie tv' && mobileWidth ?
                         <div className='absolute progressVote' >
                             <p className='italic font-bold'>{title || name}</p>
                         </div>
-                        : media_name === true && media_type === 'personaggio' ?
+                        : media_name === true && media_type === 'personaggio' && mobileWidth ?
                             <div className='absolute progressVote' >
                                 <p className='italic font-bold'>{name}</p>
                             </div> : ''}
