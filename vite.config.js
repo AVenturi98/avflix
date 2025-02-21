@@ -8,8 +8,5 @@ export default defineConfig({
     react(),
     tailwindcss()
   ],
-  // server: {
-  //   host: '192.168.195.142', // Permette l'accesso da altri dispositivi
-  //   port: 5174, // Puoi cambiare la porta se necessario
-  // },
+
 })
