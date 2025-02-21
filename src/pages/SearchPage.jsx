@@ -77,7 +77,7 @@ export default function SearchPage() {
                     <button type='submit' className='active:bg-sky-800 rounded-md'>
                         <FontAwesomeIcon icon={faSearch} className='hover:text-gray-500 px-3' />
                     </button>
-                    <input ref={focused} type="text" name="title" id="title" onChange={handleChangeInput}
+                    <input ref={focused} min={1} max={100} type="text" name="title" id="title" onChange={handleChangeInput}
                         placeholder="cerca tutti i film, serie tv e personaggi..."
                         className="grow-1 sm:grow-0 sm:w-[50%] px-3 py-0.5 focus-visible:outline-2 focus-visible:outline-sky-700" />
                     {searched && <p className='text-gray-500 px-2'>risultati {!mobileWidth ? 'per ' : ''} <span className='italic text-gray-800'>{!mobileWidth ? ` ${search} ` : ''}</span>{post.length}</p>}

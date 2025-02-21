@@ -18,7 +18,7 @@ import { useState } from "react";
  * @returns 
  */
 
-export default function BtnSwitchWord({ text1, length1, length2, text2, text3, set1, set2, set3, styleSelected, flex }) {
+export default function BtnSwitchWord({ text1, text2, text3, length1, length2, length3, set1, set2, set3, styleSelected, flex }) {
     const [selectedWord, setSelectedWord] = useState(text1);
 
     const handleClick = (word) => {
@@ -54,7 +54,7 @@ export default function BtnSwitchWord({ text1, length1, length2, text2, text3, s
                         }`}
                     onClick={() => { handleClick(text3), set3() }}
                 >
-                    {text3}
+                    {length3 ? text3 + ' (' + length3 + ')' : text3}
                 </button>
             }
         </div>

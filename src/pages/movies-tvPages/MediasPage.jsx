@@ -27,6 +27,8 @@ export default function MediasPage({ type }) {
     const [viewModeImg, setViewModeImg] = React.useState('sfondi') // set View Mode
     const [backdrops, setBackdrops] = React.useState([]) // set Images Backdrop
     const [posters, setPosters] = React.useState([]) // set Images Poster
+    const [logos, setLogos] = React.useState([]) // set Images Logo
+
 
     const { id } = useParams()
 
@@ -51,6 +53,7 @@ export default function MediasPage({ type }) {
         fetchMovieId() // global fetch
         fetchMedia(id, type, () => { }, setBackdrops) // handle images backdrop
         fetchMedia(id, type, () => { }, () => { }, setPosters) // handle images poster
+        fetchMedia(id, type, () => { }, () => { }, () => { }, setLogos) // handle images logo
 
         document.documentElement.scrollTop = 0
 
@@ -94,11 +97,15 @@ export default function MediasPage({ type }) {
                         length1={backdrops.length}
                         text2={'poster'}
                         length2={posters.length}
+                        text3={'logo'}
+                        length3={logos.length}
                         set1={() => setViewModeImg('sfondi')}
                         set2={() => setViewModeImg('poster')}
+                        set3={() => setViewModeImg('logo')}
                         styleSelected={'bg-green-500'} />
                 </div>
 
+                {/* SFONDI */}
                 {viewModeImg === 'sfondi' ?
                     <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
                         {backdrops.map((e, i) =>
@@ -109,9 +116,17 @@ export default function MediasPage({ type }) {
                     </div>
                     : !backdrops.length > 0 ?
                         <div className='flex justify-center'>Nessun poster disponibile</div> : ''}
+
+                {/* POSTER */}
                 {viewModeImg === 'poster' ?
                     <AllMedia myArray={posters} />
                     : !posters.length > 0 ?
+                        <div className='flex justify-center'>Nessun poster disponibile</div> : ''}
+
+                {/* LOGO */}
+                {viewModeImg === 'logo' ?
+                    <AllMedia myArray={logos} />
+                    : !logos.length > 0 ?
                         <div className='flex justify-center'>Nessun poster disponibile</div> : ''}
             </div>
 

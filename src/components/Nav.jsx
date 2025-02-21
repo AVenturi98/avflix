@@ -25,10 +25,10 @@ export default function Nav() {
                     </NavLink>
 
                     <NavLink to='/popular-movie'>
-                        Movies
+                        Film
                     </NavLink>
                     <NavLink to='/popular-tv'>
-                        Series
+                        Serie Tv
                     </NavLink>
                     <NavLink to='/search' className='rounded-md py-1 px-2 hover:bg-green-400' >
                         <FontAwesomeIcon icon={faSearch} />

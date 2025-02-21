@@ -11,6 +11,7 @@ import Show from './pages/Show'
 import MediasPage from './pages/movies-tvPages/MediasPage'
 import VideoPage from './pages/movies-tvPages/VideoPage'
 import CrewPage from './pages/movies-tvPages/CrewPage'
+import Home from './pages/Home'
 // Person
 import PersonPage from './pages/PersonPage'
 import MediaPerson from './pages/personPages/MediaPerson'
@@ -35,6 +36,8 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<DefaultLayout />}>
+
+              <Route index element={<Home />} />
 
               <Route path='/popular-movie' element={<PopularMovie />} />
               <Route path='/movie' >

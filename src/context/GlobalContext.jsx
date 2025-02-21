@@ -62,14 +62,21 @@ export function GlobalProvider({ children }) {
      */
 
     // Handle images
-    function fetchMedia(id, type, setFirstImg = () => { }, setImgs = () => { }, setPoster = () => { }) {
+    function fetchMedia(id, type,
+        setFirstImg = () => { },
+        setImgs = () => { },
+        setPoster = () => { },
+        setLogo = () => { }) {
         axios.get(`https://api.themoviedb.org/3/${type}/${id}/images${KEY}`)
             .then(res => {
-                if (res.data.backdrops.length > 0) {
+                if (res.data.backdrops.length > 0 ||
+                    res.data.posters.length > 0 ||
+                    res.data.logos.length > 0) {
                     setFirstImg(`https://image.tmdb.org/t/p/original` + res.data.backdrops[0].file_path)
                     setImgs(res.data.backdrops)
                     setPoster(res.data.posters)
-                    // console.log('Media', res.data)
+                    setLogo(res.data.logos)
+                    // console.log('Media', res.data.logos)
                 }
             })
             .catch(err => {

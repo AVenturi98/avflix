@@ -42,7 +42,7 @@ export default function MenuMobile() {
                             </NavLink>
                             <NavLink to='/popular-movie' className='text-2xl my-4' onClick={() => setOpen(false)}>
                                 <div>
-                                    Movies
+                                    Film
                                     <span className='ml-2'>
                                         <FontAwesomeIcon icon={faFilm} />
                                     </span>
@@ -50,7 +50,7 @@ export default function MenuMobile() {
                             </NavLink>
                             <NavLink to='/popular-tv' className='text-2xl my-4' onClick={() => setOpen(false)}>
                                 <div>
-                                    Series
+                                    Serie Tv
                                     <span className='ml-2'>
                                         <FontAwesomeIcon icon={faTv} />
                                     </span>
