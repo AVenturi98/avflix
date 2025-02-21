@@ -27,11 +27,11 @@ export default function FilteredSection({ myArray = [], type, title, init, fin, 
                         WebkitMaskImage: 'linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 15%, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%)',
                         maskImage: 'linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 1%, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%)',
                     }}>
-                        <div className='px-3 sm:px-10 filtered-genres-title flex gap-16 flex-wrap'>
+                        <div className='px-3 sm:px-10 filtered-genres-title flex gap-8 sm:gap-16 sm:flex-wrap'>
                             <h2 className='filtered-genres-title text-2xl sm:text-4xl font-bold my-6'>{title}</h2>
                             {viewmorePerson ?
                                 <Link to={`/${type}/${id}/dettails/media/shows`} >
-                                    <button className='mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg'>Vedi tutti</button>
+                                    <button className='mt-4 px-1 sm:px-4 py-2 bg-blue-500 text-white rounded-lg'>Vedi tutti</button>
                                 </Link>
                                 : ''}
                         </div>

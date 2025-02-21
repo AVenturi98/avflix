@@ -1,0 +1,44 @@
+#container_menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(2, 2, 17, 0.9);
+    z-index: 99;
+    transition: all 0.5s;
+    animation: width 0.5s ease-in-out;
+}
+
+@keyframes width {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+
+.bars {
+    cursor: pointer;
+    color: greenyellow
+}
+
+.bars.active {
+    color: #fff;
+}
+
+.btnClose {
+    position: absolute;
+    top: 15%;
+    right: 10%;
+    font-size: 30px;
+    color: greenyellow;
+    cursor: pointer;
+}
+
+.btnClose:hover {
+    color: #fff;
+}
