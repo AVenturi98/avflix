@@ -85,10 +85,10 @@ export default function SearchPage() {
 
 
                 <div className='flex justify-center items-center'>
-                    {loading ? (
+                    {loading ?
                         <CardPlaceholder />
-                    ) : (
-                        post.length > 0 ? (
+                        :
+                        post.length > 0 ?
                             <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5'>
                                 {post.map((e, i) =>
                                     <Card key={i} type={e.media_type} item={e}
@@ -106,10 +106,10 @@ export default function SearchPage() {
                                                 : e.media_type === 'person' ? 'personaggio' : ''} />
                                 )}
                             </div>
-                        ) : (
+                            :
                             searched && 'Nessun risultato'
-                        )
-                    )}
+
+                    }
                 </div>
             </div>
 

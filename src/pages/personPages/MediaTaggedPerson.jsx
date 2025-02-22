@@ -12,6 +12,10 @@ import BtnSwitchWord from "../../components/BtnSwitchWord"
 // Lazy Loader
 import LazyLoader from "../../components/LazyLoader"
 
+// Icons 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faSpinner } from "@fortawesome/free-solid-svg-icons"
+
 export default function MediaTaggedPerson() {
 
     // Path Img
@@ -23,12 +27,15 @@ export default function MediaTaggedPerson() {
     const [posters, setPosters] = useState([]) // Set Person Image Tag Poster
     const [still, setStill] = useState([]) // Set Person Image Tag Still path
 
+    const [loading, setLoading] = useState(false) // Set Loading State
+
     const [viewMode, setViewMode] = useState('sfondi')
 
     const { id } = useParams()
 
     // fetch Medias
     function fetchMedias() {
+        setLoading(true)
         axios.get(`https://api.themoviedb.org/3/person/${id}/tagged_images${KEY}`, {
             params: {
                 language: 'en-US'
@@ -38,6 +45,7 @@ export default function MediaTaggedPerson() {
                 setBackdrops(res.data.results.map(e => e.media.backdrop_path).filter(Boolean))
                 setPosters(res.data.results.map(e => e.media.poster_path).filter(Boolean))
                 setStill(res.data.results.map(e => e.media.still_path).filter(Boolean))
+                setLoading(false)
                 // console.log('Media Tagged Page', res.data.results.map(e => e.media.backdrop_path))
             })
             .catch(err => {
@@ -78,12 +86,22 @@ export default function MediaTaggedPerson() {
                         )}
                     </div>
                     : viewMode === 'sfondi' && !backdrops.length && !still.length ?
-                        <div className='flex justify-center'>Nessun sfondo disponibile</div> : ''}
+                        <div className='flex justify-center'>Nessun sfondo disponibile</div>
+                        : loading && viewMode === 'sfondi' ?
+                            <div className="flex items-center justify-center">
+                                <FontAwesomeIcon icon={faSpinner} />
+                            </div>
+                            : ''}
 
                 {viewMode === 'poster' && posters.length > 0 ?
                     <AllMedia myArray={posters} />
-                    : viewMode === 'poster' && !posters.length ?
-                        <div className='flex justify-center'>Nessun poster disponibile</div> : ''}
+                    : viewMode === 'poster' && !posters.length > 0 ?
+                        <div className='flex justify-center'>Nessun poster disponibile</div>
+                        : loading && viewMode === 'poster' ?
+                            <div className="flex items-center justify-center">
+                                <FontAwesomeIcon icon={faSpinner} />
+                            </div>
+                            : ''}
             </div>
         </>
     )

@@ -32,7 +32,7 @@ export default function NavDettailsPerson({ type }) {
                             </div>}
                     </Link>
                 </div>
-                <div className={`flex items-center gap-4 nav-dettails ${mobileWidth ? 'grow-1 justify-center' : ''}`}>
+                <div className={`flex flex-wrap items-center gap-4 nav-dettails ${mobileWidth ? 'grow-1 justify-center' : ''}`}>
                     <div className='contain-btn-dettails'>
                         <NavLink to='media/person'>
                             <p>

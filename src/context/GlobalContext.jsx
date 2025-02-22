@@ -3,7 +3,7 @@ import axios from 'axios';
 import KEY from '../KEY';
 import { useWindowWidth } from './WindowContext';
 
-import Loader from '../components/loader/Loader'
+import BtnBackTop from '../components/BtnBackTop';
 
 const GlobalContext = createContext();
 
@@ -27,6 +27,8 @@ export function GlobalProvider({ children }) {
 
     // Loader
     const [loader, setLoader] = React.useState(false)
+
+    const [loading, setLoading] = React.useState(false)
 
 
     // fetch Popular Movies
@@ -76,7 +78,7 @@ export function GlobalProvider({ children }) {
                     setImgs(res.data.backdrops)
                     setPoster(res.data.posters)
                     setLogo(res.data.logos)
-                    // console.log('Media', res.data.logos)
+                    console.log('Media', res.data.logos)
                 }
             })
             .catch(err => {
@@ -134,6 +136,8 @@ export function GlobalProvider({ children }) {
 
     // fetch Section whit ID
     function fetchSectionID(type, id, section, setResults = () => { }, setData = () => { }) {
+
+        setLoading(true)
         axios.get(`https://api.themoviedb.org/3/${type}/${id}/${section}${KEY}`, {
             params: {
                 language: 'it-IT'
@@ -142,6 +146,7 @@ export function GlobalProvider({ children }) {
             .then(res => {
                 setResults(res.data.results)
                 setData(res.data)
+                setLoading(false)
                 // console.log('Section ID Global Context', res.data)
             })
             .catch(err => {
@@ -201,6 +206,8 @@ export function GlobalProvider({ children }) {
     // fetch Global Person Id
     function fetchPersonId(id) {
 
+        setLoading(true)
+
         axios.get(`https://api.themoviedb.org/3/person/${id}${KEY}`, {
             params: {
                 language: 'en-US'
@@ -208,6 +215,7 @@ export function GlobalProvider({ children }) {
         })
             .then(res => {
                 setPerson(res.data)
+                setLoading(false)
                 // console.log('Person Id Person Page', res.data)
 
             })
@@ -232,9 +240,11 @@ export function GlobalProvider({ children }) {
             currentDate,
             person, setPerson,
             titleSlug,
-            loader, setLoader
+            loader, setLoader,
+            loading
         }}>
             {children}
+            <BtnBackTop />
         </GlobalContext.Provider>
     )
 }

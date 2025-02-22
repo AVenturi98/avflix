@@ -31,6 +31,7 @@ nav a.active {
     color: #052F4A;
     border-radius: calc(infinity * 1px);
     border: 3px solid #052F4A;
+    transition: all 0.3s;
 }
 
 .contain-btn-dettails p {

@@ -20,7 +20,7 @@ export default function DefaultLayout() {
             <main>
                 <Outlet />
             </main>
-            <footer>
+            <footer className="mt-24">
                 <Footer />
             </footer>
         </>

@@ -51,7 +51,7 @@ export default function PersonPage() {
                             </div>
                             <div>{person.place_of_birth}</div>
                         </div>
-                        <div className='sm:w-[50%] italic border-4 border-sky-950 rounded-full text-center hover:bg-sky-950 hover:text-white'>
+                        <div className='sm:w-[50%] lg:w-[60%] italic border-4 border-sky-950 rounded-full text-center hover:bg-sky-950 hover:text-white'>
                             <Link to='dettails/media/person'>
                                 <p className='border-2 border-white rounded-full'>
                                     tutti i contenuti

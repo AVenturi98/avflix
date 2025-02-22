@@ -10,12 +10,16 @@ import BtnSwitchWord from '../../components/BtnSwitchWord'
 // Placeholder
 import imagePlaceholder from '../../assets/ImagePlaceholder.jpg'
 
+// Icons 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+
 export default function AllMovieTv() {
 
     // Path Image
     const path_img = 'https://image.tmdb.org/t/p/w500'
 
-    const { mobileWidth, fetchSectionID, fetchPersonId, person } = React.useContext(GlobalContext)
+    const { mobileWidth, fetchSectionID, fetchPersonId, person, loading } = React.useContext(GlobalContext)
 
     const [allShows, setAllShows] = React.useState({ cast: [], crew: [] }) // get All Shows for Person
     const [viewModeImg, setViewModeImg] = React.useState('apparizioni') // set View Mode
@@ -46,7 +50,8 @@ export default function AllMovieTv() {
                         length2={allShows.crew.length > 0 ? allShows.crew.length : ''}
                         set1={() => setViewModeImg('apparizioni')}
                         set2={() => setViewModeImg('altro')}
-                        styleSelected={'bg-green-500'} />
+                        styleSelected={'bg-green-500'}
+                        flex={'flex flex-wrap sm:flex-nowrap gap-2'} />
                 </div>
 
                 {/* FILTER */}
@@ -93,7 +98,10 @@ export default function AllMovieTv() {
                             styleImg={mobileWidth ? 'w-xs h-[220px]' : 'w-xs h-[350px]'} />
                     )}
                 </div>
-                : ''}
+                : viewModeImg === 'altro' && loading ?
+                    <div className="flex items-center justify-center">
+                        <FontAwesomeIcon icon={faSpinner} />
+                    </div> : ''}
         </section >
     )
 }

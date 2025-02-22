@@ -46,7 +46,7 @@ export default function Episodes({ id, type, episodeFiltered, seasonNumber, sele
             {/* EPISODES */}
             {episode &&
                 <div className='w-[100%] p-5'>
-                    <h2 className='font-extrabold text-4xl my-2'>Episodi</h2>
+                    <h2 className='font-extrabold text-3xl my-2'>Episodi</h2>
                     <select disabled={!selectedSeason} name="episodes" id="episodes"
                         value={selectedEpisode}
                         onChange={(e) => setSelectedEpisode(e.target.value)}

@@ -390,14 +390,15 @@ export default function Show({ type }) {
             </section >
 
             {/* SEASONS DETTAILS */}
-            < section >
+            < section className='my-14 px-5'>
+                <h2 className='font-extrabold text-4xl my-2'>Esplora la serie</h2>
                 {type === 'tv' &&
                     <div className='flex items-baseline flex-wrap lg:flex-nowrap'>
 
                         {/* SEASONS */}
                         {season &&
                             <div className='w-full p-5 font-semibold'>
-                                <h2 className='font-extrabold text-4xl my-2'>Stagioni</h2>
+                                <h2 className='font-extrabold text-3xl my-2'>Stagioni</h2>
                                 <select disabled={!season.length > 0} name="seasons" id="seasons"
                                     className='mt-4 mb-6 cursor-pointer hover:bg-blue-200 p-0.5 rounded-xl border-2 border-emerald-500'
                                     value={selectedSeason}
