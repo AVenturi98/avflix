@@ -9,6 +9,9 @@ import GlobalContext from "../../context/GlobalContext"
 import AllMedia from "../../components/AllMedia"
 import BtnSwitchWord from "../../components/BtnSwitchWord"
 
+// Lazy Loader
+import LazyLoader from "../../components/LazyLoader"
+
 export default function MediaTaggedPerson() {
 
     // Path Img
@@ -73,7 +76,7 @@ export default function MediaTaggedPerson() {
                     <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
                         {(backdrops.length > 0 ? backdrops : still).map((e, i) =>
                             <div key={i} className="relative cursor-pointer" >
-                                <img src={path_img + e} className="w-full h-auto rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300" />
+                                <LazyLoader image={path_img + e} style={"w-full h-auto rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300"} />
                             </div>
                         )}
                     </div>

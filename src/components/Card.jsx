@@ -15,6 +15,9 @@ import { useCountUp } from 'use-count-up'
 // Context
 import GlobalContext from '../context/GlobalContext'
 
+// Lazy Loader
+import LazyLoader from './LazyLoader'
+
 /**
      * FETCH MEDIA
      * 
@@ -82,7 +85,7 @@ export default function Card({
         <Link to={`/${type}/${id}` + '-' + titleSlug(title || name)} onMouseEnter={onMouseEnter}>
             <div className='img_popular_card'>
                 <div className={`${styleCard} shadow-card rounded-2xl`}>
-                    <img src={image !== null ? image : imagePlaceholder} alt={title || name} className={`${styleImg} rounded-2xl relative`} />
+                    <LazyLoader image={image !== null ? image : imagePlaceholder} style={`${styleImg} rounded-2xl relative`} />
 
                     {!mobileWidth ?
                         <div className='hover_el_popular_card flex justify-center items-start flex-col gap-5 p-3 rounded-2xl' >

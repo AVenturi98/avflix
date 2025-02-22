@@ -4,6 +4,8 @@ import axios from 'axios'
 import KEY from '../../KEY'
 import Modal from "react-modal";
 
+// Lazy Loader
+import LazyLoader from '../../components/LazyLoader';
 
 // Components
 import BtnSwitchWord from '../../components/BtnSwitchWord'
@@ -110,7 +112,8 @@ export default function MediasPage({ type }) {
                     <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
                         {backdrops.map((e, i) =>
                             <div key={i} className="relative cursor-pointer" onClick={() => openModal(i)} >
-                                <img src={e.file_path ? path_img + e.file_path : path_img + e} alt={e.name} className="w-full h-auto rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300" />
+                                <LazyLoader image={e.file_path ? path_img + e.file_path : path_img + e}
+                                    style={"w-full h-auto rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300"} />
                             </div>
                         )}
                     </div>

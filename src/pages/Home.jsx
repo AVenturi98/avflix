@@ -6,6 +6,8 @@ import TopCast from '../components/TopCast'
 import FilteredSection from '../components/FilteredSection'
 // Context
 import GlobalContext from '../context/GlobalContext'
+// Lazy Loeader
+import LazyLoader from '../components/LazyLoader'
 export default function Home() {
 
     // Path Image Original
@@ -84,7 +86,7 @@ export default function Home() {
                 backgroundImage: `linear-gradient(rgba(21, 26, 102, 0.5), rgba(21, 26, 102, 0.6)), url(${path_img_or + trendImgWeek.backdrop_path})`,
             }}
                 className='h-[500px] bg-cover bg-center flex justify-center items-center hero_home'>
-                <img src={path_img_5 + logo.file_path} className='opacity-80 px-2' />
+                <LazyLoader image={path_img_5 + logo.file_path} style={'opacity-80 px-2'} />
 
             </div >
             <FilteredSection myArray={trendWeek} title={'Questa settimana'} type={trendWeek.map(e => e.media_type)} />

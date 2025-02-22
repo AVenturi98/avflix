@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 
+// Lazy Loader
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight, faX } from "@fortawesome/free-solid-svg-icons";
@@ -38,7 +42,15 @@ const CollageGallery = ({ images = [] }) => {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "5px", maxWidth: "600px" }} >
             {visibleImages.map((img, index) => (
                 <div key={index} style={{ position: "relative", cursor: "pointer" }} onClick={() => openModal(index)}>
-                    <img src={img.src} alt={img.alt || "Image"} style={{ width: "100%", height: "auto", borderRadius: "8px" }} />
+                    <LazyLoadImage
+                        alt={img.title || img.name}
+                        effect="blur"
+                        wrapperProps={{
+                            // If you need to, you can tweak the effect transition using the wrapper style.
+                            style: { transitionDelay: "1s" },
+                        }}
+                        src={img.src}
+                        className="w-full h-auto rounded-md" />
                     {index === 3 && extraImagesCount > 0 && (
                         <div style={{
                             position: "absolute",
