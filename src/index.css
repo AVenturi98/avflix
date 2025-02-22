@@ -21,25 +21,42 @@ nav a:hover {
     color: blue;
 }
 
-a.active {
+nav a.active {
     color: greenyellow;
 }
 
-.nav-dettails a {
-    background-color: dodgerblue;
-    padding: 5px 8px;
-    border-radius: 10px;
-    color: #fff
+/* BTNS DETTAILS PERSON  */
+.contain-btn-dettails {
+    text-transform: uppercase;
+    color: #052F4A;
+    border-radius: calc(infinity * 1px);
+    border: 3px solid #052F4A;
 }
 
-.nav-dettails a:hover {
-    background-color: #b8b7b7;
-    color: green;
-    transition: all 300ms;
+.contain-btn-dettails p {
+    border: 2px solid rgba(0, 0, 0, 0);
+    border-radius: calc(infinity * 1px);
+    color: #052F4A;
+    padding: 0 8px;
+    width: 100%;
 }
 
-.nav-dettails a.active {
-    background-color: rgb(3, 194, 3);
+.contain-btn-dettails:hover {
+    background-color: #052F4A;
+
+    p {
+        border: 2px solid white;
+        color: white;
+    }
+}
+
+.nav-dettails .contain-btn-dettails .active {
+
+    p {
+        background-color: rgb(3, 226, 3);
+        color: #052F4A;
+        border: 2px solid white;
+    }
 }
 
 

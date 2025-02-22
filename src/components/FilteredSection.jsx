@@ -24,12 +24,16 @@ export default function FilteredSection({ myArray = [], type, title, init, fin, 
             {myArray.length >= 1 ?
                 <section className="filtered-genres-container">
                     <div className="filtered-genres-content flex-col sm:gap-3 sm:mb-10">
-                        <div className='px-3 sm:px-10 filtered-genres-title flex gap-8 sm:gap-16 sm:flex-wrap'>
+                        <div className='px-3 sm:px-10 filtered-genres-title flex items-center gap-8 sm:gap-16'>
                             <h2 className='filtered-genres-title text-2xl sm:text-4xl font-bold my-6'>{title}</h2>
                             {viewmorePerson ?
-                                <Link to={`/${type}/${id}/dettails/media/shows`} >
-                                    <button className='mt-4 px-1 sm:px-4 py-2 bg-blue-500 text-white rounded-lg'>Vedi tutti</button>
-                                </Link>
+                                <div className='italic border-4 border-sky-950 rounded-full text-center hover:bg-sky-950 hover:text-white'>
+                                    <Link to={`/${type}/${id}/dettails/media/shows`}>
+                                        <p className='px-3 border-2 border-white rounded-full'>
+                                            tutti i contenuti
+                                        </p>
+                                    </Link>
+                                </div>
                                 : ''}
                         </div>
                         <div className='flex items-center grow-1 gap-2 sm:gap-5 overflow-x-auto overflow-y-hidden sm:pb-8 pl-2 sm:pl-5 pr-15 sm:pr-35'>

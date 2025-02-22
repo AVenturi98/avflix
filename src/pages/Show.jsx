@@ -220,7 +220,7 @@ export default function Show({ type }) {
                 <div className={`${mobileWidth ? 'px-5 w-full' : 'px-10 w-[70%]'} grow-1`}>
                     <div className='flex flex-col'>
                         <div className='pb-5'>
-                            <BtnSwitchWord text1={'immagini'} set1={() => setViewMode('immagini')} text2={'video'} set2={() => setViewMode('video')} styleSelected={'bg-blue-500 text-white'} />
+                            <BtnSwitchWord text1={'immagini'} set1={() => setViewMode('immagini')} text2={'video'} set2={() => setViewMode('video')} styleSelected={'bg-green-500'} />
                         </div>
                         {viewMode === 'immagini' && img.length > 3 ?
                             <ImageCollage images={collageImages} />
@@ -239,9 +239,11 @@ export default function Show({ type }) {
                                 ></iframe>
                             </div> : viewMode === 'video' && !videos &&
                             'Non disponibile'}
-                        <Link to={`/${type}/${id}/dettails/${viewMode === 'immagini' ? 'media' : 'video'}`} >
-                            <button className='mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg'>Vedi tutti</button>
-                        </Link>
+                        <div className='contain-btn-dettails w-[50%] sm:w-[30%] text-center my-3'>
+                            <Link to={`/${type}/${id}/dettails/${viewMode === 'immagini' ? 'media' : 'video'}`} >
+                                <p>Vedi tutti</p>
+                            </Link>
+                        </div>
                     </div>
 
                     {/* CAST */}

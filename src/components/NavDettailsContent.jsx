@@ -34,15 +34,27 @@ export default function NavDettailsContent({ type }) {
                     </Link>
                 </div>
                 <div className={`flex items-center gap-4 nav-dettails ${mobileWidth ? 'grow-1 justify-center' : ''}`}>
-                    <NavLink to='media'>
-                        IMMAGINI
-                    </NavLink>
-                    <NavLink to='video'>
-                        VIDEO
-                    </NavLink>
-                    <NavLink to='crew'>
-                        CREW
-                    </NavLink>
+                    <div className="contain-btn-dettails">
+                        <NavLink to='media'>
+                            <p>
+                                IMMAGINI
+                            </p>
+                        </NavLink>
+                    </div>
+                    <div className="contain-btn-dettails">
+                        <NavLink to='video'>
+                            <p>
+                                VIDEO
+                            </p>
+                        </NavLink>
+                    </div>
+                    <div className="contain-btn-dettails">
+                        <NavLink to='crew'>
+                            <p>
+                                CREW
+                            </p>
+                        </NavLink>
+                    </div>
                 </div>
                 <div className={mobileWidth ? 'hidden' : 'grow-1 opacity-0'}>
                     BLANK OUTLET

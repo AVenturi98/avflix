@@ -33,15 +33,27 @@ export default function NavDettailsPerson({ type }) {
                     </Link>
                 </div>
                 <div className={`flex items-center gap-4 nav-dettails ${mobileWidth ? 'grow-1 justify-center' : ''}`}>
-                    <NavLink to='media/person'>
-                        PERSONAGGIO
-                    </NavLink>
-                    <NavLink to='media/images'>
-                        CORRELATE
-                    </NavLink>
-                    <NavLink to='media/shows'>
-                        SHOWS
-                    </NavLink>
+                    <div className='contain-btn-dettails'>
+                        <NavLink to='media/person'>
+                            <p>
+                                personaggio
+                            </p>
+                        </NavLink>
+                    </div>
+                    <div className='contain-btn-dettails '>
+                        <NavLink to='media/images'>
+                            <p>
+                                correlate
+                            </p>
+                        </NavLink>
+                    </div>
+                    <div className='contain-btn-dettails '>
+                        <NavLink to='media/shows'>
+                            <p>
+                                shows
+                            </p>
+                        </NavLink>
+                    </div>
                 </div>
                 <div className={mobileWidth ? 'hidden' : 'grow-1 opacity-0'}>
                     BLANK OUTLET

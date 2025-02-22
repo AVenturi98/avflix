@@ -5,7 +5,6 @@ import { Link, useParams } from 'react-router'
 import personPlaceholder from '../assets/PersonPlaceholder.png'
 // Context
 import GlobalContext from '../context/GlobalContext'
-
 // Components
 import FilteredSection from '../components/FilteredSection'
 
@@ -52,9 +51,11 @@ export default function PersonPage() {
                             </div>
                             <div>{person.place_of_birth}</div>
                         </div>
-                        <div className='sm:w-[50%] italic hover:text-gray-500 bg-blue-500 p-1 text-white rounded-lg'>
+                        <div className='sm:w-[50%] italic border-4 border-sky-950 rounded-full text-center hover:bg-sky-950 hover:text-white'>
                             <Link to='dettails/media/person'>
-                                tutti i contenuti
+                                <p className='border-2 border-white rounded-full'>
+                                    tutti i contenuti
+                                </p>
                             </Link>
                         </div>
                     </div>
