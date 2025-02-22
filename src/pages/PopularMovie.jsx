@@ -24,9 +24,9 @@ import GlobalContext from '../context/GlobalContext'
 
 export default function PopularMovie() {
 
-    const { fetchSections, fetchMovies, fetchMedia, fetchVideos, fetchUpComing, mobileWidth,
+    const { fetchSections, fetchMovies, fetchMedia, fetchUpComing, mobileWidth,
         showMoreMovies,
-        videos,
+        currentDate,
         videoPrev,
         upComing } = React.useContext(GlobalContext)
 
@@ -50,8 +50,6 @@ export default function PopularMovie() {
 
     const [cast, setCast] = React.useState([]) // set Cast
     const [top5Cast, setTop5Cast] = React.useState([]); // set Top 5 Cast
-
-    const [date, setDate] = React.useState([])// set Upcomings Date
 
     const [backgroundUpComingImage, setBackgroundUpComingImage] = React.useState(''); // set Background Image
 
@@ -121,7 +119,7 @@ export default function PopularMovie() {
     // Up Coming fetch
     React.useEffect(() => {
         fetchUpComing({ init: 0, fin: 5, type: 'movie' });
-    }, [date]);
+    }, [currentDate]);
 
     // Function to filter movies by genre
     function filterMoviesByGenre(movies, genreId) {
@@ -159,7 +157,7 @@ export default function PopularMovie() {
             <TopRated myArray={top5Votes} check={'movie'} set={fetchMedia} backgroundVoteImage={backgroundVoteImage} setBackgroundImage={setBackgroundVoteImage} />
 
             {/* TOP CAST */}
-            <TopCast myArray={top5Cast} />
+            <TopCast myArray={top5Cast} title={'Top cast'} />
 
             {/* FILTERED GENRES */}
             <FilteredGenres myArray={filtersGenres} check={'movie'} init={3} finish={6} />

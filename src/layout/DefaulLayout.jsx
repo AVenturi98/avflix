@@ -6,6 +6,7 @@ import GlobalContext from "../context/GlobalContext";
 // Components
 import Nav from '../components/Nav'
 import { useContext } from "react";
+import Footer from "../components/Footer";
 
 export default function DefaultLayout() {
 
@@ -19,6 +20,9 @@ export default function DefaultLayout() {
             <main>
                 <Outlet />
             </main>
+            <footer>
+                <Footer />
+            </footer>
         </>
     )
 }

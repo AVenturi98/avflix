@@ -143,7 +143,7 @@ export default function PopularMovie() {
             <TopRated myArray={top5Votes} check={'tv'} set={fetchMedia} backgroundVoteImage={backgroundVoteImage} setBackgroundImage={setBackgroundVoteImage} />
 
             {/* TOP CAST */}
-            <TopCast myArray={top5Cast} />
+            <TopCast myArray={top5Cast} title={'Top cast'} />
 
 
             {/* FILTERED GENRES */}
