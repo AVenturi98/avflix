@@ -34,10 +34,7 @@ export default function AllMovieTv() {
     const uniqueType = allShows.cast.filter((v, i, a) => a.findIndex(t => (t.media_type === v.media_type)) === i)
 
     return (
-        <section className='container mx-auto px-4 py-8' style={{
-            WebkitMaskImage: 'linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 15%, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%)',
-            maskImage: 'linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 1%, rgba(0,0,0,1) 99.5%, rgba(0,0,0,0) 100%)',
-        }}>
+        <section className='container mx-auto px-4 py-8'>
             <h1 className="text-4xl font-bold text-center mb-8">{person.name}</h1>
 
             <div className='flex justify-center items-baseline gap-7'>

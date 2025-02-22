@@ -87,10 +87,7 @@ export default function MediasPage({ type }) {
 
     return (
         <>
-            <div className="container mx-auto px-4 py-8" style={{
-                WebkitMaskImage: 'linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 15%, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%)',
-                maskImage: 'linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 1%, rgba(0,0,0,1) 99.5%, rgba(0,0,0,0) 100%)',
-            }}>
+            <div className="container mx-auto px-4 py-8">
                 <h1 className="text-4xl font-bold text-center mb-8">{post.title || post.name}</h1>
 
                 {/* IMAGES */}
@@ -156,14 +153,14 @@ export default function MediasPage({ type }) {
                     {(selectedIndex + 1) + ' / ' + backdrops.length}
                 </div>
                 {selectedIndex !== null && (
-                    <div style={{ position: "relative", width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                        <button type='button' onClick={prevImage} style={{ position: "absolute", left: "10px", zIndex: 100 }} className="text-3xl bg-[rgba(4,45,73,0.3)] hover:bg-gray-300 p-5 rounded-xl">
+                    <div className='relative w-full h-full flex items-center justify-center'>
+                        <button type='button' onClick={prevImage} className="absolute left-[10px] z-50 text-3xl bg-[rgba(4,45,73,0.3)] hover:bg-gray-300 p-5 rounded-xl">
                             <FontAwesomeIcon icon={faArrowLeft} />
                         </button>
-                        <div className='absolute top-[50%] left-[50%]' style={{ transform: 'translate(-50%, -50%)', width: '100%' }}>
-                            <img src={path_img + backdrops[selectedIndex].file_path} alt="Selected" style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain", borderRadius: "8px" }} />
+                        <div className='absolute top-[50%] left-[50%] w-full' style={{ transform: 'translate(-50%, -50%)' }}>
+                            <LazyLoader image={path_img + backdrops[selectedIndex].file_path} style={'max-w-full max-h-full object-contain border-md'} />
                         </div>
-                        <button type='button' onClick={nextImage} style={{ position: "absolute", right: "10px" }} className="text-3xl bg-[rgba(4,45,73,0.3)] hover:bg-gray-300 p-5 rounded-xl">
+                        <button type='button' onClick={nextImage} className="absolute right-[10px] text-3xl bg-[rgba(4,45,73,0.3)] hover:bg-gray-300 p-5 rounded-xl">
                             <FontAwesomeIcon icon={faArrowRight} />
                         </button>
                         <button type='button' onClick={closeModal} className="hover:text-gray-300 p-3">

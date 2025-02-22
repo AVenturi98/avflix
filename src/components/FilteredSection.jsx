@@ -23,10 +23,7 @@ export default function FilteredSection({ myArray = [], type, title, init, fin, 
         <>
             {myArray.length >= 1 ?
                 <section className="filtered-genres-container">
-                    <div className="filtered-genres-content flex-col sm:gap-3 sm:mb-10" style={{
-                        WebkitMaskImage: 'linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 15%, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%)',
-                        maskImage: 'linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 1%, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%)',
-                    }}>
+                    <div className="filtered-genres-content flex-col sm:gap-3 sm:mb-10">
                         <div className='px-3 sm:px-10 filtered-genres-title flex gap-8 sm:gap-16 sm:flex-wrap'>
                             <h2 className='filtered-genres-title text-2xl sm:text-4xl font-bold my-6'>{title}</h2>
                             {viewmorePerson ?

@@ -39,6 +39,7 @@ function App() {
 
               <Route index element={<Home />} />
 
+              {/* POPULAR MOVIES */}
               <Route path='/popular-movie' element={<PopularMovie />} />
               <Route path='/movie' >
                 <Route path=':id' element={<Show type='movie' />} />
@@ -49,6 +50,7 @@ function App() {
                 </Route>
               </Route>
 
+              {/* POPULAR TVs */}
               <Route path='/popular-tv' element={<PopularTv />} />
               <Route path='/tv' >
                 <Route path=':id' element={<Show type='tv' />} />
@@ -59,7 +61,7 @@ function App() {
                 </Route>
               </Route>
 
-
+              {/* PERSONS */}
               <Route path='/person'>
                 <Route path=':id' element={<PersonPage />} />
                 <Route path=':id/dettails' element={<DefaultDettails type={'person'} />}>
@@ -71,10 +73,12 @@ function App() {
                 </Route>
               </Route>
 
+              {/* SEARCH */}
               <Route path='/search' element={<SearchPage />} />
 
             </Route>
 
+            {/* ERRORS */}
             <Route path='/' element={<BlankLayout />}>
               <Route path='not-found' element={<NotFound />}></Route>
             </Route>
