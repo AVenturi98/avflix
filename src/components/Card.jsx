@@ -47,7 +47,8 @@ export default function Card({
     stars = Boolean,
     onMouseEnter,
     media_name,
-    media_type }) {
+    media_type,
+    titled }) {
 
     const { id, title, name, original_language, vote_average } = item
 
@@ -56,7 +57,7 @@ export default function Card({
 
     function overTextSmall(text) {
         const textLimited = text.split(' ')
-        if (textLimited.length > 20) {
+        if (textLimited.length > 10) {
             return textLimited.slice(0, 10).join(' ') + '...'
         }
         return text
@@ -78,8 +79,10 @@ export default function Card({
         end: parseInt(vote_average * 10),
     });
 
-    const showLanguage = title && title.length > 35 || name && name.length > 35 ? language === false : language === true
-    const showVote = title && title.length > 60 || name && name.length > 60 ? stars === false : stars === true
+
+
+    const showLanguage = (title && title.length > 35) || (name && name.length > 35) ? language === false : language === true
+    const showVote = (title && title.length > 60) || (name && name.length > 60) ? stars === false : stars === true
 
     return (
         <Link to={`/${type}/${id}` + '-' + titleSlug(title || name)} onMouseEnter={onMouseEnter}>
@@ -117,7 +120,7 @@ export default function Card({
                         </div>}
                     {media_name === true && media_type === 'film' || media_type === 'serie tv' && mobileWidth ?
                         <div className='absolute progressVote' >
-                            <p className='italic font-bold'>{title || name}</p>
+                            <p className='italic font-bold'>{titled ? overTextSmall(titled) : ''}</p>
                         </div>
                         : media_name === true && media_type === 'personaggio' && mobileWidth ?
                             <div className='absolute progressVote' >

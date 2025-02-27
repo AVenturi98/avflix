@@ -11,7 +11,7 @@ export default function Footer() {
                 </p>
                 <br />
                 <a href="https://github.com/AVenturi98" className="hover:underline">
-                    <p className="text-gray-500">Made to <span className="text-sky-950">AV</span></p>
+                    <p className="text-gray-500">Create by <span className="text-sky-950">AV</span></p>
                 </a>
 
             </div>

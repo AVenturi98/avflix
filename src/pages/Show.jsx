@@ -391,9 +391,9 @@ export default function Show({ type }) {
 
             {/* SEASONS DETTAILS */}
             < section className='my-14 px-5'>
-                <h2 className='font-extrabold text-4xl my-2'>Esplora la serie</h2>
                 {type === 'tv' &&
                     <div className='flex items-baseline flex-wrap lg:flex-nowrap'>
+                        <h2 className='font-extrabold text-4xl my-2'>Esplora la serie</h2>
 
                         {/* SEASONS */}
                         {season &&

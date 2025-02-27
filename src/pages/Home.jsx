@@ -60,8 +60,11 @@ export default function Home() {
         if (trendImgWeek.media_type && trendImgWeek.id) {
             axios.get(`https://api.themoviedb.org/3/${trendImgWeek.media_type}/${trendImgWeek.id}/images${KEY}`)
                 .then(res => {
-                    const logoEn = res.data.logos.find(logo => logo.iso_639_1 === 'it')
-                    if (logoEn) {
+                    const logoEn = res.data.logos.find(logo => logo.iso_639_1 === 'en');
+                    const logoIt = res.data.logos.find(logo => logo.iso_639_1 === 'it')
+                    if (logoIt) {
+                        setLogo(logoIt)
+                    } else if (logoEn) {
                         setLogo(logoEn)
                     }
                     // console.log('Media', res.data.logos)

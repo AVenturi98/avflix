@@ -92,6 +92,7 @@ export default function SearchPage() {
                             <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5'>
                                 {post.map((e, i) =>
                                     <Card key={i} type={e.media_type} item={e}
+                                        titled={e.title || e.name}
                                         image={e.media_type === 'tv' || e.media_type === 'movie' && e.poster_path ?
                                             path_img + e.poster_path
                                             : e.media_type === 'person' && e.profile_path ? path_img + e.profile_path :
