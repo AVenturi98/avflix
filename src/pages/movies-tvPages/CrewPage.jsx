@@ -1,5 +1,5 @@
 import * as React from 'react'
-const KEY = import.meta.env.API_KEY
+const KEY = import.meta.env.VITE_API_KEY
 import axios from 'axios';
 import { Link, useParams } from 'react-router';
 

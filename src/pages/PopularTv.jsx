@@ -1,6 +1,6 @@
 import * as React from 'react'
 import axios from 'axios'
-const KEY = import.meta.env.API_KEY
+const KEY = import.meta.env.VITE_API_KEY
 
 // Components
 import HeroPage from '../components/HeroPage'

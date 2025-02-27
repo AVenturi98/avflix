@@ -1,6 +1,6 @@
 import * as React from 'react'
 import axios from 'axios'
-const KEY = import.meta.env.API_KEY
+const KEY = import.meta.env.VITE_API_KEY
 // Components
 import TopCast from '../components/TopCast'
 import FilteredSection from '../components/FilteredSection'
@@ -51,7 +51,7 @@ export default function Home() {
                 // console.log('Fetch Trend', res.data.results[0])
             })
             .catch(err => {
-                console.log('Fetch Trend', err)
+                console.error('Fetch Trend', err)
             })
     }
 
@@ -70,7 +70,7 @@ export default function Home() {
                     // console.log('Media', res.data.logos)
                 })
                 .catch(err => {
-                    console.log('Error fetch Media Home', err)
+                    console.error('Error fetch Media Home', err)
                 });
         }
     }

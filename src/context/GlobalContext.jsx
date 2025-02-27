@@ -1,6 +1,6 @@
 import React, { createContext, useState } from 'react';
 import axios from 'axios';
-const KEY = import.meta.env.API_KEY
+const KEY = import.meta.env.VITE_API_KEY
 import { useWindowWidth } from './WindowContext';
 
 import BtnBackTop from '../components/BtnBackTop';
@@ -49,7 +49,7 @@ export function GlobalProvider({ children }) {
             })
             .catch(err => {
                 setTotalPage([])
-                console.log(err)
+                console.error('Error fetchMovies to GlobalContext', err)
             })
     }
 
@@ -82,7 +82,7 @@ export function GlobalProvider({ children }) {
                 }
             })
             .catch(err => {
-                console.log('Error fetch media Global Context', err)
+                console.error('Error fetch media Global Context', err)
             });
     }
 
@@ -102,7 +102,7 @@ export function GlobalProvider({ children }) {
                 // console.log('videos', res.data.results)
             })
             .catch(err => {
-                console.log('Error fetch video Global Context', err)
+                console.error('Error fetch video Global Context', err)
             })
     }
 
@@ -129,7 +129,7 @@ export function GlobalProvider({ children }) {
                 // console.log('Fetch Section', res)
             })
             .catch(err => {
-                console.log('Fetch section Global Context', err)
+                console.error('Fetch section Global Context', err)
             })
     }
 
@@ -197,7 +197,7 @@ export function GlobalProvider({ children }) {
                     }
                 })
                 .catch(err => {
-                    console.log('Error fetching upcoming movies:', err)
+                    console.error('Error fetching upcoming movies:', err)
                 })
         }
     }

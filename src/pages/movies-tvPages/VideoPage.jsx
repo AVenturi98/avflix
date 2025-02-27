@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useParams } from 'react-router'
 import axios from 'axios'
-const KEY = import.meta.env.API_KEY
+const KEY = import.meta.env.VITE_API_KEY
 
 import GlobalContext from '../../context/GlobalContext'
 
