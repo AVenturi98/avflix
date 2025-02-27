@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from "react"
 import { useParams } from "react-router"
 import axios from "axios"
-import KEY from "../../KEY"
+const KEY = import.meta.env.API_KEY
 // Context
 import GlobalContext from "../../context/GlobalContext"
 

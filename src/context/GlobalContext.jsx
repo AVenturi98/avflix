@@ -1,6 +1,6 @@
 import React, { createContext, useState } from 'react';
 import axios from 'axios';
-import KEY from '../KEY';
+const KEY = import.meta.env.API_KEY
 import { useWindowWidth } from './WindowContext';
 
 import BtnBackTop from '../components/BtnBackTop';

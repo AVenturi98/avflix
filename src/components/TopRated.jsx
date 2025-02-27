@@ -3,7 +3,6 @@ import Card from './Card'
 
 // Context
 import GlobalContext from '../context/GlobalContext'
-import { useWindowWidth } from '../context/WindowContext'
 
 export default function TopRated({ myArray = [], check, set = () => { }, backgroundVoteImage, setBackgroundImage = () => { } }) {
 
