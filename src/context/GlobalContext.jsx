@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext } from 'react';
 import axios from 'axios';
 const KEY = import.meta.env.VITE_API_KEY
 import { useWindowWidth } from './WindowContext';

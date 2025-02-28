@@ -11,6 +11,7 @@ import BtnSwitchWord from '../components/BtnSwitchWord'
 import ImageCollage from '../components/image-collage/ImagesCollage'
 import FilteredSection from '../components/FilteredSection'
 import Episodes from '../components/Episodes'
+import Spinner from '../components/Spinner' // Import the Spinner component
 
 // Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -59,7 +60,7 @@ export default function Show({ type }) {
 
 
     const [arrowMore, setArrowMore] = React.useState(false)
-
+    const [loading, setLoading] = React.useState(true) // Add loading state
 
 
     const { id } = useParams()
@@ -82,10 +83,12 @@ export default function Show({ type }) {
                 setCountry(res.data.production_countries)
                 setSeason(res.data.seasons)
                 // console.log('Show Page', res.data)
+                setLoading(false)
             })
             .catch(err => {
                 console.error('Error fetch movie to Show Page', err);
                 navigate('/not-found')
+                setLoading(false)
 
             })
     }
@@ -109,6 +112,10 @@ export default function Show({ type }) {
     }
 
     React.useEffect(() => {
+        const timer = setTimeout(() => {
+            setLoading(false)
+        }, 500) // Set loading to false after 500ms
+
         fetchMovieId()
         fetchCreditsId(type, id)
         fetchMedia(id, type, () => { }, setImg, () => { })
@@ -117,6 +124,8 @@ export default function Show({ type }) {
         fetchSectionID(type, id, 'recommendations', setRecommendations) // handle recommendations content
 
         document.documentElement.scrollTop = 0
+
+        return () => clearTimeout(timer) // Clear timeout if component unmounts
     }, [id])
 
 
@@ -153,6 +162,9 @@ export default function Show({ type }) {
 
     const episodeFiltered = episode.filter(e => e.season_number == seasonNumber) // set Filtered Episodes
 
+    if (loading) {
+        return <Spinner /> // Show spinner while loading
+    }
 
     return (
         <>
