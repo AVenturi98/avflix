@@ -51,6 +51,7 @@ export default function AllMovieTv() {
                         set1={() => setViewModeImg('apparizioni')}
                         set2={() => setViewModeImg('altro')}
                         styleSelected={'bg-green-500'}
+                        styleSelectedText2={allShows.crew.length >= 1 ? '' : 'hidden'}
                         flex={'flex flex-wrap sm:flex-nowrap gap-2'} />
                 </div>
 

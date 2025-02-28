@@ -4,6 +4,7 @@ const KEY = import.meta.env.VITE_API_KEY
 
 // Placeholder
 import videoPlaceholder from '../assets/VideoPlaceholder.webp'
+import imagePlaceholder from '../assets/imagePlaceholder.jpg'
 
 // Components
 import Card from '../components/Card'
@@ -181,7 +182,9 @@ export default function PopularMovie() {
                                 <Card key={i}
                                     type='movie'
                                     item={e}
-                                    image={path_img + e.poster_path}
+                                    image={e.poster_path ? path_img + e.poster_path : imagePlaceholder}
+                                    media_name={!e.poster_path ? true : false}
+                                    titled={e.title}
                                     styleCard={mobileWidth ? 'w-[180px]' : 'w-[240px]'}
                                     styleImg={mobileWidth ? 'w-[240px]' : 'w-xs h-[350px]'}
                                     overviewLong={e.overview}

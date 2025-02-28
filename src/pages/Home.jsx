@@ -4,7 +4,7 @@ const KEY = import.meta.env.VITE_API_KEY
 // Components
 import TopCast from '../components/TopCast'
 import FilteredSection from '../components/FilteredSection'
-import Spinner from '../components/Spinner' // Import the Spinner component
+import Spinner from '../components/Spinner'
 // Context
 import GlobalContext from '../context/GlobalContext'
 // Lazy Loeader
@@ -85,12 +85,14 @@ export default function Home() {
 
     return (
         <>
-            <h1 className='text-3xl text-center my-4 title-home'>Scopri le tendenze del momento</h1>
+            <div className='bg-gray-300 '>
+                <h1 className='text-3xl text-center py-4 title-home'>Scopri le tendenze del momento</h1>
+            </div>
             <div style={{
                 backgroundImage: `linear-gradient(rgba(21, 26, 102, 0.5), rgba(21, 26, 102, 0.6)), url(${path_img_or + trendImgWeek.backdrop_path})`
             }}
                 className='h-[500px] bg-cover bg-center flex justify-center items-center hero_home text-center'>
-                <LazyLoader image={path_img_5 + logo.file_path} style={'opacity-80 px-2 max-w-[1000px]'} />
+                <LazyLoader image={path_img_5 + logo.file_path} style={'opacity-80 px-2'} />
             </div >
             <FilteredSection myArray={trendWeek} title={'Questa settimana'} type={trendWeek.map(e => e.media_type)} />
             <FilteredSection myArray={trendDay} title={'Selezione di oggi'} type={trendWeek.map(e => e.media_type)} />

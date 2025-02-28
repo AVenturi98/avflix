@@ -46,7 +46,7 @@ export default function Card({
     language = Boolean,
     stars = Boolean,
     onMouseEnter,
-    media_name,
+    media_name = false,
     media_type,
     titled }) {
 

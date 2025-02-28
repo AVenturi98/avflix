@@ -78,7 +78,7 @@ export function GlobalProvider({ children }) {
                     setImgs(res.data.backdrops)
                     setPoster(res.data.posters)
                     setLogo(res.data.logos)
-                    console.log('Media', res.data.logos)
+                    // console.log('Media Global Context', res.data.logos)
                 }
             })
             .catch(err => {

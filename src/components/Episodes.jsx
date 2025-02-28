@@ -1,6 +1,6 @@
 import * as React from 'react'
 import axios from 'axios'
-const KEY = import.meta.env.API_KEY
+const KEY = import.meta.env.VITE_API_KEY
 
 // Context
 import GlobalContext from '../context/GlobalContext'
@@ -65,7 +65,10 @@ export default function Episodes({ id, type, episodeFiltered, seasonNumber, sele
 
                     <div className='text-white'>
                         {episodeFiltered.filter((e, i) => (i + 1) == selectedEpisode).map(e =>
-                            <div key={e.id} className='flex gap-5 rounded-2xl' style={{ backgroundImage: `linear-gradient(rgba(1, 1, 22, 0.6), rgba(1, 1, 22, 0.8)), url(${'https://image.tmdb.org/t/p/original' + e.still_path})`, backgroundPosition: 'center' }}>
+                            <div key={e.id} className='flex gap-5 rounded-xl h-[350px]' style={{
+                                backgroundImage: `linear-gradient(rgba(1, 1, 22, 0.6), rgba(1, 1, 22, 0.8)), url(${'https://image.tmdb.org/t/p/original' + e.still_path})`,
+                                backgroundPosition: 'center center', backgroundSize: 'cover'
+                            }}>
                                 <div className='p-5 px-4 lg:py-8 sm:py-6 grow-1'>
                                     {e.episode_number &&
                                         <div>
@@ -103,7 +106,10 @@ export default function Episodes({ id, type, episodeFiltered, seasonNumber, sele
                             </div>
                         )}
                         {episode.slice(0, 1).map(e =>
-                            <div key={e.id} className={`flex gap-5 rounded-2xl ${selectedEpisode ? 'hidden' : ''}`} style={{ backgroundImage: `linear-gradient(rgba(1, 1, 22, 0.65), rgba(1, 1, 22, 0.8)), url(${'https://image.tmdb.org/t/p/original' + e.still_path})` }}>
+                            <div key={e.id} className={`flex gap-5 rounded-xl h-[350px] ${selectedEpisode ? 'hidden' : ''}`} style={{
+                                backgroundImage: `linear-gradient(rgba(1, 1, 22, 0.65), rgba(1, 1, 22, 0.8)), url(${'https://image.tmdb.org/t/p/original' + e.still_path})`,
+                                backgroundPosition: 'center center', backgroundSize: 'cover'
+                            }}>
                                 <div className='p-5 px-4 lg:py-8 sm:py-6 grow-1'>
                                     {e.episode_number &&
                                         <div>

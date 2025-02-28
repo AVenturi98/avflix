@@ -18,7 +18,7 @@ import { useState } from "react";
  * @returns 
  */
 
-export default function BtnSwitchWord({ text1, text2, text3, length1, length2, length3, set1, set2, set3, styleSelected, flex }) {
+export default function BtnSwitchWord({ text1, text2, text3, length1, length2, length3, set1, set2, set3, styleSelected, styleSelectedText2, flex }) {
     const [selectedWord, setSelectedWord] = useState(text1);
 
     const handleClick = (word) => {
@@ -40,7 +40,7 @@ export default function BtnSwitchWord({ text1, text2, text3, length1, length2, l
             </button>
 
             <button
-                className={`mx-3 contain-btn-dettails cursor-pointer text-lg transition-all duration-300 ${selectedWord === text2
+                className={`mx-3 contain-btn-dettails cursor-pointer text-lg transition-all duration-300 ${styleSelectedText2} ${selectedWord === text2
                     ? `${styleSelected} scale-101`
                     : "bg-transparent  hover:bg-gray-400"
                     }`}

@@ -82,7 +82,7 @@ export default function Show({ type }) {
                 setCompany(res.data.production_companies)
                 setCountry(res.data.production_countries)
                 setSeason(res.data.seasons)
-                // console.log('Show Page', res.data)
+                console.log('Show Page', res.data)
                 setLoading(false)
             })
             .catch(err => {
@@ -404,92 +404,91 @@ export default function Show({ type }) {
             {/* SEASONS DETTAILS */}
             < section className='my-14 px-5'>
                 {type === 'tv' &&
-                    <div className='flex items-baseline flex-wrap lg:flex-nowrap'>
+                    <>
                         <h2 className='font-extrabold text-4xl my-2'>Esplora la serie</h2>
+                        <div className='flex items-baseline flex-wrap lg:flex-nowrap'>
 
-                        {/* SEASONS */}
-                        {season &&
-                            <div className='w-full p-5 font-semibold'>
-                                <h2 className='font-extrabold text-3xl my-2'>Stagioni</h2>
-                                <select disabled={!season.length > 0} name="seasons" id="seasons"
-                                    className='mt-4 mb-6 cursor-pointer hover:bg-blue-200 p-0.5 rounded-xl border-2 border-emerald-500'
-                                    value={selectedSeason}
-                                    onChange={(e) => setSelectedSeason(e.target.value)}>
-                                    <option>{season.length > 0 ? 'Stagioni' : 'Non disponible'}</option>
-                                    {season.map(e =>
-                                        <option key={e.id} value={e.name}>{e.name}</option>
+                            {/* SEASONS */}
+                            {season &&
+                                <div className='w-full p-5 font-semibold'>
+                                    <h2 className='font-extrabold text-3xl my-2'>Stagioni</h2>
+                                    <select disabled={!season.length > 0} name="seasons" id="seasons"
+                                        className='mt-4 mb-6 cursor-pointer hover:bg-blue-200 p-0.5 rounded-xl border-2 border-emerald-500'
+                                        value={selectedSeason}
+                                        onChange={(e) => setSelectedSeason(e.target.value)}>
+                                        <option>{season.length > 0 ? 'Stagioni' : 'Non disponible'}</option>
+                                        {season.map(e =>
+                                            <option key={e.id} value={e.name}>{e.name}</option>
+                                        )}
+                                    </select>
+                                    <label htmlFor="seasons" className='opacity-30 px-2'>{mobileWidth ? 'scegli' : 'scegli la tua stagione'}</label>
+
+                                    {season.filter(e => e.name === selectedSeason).map(e =>
+                                        <div key={e.id} className={`flex gap-5 ${mobileWidth ? 'text-white' : ''}`}>
+                                            {!mobileWidth ? <img src={e.poster_path ? 'https://image.tmdb.org/t/p/w500' + e.poster_path : imagePlaceholder} alt={e.name} className='w-[250px] h-[350px] rounded-xl' /> : ''}
+                                            <div className='flex flex-col justify-around rounded-xl p-3' id='seasons'
+                                                style={mobileWidth ? { backgroundImage: `linear-gradient(rgba(1, 1, 22, 0.6), rgba(1, 1, 22, 0.8)), url(${e.poster_path ? 'https://image.tmdb.org/t/p/w500' + e.poster_path : ''})`, minWidth: '320px', minHeight: '300px' } : undefined}>
+                                                {e.name &&
+                                                    <div>
+                                                        <h3 className='font-extrabold'>Stagione</h3>
+                                                        <p className='border-1 border-green-500 rounded-4xl p-1.5 text-center'>{e.name}</p>
+                                                    </div>}
+                                                {e.episode_count &&
+                                                    <div>
+                                                        <h3 className='font-extrabold'>Episodi</h3>
+                                                        <p className='border-1 border-green-500 rounded-4xl p-1.5 text-center'>{e.episode_count + ' episodi'}</p>
+                                                    </div>}
+                                                {e.air_date &&
+                                                    <div>
+                                                        <h3 className='font-extrabold'>Data</h3>
+                                                        <p className='border-1 border-green-500 rounded-4xl p-1.5 text-center'>{e.air_date}</p>
+                                                    </div>}
+                                                <div>
+                                                    {e.overview ?
+                                                        <>
+                                                            <h3>Trama</h3>
+                                                            <p className='border-1 border-green-500 rounded-2xl p-1 text-center'>{e.overview}</p>
+                                                        </> : ''}
+                                                </div>
+                                            </div>
+                                        </div>
                                     )}
-                                </select>
-                                <label htmlFor="seasons" className='opacity-30 px-2'>{mobileWidth ? 'scegli' : 'scegli la tua stagione'}</label>
 
-                                {season.filter(e => e.name === selectedSeason).map(e =>
-                                    <div key={e.id} className={`flex gap-5 ${mobileWidth ? 'text-white' : ''}`}>
-                                        {!mobileWidth ?
-                                            <LazyLoader image={e.poster_path ? 'https://image.tmdb.org/t/p/w500' + e.poster_path : imagePlaceholder}
-                                                style={'min-w-[200px] rounded-xl'} /> : ''}
-                                        <div className='flex flex-col justify-around rounded-xl p-3' id='seasons'
-                                            style={mobileWidth ? { backgroundImage: `linear-gradient(rgba(1, 1, 22, 0.6), rgba(1, 1, 22, 0.8)), url(${e.poster_path ? 'https://image.tmdb.org/t/p/w500' + e.poster_path : ''})`, minWidth: '320px', minHeight: '300px' } : undefined}>
-                                            {e.name &&
+                                    {season.slice(0, 1).map(e =>
+                                        <div key={e.name} className={`flex gap-5 ${selectedSeason ? 'hidden' : ''}`}>
+                                            <img src={e.poster_path ? 'https://image.tmdb.org/t/p/w500' + e.poster_path : imagePlaceholder} alt={e.name} className='w-[250px] h-[350px] rounded-xl' />
+                                            <div className='flex flex-col justify-around'>
+                                                {e.name &&
+                                                    <div>
+                                                        <h3>Stagione</h3>
+                                                        <p className='border-1 border-green-500 rounded-4xl p-1.5 text-center'>{e.name}</p>
+                                                    </div>}
+                                                {e.episode_count &&
+                                                    <div>
+                                                        <h3>Episodi</h3>
+                                                        <p className='border-1 border-green-500 rounded-4xl p-1.5 text-center'>{e.episode_count + ' episodi'}</p>
+                                                    </div>}
+                                                {e.air_date &&
+                                                    <div>
+                                                        <h3>Data</h3>
+                                                        <p className='border-1 border-green-500 rounded-4xl p-1.5 text-center'>{e.air_date}</p>
+                                                    </div>}
                                                 <div>
-                                                    <h3 className='font-extrabold'>Stagione</h3>
-                                                    <p className='border-1 border-green-500 rounded-4xl p-1.5 text-center'>{e.name}</p>
-                                                </div>}
-                                            {e.episode_count &&
-                                                <div>
-                                                    <h3 className='font-extrabold'>Episodi</h3>
-                                                    <p className='border-1 border-green-500 rounded-4xl p-1.5 text-center'>{e.episode_count + ' episodi'}</p>
-                                                </div>}
-                                            {e.air_date &&
-                                                <div>
-                                                    <h3 className='font-extrabold'>Data</h3>
-                                                    <p className='border-1 border-green-500 rounded-4xl p-1.5 text-center'>{e.air_date}</p>
-                                                </div>}
-                                            <div>
-                                                {e.overview ?
-                                                    <>
-                                                        <h3>Trama</h3>
-                                                        <p className='border-1 border-green-500 rounded-2xl p-1 text-center'>{e.overview}</p>
-                                                    </> : ''}
+                                                    {e.overview ?
+                                                        <>
+                                                            <h3>Trama</h3>
+                                                            <p className='border-1 border-green-500 rounded-2xl p-1 text-center'>{e.overview}</p>
+                                                        </> : ''}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                )}
+                                    )}
+                                </div>}
 
-                                {season.slice(0, 1).map(e =>
-                                    <div key={e.name} className={`flex gap-5 ${selectedSeason ? 'hidden' : ''}`}>
-                                        <LazyLoader image={e.poster_path ? 'https://image.tmdb.org/t/p/w500' + e.poster_path : imagePlaceholder}
-                                            style={'w-[200px] rounded-xl'} />
-                                        <div className='flex flex-col justify-around'>
-                                            {e.name &&
-                                                <div>
-                                                    <h3>Stagione</h3>
-                                                    <p className='border-1 border-green-500 rounded-4xl p-1.5 text-center'>{e.name}</p>
-                                                </div>}
-                                            {e.episode_count &&
-                                                <div>
-                                                    <h3>Episodi</h3>
-                                                    <p className='border-1 border-green-500 rounded-4xl p-1.5 text-center'>{e.episode_count + ' episodi'}</p>
-                                                </div>}
-                                            {e.air_date &&
-                                                <div>
-                                                    <h3>Data</h3>
-                                                    <p className='border-1 border-green-500 rounded-4xl p-1.5 text-center'>{e.air_date}</p>
-                                                </div>}
-                                            <div>
-                                                {e.overview ?
-                                                    <>
-                                                        <h3>Trama</h3>
-                                                        <p className='border-1 border-green-500 rounded-2xl p-1 text-center'>{e.overview}</p>
-                                                    </> : ''}
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
-                            </div>}
-
-                        {/* EPISODES */}
-                        <Episodes id={id} type={type} episodeFiltered={episodeFiltered} selectedSeason={selectedSeason} seasonNumber={seasonNumber} />
-                    </div>
+                            {/* EPISODES */}
+                            <Episodes id={id} type={type} episodeFiltered={episodeFiltered} selectedSeason={selectedSeason} seasonNumber={seasonNumber} />
+                        </div>
+                    </>
                 }
             </section >
 

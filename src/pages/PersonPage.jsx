@@ -16,16 +16,23 @@ export default function PersonPage() {
     const { fetchPersonId, person, fetchSectionID, mobileWidth } = React.useContext(GlobalContext)
 
     const [credits, setCredits] = React.useState({ cast: [], crew: [] }) // Set Person Credits
+    const [loading, setLoading] = React.useState(false)
 
 
     const { id } = useParams() // get ID
 
 
     React.useEffect(() => {
+        const timer = setTimeout(() => {
+            setLoading(false)
+        }, 500) // Set loading to false after 500ms
+
         fetchPersonId(id)
         fetchSectionID('person', id, 'combined_credits', () => { }, setCredits)
 
         document.documentElement.scrollTop = 0
+
+        return () => clearTimeout(timer) // Clear timeout if component unmounts
     }, [id])
 
     const otherRole = credits.crew.map(e => e.job).filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i)
