@@ -3,9 +3,8 @@ import axios from 'axios'
 const KEY = import.meta.env.VITE_API_KEY
 
 // Placeholder
-import imagePlaceholder from '../../public/placeholder/ImagePlaceholder.jpg'
-import personPlaceholder from '../../public/placeholder/PersonPlaceholder.png'
-
+import imagePlaceholder from '../assets/ImagePlaceholder.jpg'
+import personPlaceholder from '../assets/PersonPlaceholder.png'
 import CardPlaceholder from '../components/cardPlaceholder/CardPlaceholder'
 
 // Icons

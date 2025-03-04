@@ -4,7 +4,7 @@ import "./Carousel.css";
 
 
 // Placeholder
-import personPlaceholder from '../../../public/placeholder/PersonPlaceholder.png'
+import personPlaceholder from '../../assets/PersonPlaceholder.png'
 
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

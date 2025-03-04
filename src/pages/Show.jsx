@@ -4,8 +4,8 @@ const KEY = import.meta.env.VITE_API_KEY
 import { Link, useParams, useNavigate } from 'react-router'
 
 // Placeholder 
-import imagePlaceholder from '../../public/placeholder/ImagePlaceholder.jpg'
-import personPlaceholder from '../../public/placeholder/PersonPlaceholder.png'
+import imagePlaceholder from '../assets/ImagePlaceholder.jpg'
+import personPlaceholder from '../assets/PersonPlaceholder.png'
 
 // Components
 import BtnSwitchWord from '../components/BtnSwitchWord'

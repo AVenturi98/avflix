@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Link, useParams } from 'react-router'
 
 // Placeholder 
-import personPlaceholder from '../../public/placeholder/PersonPlaceholder.png'
+import personPlaceholder from '../assets/PersonPlaceholder.png'
 
 // Context
 import GlobalContext from '../context/GlobalContext'

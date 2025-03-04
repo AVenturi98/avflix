@@ -3,7 +3,7 @@ import { useContext, useEffect } from 'react'
 import { Link } from 'react-router'
 
 // Placeholder
-import imagePlaceholder from '../../public/placeholder/ImagePlaceholder.jpg'
+import imagePlaceholder from '../assets/ImagePlaceholder.jpg'
 
 // Components
 import Card from '../components/Card'
