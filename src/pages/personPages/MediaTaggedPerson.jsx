@@ -36,9 +36,13 @@ export default function MediaTaggedPerson() {
     // fetch Medias
     function fetchMedias() {
         setLoading(true)
-        axios.get(`https://api.themoviedb.org/3/person/${id}/tagged_images${KEY}`, {
+        axios.get(`https://api.themoviedb.org/3/person/${id}/tagged_images`, {
             params: {
                 language: 'en-US'
+            },
+            headers: {
+                accept: 'application/json',
+                Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkYmE5NDkyYjA4MDczODYzN2Y1M2RmNmJmZmE2YjhjMyIsIm5iZiI6MTczNDAwMTk5My42MzkwMDAyLCJzdWIiOiI2NzVhYzU0OTlhZTUyNmQ1MDhhOWNmOGIiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.5QxtZmHBD5OWY4MsxJKFi1Me51dzgXlbXp0-CsDINX8'
             }
         })
             .then(res => {
