@@ -27,7 +27,6 @@ export default function AllMovieTv() {
     const [mediaTypeSelected, setMediaTypeSelected] = React.useState('') // set Media Type Selected
 
     const { id } = useParams()
-    console.log(person.name)
 
     React.useEffect(() => {
         fetchPersonId(id)

@@ -1,7 +1,9 @@
 import React, { createContext } from 'react';
 import axios from 'axios';
 const KEY = import.meta.env.VITE_API_KEY
+const HEADER_KEY = import.meta.env.VITE_API_KEY_OPTION
 import { useWindowWidth } from './WindowContext';
+
 
 import BtnBackTop from '../components/BtnBackTop';
 
@@ -63,7 +65,7 @@ export function GlobalProvider({ children }) {
      * @param {*foe all images} setImgs 
      */
 
-    // Handle images
+    // Fetch images
     function fetchMedia(id, type,
         setFirstImg = () => { },
         setImgs = () => { },
@@ -116,7 +118,7 @@ export function GlobalProvider({ children }) {
      * @param {id} id 
      */
 
-    // Handle For Section
+    // Fetch For Section
     function fetchSections(typeSection, section, set, page, id) {
         axios.get(`https://api.themoviedb.org/3/${typeSection}/${id ? id + '/' : ''}${section}${KEY}`, {
             params: {
@@ -134,7 +136,7 @@ export function GlobalProvider({ children }) {
     }
 
 
-    // fetch Section whit ID
+    // Fetch Section whit ID
     function fetchSectionID(type, id, section, setResults = () => { }, setData = () => { }) {
 
         setLoading(true)
@@ -154,7 +156,7 @@ export function GlobalProvider({ children }) {
             })
     }
 
-    // Credits fetch (cast, crew)
+    // Fetch Credits (cast, crew)
     function fetchCreditsId(type, id) {
         const options = {
             method: 'GET',
@@ -175,15 +177,16 @@ export function GlobalProvider({ children }) {
 
     const currentDate = new Date().toISOString().split('T')[0] //get current date
 
-    //fetch Up Coming
+    //Fetch Up Coming
     function fetchUpComing({ init, fin, type }) {
         let allUpComing = [];
         for (let i = 1; i <= 10; i++) {
-            axios.get(`https://api.themoviedb.org/3/${type}/upcoming${KEY}`, {
+            axios.get(`https://api.themoviedb.org/3/${type}/upcoming`, {
                 params: {
                     language: 'it-IT',
                     page: i
                 },
+                headers: HEADER_KEY
             })
                 .then(res => {
                     const filtered = res.data.results.filter(movie => movie.release_date > currentDate);
@@ -203,7 +206,7 @@ export function GlobalProvider({ children }) {
     }
 
 
-    // fetch Global Person Id
+    // Fetch Global Person Id
     function fetchPersonId(id) {
 
         setLoading(true)
