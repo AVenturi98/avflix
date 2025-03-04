@@ -20,7 +20,7 @@ export default function FilteredGenres({ myArray = [], check, init = Number, fin
                         {filter.movies.slice(0, 10).map(e =>
                             <Card key={e.id} type={check}
                                 item={e}
-                                image={e.poster_path ? path_img + e.poster_path : '/placeholder/ImagePlaceholder.jpg'}
+                                image={e.poster_path ? path_img + e.poster_path : '/placeholder/moviesPlaceholder.png'}
                                 language={true}
                                 stars={true}
                                 styleCard={mobileWidth ?

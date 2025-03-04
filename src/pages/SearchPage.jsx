@@ -94,7 +94,7 @@ export default function SearchPage() {
                                             path_img + e.poster_path
                                             : e.media_type === 'person' && e.profile_path ? path_img + e.profile_path :
                                                 e.media_type === 'person' ? '/placeholder/PersonPlaceholder.png'
-                                                    : '/placeholder/ImagePlaceholder.jpg'
+                                                    : '/placeholder/moviesPlaceholder.png'
                                         }
                                         styleCard={mobileWidth ? 'w-[150px]' : 'w-[200px]'}
                                         styleImg={mobileWidth ? 'w-xs h-[220px]' : 'w-[200px] h-[300px]'}
