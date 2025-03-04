@@ -70,7 +70,7 @@ export default function AllMovieTv() {
                         <Card key={i}
                             type={e.media_type}
                             item={e}
-                            image={e.poster_path ? path_img + e.poster_path : '/public/placeholder/ImagePlaceholder.jpg'}
+                            image={e.poster_path ? path_img + e.poster_path : '/placeholder/ImagePlaceholder.jpg'}
                             language={true}
                             stars={true}
                             overviewSmall={e.overview}
@@ -87,7 +87,7 @@ export default function AllMovieTv() {
                         <Card key={i}
                             type={e.media_type}
                             item={e}
-                            image={e.poster_path ? path_img + e.poster_path : '/public/placeholder/ImagePlaceholder.jpg'}
+                            image={e.poster_path ? path_img + e.poster_path : '/placeholder/ImagePlaceholder.jpg'}
                             language={true}
                             stars={true}
                             overviewSmall={e.overview}

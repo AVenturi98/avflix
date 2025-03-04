@@ -42,7 +42,7 @@ export default function PersonPage() {
                 <div className='flex gap-2'>
                     {person.profile_path ?
                         <img src={path_img + person.profile_path} alt={person.name} className='w-[200px] h-[300px] rounded-xl' />
-                        : <img src="/public/placeholder/PersonPlaceholder.png" alt={person.name} className='w-[250px] h-[300px] rounded-xl' />
+                        : <img src="/placeholder/PersonPlaceholder.png" alt={person.name} className='w-[250px] h-[300px] rounded-xl' />
                     }
                     <div className='flex flex-col gap-5 sm:gap-15' >
                         <div className='flex flex-wrap items-baseline gap-5'>

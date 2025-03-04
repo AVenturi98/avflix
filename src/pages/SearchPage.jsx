@@ -93,8 +93,8 @@ export default function SearchPage() {
                                         image={e.media_type === 'tv' || e.media_type === 'movie' && e.poster_path ?
                                             path_img + e.poster_path
                                             : e.media_type === 'person' && e.profile_path ? path_img + e.profile_path :
-                                                e.media_type === 'person' ? '/public/placeholder/PersonPlaceholder.png'
-                                                    : '/public/placeholder/ImagePlaceholder.jpg'
+                                                e.media_type === 'person' ? '/placeholder/PersonPlaceholder.png'
+                                                    : '/placeholder/ImagePlaceholder.jpg'
                                         }
                                         styleCard={mobileWidth ? 'w-[150px]' : 'w-[200px]'}
                                         styleImg={mobileWidth ? 'w-xs h-[220px]' : 'w-[200px] h-[300px]'}

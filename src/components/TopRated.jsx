@@ -24,7 +24,7 @@ export default function TopRated({ myArray = [], check, set = () => { }, backgro
                         <Card key={i}
                             type={check}
                             item={e}
-                            image={path_img + e.poster_path}
+                            image={e.poster_path ? path_img + e.poster_path : '/placeholder/PersonPlaceholder.png'}
                             styleCard={mobileWidth ? 'w-[180px]' : 'w-[240px]'}
                             styleImg={mobileWidth ? 'w-[240px]' : 'w-xs h-[350px]'}
                             backdrop={e.backdrop_path}

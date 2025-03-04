@@ -171,7 +171,7 @@ export default function Show({ type }) {
                 <img className='w-full sm:w-48 md:w-60 lg:w-80 h-auto rounded-lg shadow-lg shadow-gray-600'
                     src={post.poster_path && !mobileWidth ? path_img + post.poster_path
                         : post.backdrop_path && mobileWidth ? path_img + post.backdrop_path
-                            : !post.poster_path || !post.backdrop_path ? '/public/placeholder/ImagePlaceholder.jpg' : ''} alt={post.original_title || post.name} />
+                            : !post.poster_path || !post.backdrop_path ? '/placeholder/ImagePlaceholder.jpg' : ''} alt={post.original_title || post.name} />
                 <div className='sm:ml-10 text-white flex flex-col gap-8 justify-start w-full sm:w-200'>
                     <h1 className='text-5xl text-white font-extrabold mt-5 mb-2'>{post.original_title || post.name}</h1>
                     <div className='flex items-center justify-between grow-1'>
@@ -273,7 +273,7 @@ export default function Show({ type }) {
                                 {cast.slice(0, 10).map(e =>
                                     <Link to={`/person/${e.id}` + '-' + titleSlug(e.name)} key={e.id}>
                                         <div className='flex flex-col items-center'>
-                                            <LazyLoader image={e.profile_path ? 'https://image.tmdb.org/t/p/w500' + e.profile_path : '/public/placeholder/PersonPlaceholder.png'}
+                                            <LazyLoader image={e.profile_path ? 'https://image.tmdb.org/t/p/w500' + e.profile_path : '/placeholder/PersonPlaceholder.png'}
                                                 style={`${mobileWidth ? 'min-w-30 min-h-30 max-w-30 max-h-30' : 'min-w-50 min-h-50 max-w-50 max-h-50'} rounded-full shadow-lg shadow-black object-cover`} />
                                             <div className='mt-2 text-center text-lg font-bold h-18'>{e.name}</div>
                                         </div>
@@ -422,7 +422,7 @@ export default function Show({ type }) {
 
                                     {season.filter(e => e.name === selectedSeason).map(e =>
                                         <div key={e.id} className={`flex gap-5 ${mobileWidth ? 'text-white' : ''}`}>
-                                            {!mobileWidth ? <img src={e.poster_path ? 'https://image.tmdb.org/t/p/w500' + e.poster_path : '/public/placeholder/ImagePlaceholder.jpg'} alt={e.name} className='w-[250px] h-[350px] rounded-xl' /> : ''}
+                                            {!mobileWidth ? <img src={e.poster_path ? 'https://image.tmdb.org/t/p/w500' + e.poster_path : '/placeholder/ImagePlaceholder.jpg'} alt={e.name} className='w-[250px] h-[350px] rounded-xl' /> : ''}
                                             <div className='flex flex-col justify-around rounded-xl p-3' id='seasons'
                                                 style={mobileWidth ? { backgroundImage: `linear-gradient(rgba(1, 1, 22, 0.6), rgba(1, 1, 22, 0.8)), url(${e.poster_path ? 'https://image.tmdb.org/t/p/w500' + e.poster_path : ''})`, minWidth: '320px', minHeight: '300px' } : undefined}>
                                                 {e.name &&
@@ -453,7 +453,7 @@ export default function Show({ type }) {
 
                                     {season.slice(0, 1).map(e =>
                                         <div key={e.name} className={`flex gap-5 ${selectedSeason ? 'hidden' : ''}`}>
-                                            <img src={e.poster_path ? 'https://image.tmdb.org/t/p/w500' + e.poster_path : '/public/placeholder/ImagePlaceholder.jpg'} alt={e.name} className='w-[250px] h-[350px] rounded-xl' />
+                                            <img src={e.poster_path ? 'https://image.tmdb.org/t/p/w500' + e.poster_path : '/placeholder/ImagePlaceholder.jpg'} alt={e.name} className='w-[250px] h-[350px] rounded-xl' />
                                             <div className='flex flex-col justify-around'>
                                                 {e.name &&
                                                     <div>

@@ -178,7 +178,7 @@ export default function PopularMovie() {
                                 <Card key={i}
                                     type='movie'
                                     item={e}
-                                    image={e.poster_path ? path_img + e.poster_path : '/public/placeholder/VideoPlaceholder.webp'}
+                                    image={e.poster_path ? path_img + e.poster_path : '/placeholder/VideoPlaceholder.webp'}
                                     media_name={!e.poster_path ? true : false}
                                     titled={e.title}
                                     styleCard={mobileWidth ? 'w-[180px]' : 'w-[240px]'}
@@ -190,7 +190,7 @@ export default function PopularMovie() {
                                 <div key={i} className="relative flex flex-wrap w-[350px] h-[200px] transform transition-transform duration-300 hover:scale-102">
                                     <div onMouseEnter={() => fetchMedia(e.id, 'movie', setBackgroundUpComingImage, () => { })}>
                                         <img
-                                            src={e.backdrop_path ? `https://image.tmdb.org/t/p/original${e.backdrop_path}` : '/public/placeholder/VideoPlaceholder.webp'}
+                                            src={e.backdrop_path ? `https://image.tmdb.org/t/p/original${e.backdrop_path}` : '/placeholder/VideoPlaceholder.webp'}
                                             alt={e.title}
                                             className="w-full h-full object-cover object-center rounded-xl"
                                         />
