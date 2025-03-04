@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Link } from 'react-router'
 
 // Placeholder
-import imagePlaceholder from '../assets/ImagePlaceholder.jpg'
+import imagePlaceholder from '../../public/placeholder/ImagePlaceholder.jpg'
 
 // Components
 import VoteStar from './VoteStar'

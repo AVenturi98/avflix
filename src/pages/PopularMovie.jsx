@@ -3,8 +3,8 @@ import axios from 'axios'
 const KEY = import.meta.env.VITE_API_KEY
 
 // Placeholder
-import videoPlaceholder from '../assets/VideoPlaceholder.webp'
-import imagePlaceholder from '../../public/placeholderimagePlaceholder.jpg'
+import videoPlaceholder from '../../public/placeholder/VideoPlaceholder.webp'
+import imagePlaceholder from '../../public/placeholder/placeholderimagePlaceholder.jpg'
 
 // Components
 import Card from '../components/Card'

@@ -1,5 +1,7 @@
 import * as React from 'react'
 import { useParams } from 'react-router'
+
+// Context
 import GlobalContext from '../../context/GlobalContext'
 
 // Component

@@ -3,6 +3,7 @@ import { useParams } from 'react-router'
 import axios from 'axios'
 const KEY = import.meta.env.VITE_API_KEY
 
+// Context
 import GlobalContext from '../../context/GlobalContext'
 
 export default function VideoPage({ type }) {

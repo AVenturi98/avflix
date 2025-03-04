@@ -3,7 +3,8 @@ const KEY = import.meta.env.VITE_API_KEY
 import axios from 'axios';
 import { Link, useParams } from 'react-router';
 
-import personPlaceholder from '../../assets/PersonPlaceholder.png'
+// Placeholder
+import personPlaceholder from '../../../public/placeholder/PersonPlaceholder.png'
 
 // Context
 import GlobalContext from '../../context/GlobalContext';

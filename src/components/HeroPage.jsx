@@ -4,7 +4,7 @@ import Card from './Card'
 import GlobalContext from '../context/GlobalContext'
 
 // Placeholder
-import imagePlaceholder from '../assets/ImagePlaceholder.jpg'
+import imagePlaceholder from '../../public/placeholder/ImagePlaceholder.jpg'
 
 export default function HeroPage({ type, check, myArray = [] }) {
 

@@ -1,7 +1,9 @@
 // Placeholder 
 import { useContext, useEffect } from 'react'
 import { Link } from 'react-router'
-import imagePlaceholder from '../assets/ImagePlaceholder.jpg'
+
+// Placeholder
+import imagePlaceholder from '../../public/placeholder/ImagePlaceholder.jpg'
 
 // Components
 import Card from '../components/Card'

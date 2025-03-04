@@ -8,7 +8,7 @@ import { useParams } from 'react-router'
 import BtnSwitchWord from '../../components/BtnSwitchWord'
 
 // Placeholder
-import imagePlaceholder from '../../assets/ImagePlaceholder.jpg'
+import imagePlaceholder from '../../../public/placeholder/ImagePlaceholder.jpg'
 
 // Icons 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

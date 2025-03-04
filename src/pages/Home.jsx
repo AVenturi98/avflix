@@ -1,12 +1,15 @@
 import * as React from 'react'
 import axios from 'axios'
 const KEY = import.meta.env.VITE_API_KEY
+
 // Components
 import TopCast from '../components/TopCast'
 import FilteredSection from '../components/FilteredSection'
 import Spinner from '../components/Spinner'
+
 // Context
 import GlobalContext from '../context/GlobalContext'
+
 // Lazy Loeader
 import LazyLoader from '../components/LazyLoader'
 

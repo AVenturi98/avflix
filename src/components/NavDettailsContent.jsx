@@ -8,6 +8,7 @@ import GlobalContext from "../context/GlobalContext"
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowAltCircleLeft } from "@fortawesome/free-solid-svg-icons"
+
 export default function NavDettailsContent({ type }) {
 
     const { mobileWidth } = useContext(GlobalContext)
