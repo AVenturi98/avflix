@@ -4,7 +4,7 @@ const KEY = import.meta.env.VITE_API_KEY
 
 // Placeholder
 import videoPlaceholder from '../../public/placeholder/VideoPlaceholder.webp'
-import imagePlaceholder from '../../public/placeholder/placeholderimagePlaceholder.jpg'
+import imagePlaceholder from '../../public/placeholder/imagePlaceholder.jpg'
 
 // Components
 import Card from '../components/Card'
