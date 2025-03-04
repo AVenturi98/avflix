@@ -76,7 +76,7 @@ export function GlobalProvider({ children }) {
                 if (res.data.backdrops.length > 0 ||
                     res.data.posters.length > 0 ||
                     res.data.logos.length > 0) {
-                    setFirstImg(`https://image.tmdb.org/t/p/original` + res.data.backdrops[0].file_path)
+                    setFirstImg(res.data.backdrops[0].file_path ? `https://image.tmdb.org/t/p/original` + res.data.backdrops[0].file_path : null)
                     setImgs(res.data.backdrops)
                     setPoster(res.data.posters)
                     setLogo(res.data.logos)
@@ -186,7 +186,10 @@ export function GlobalProvider({ children }) {
                     language: 'it-IT',
                     page: i
                 },
-                headers: HEADER_KEY
+                headers: {
+                    accept: 'application/json',
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkYmE5NDkyYjA4MDczODYzN2Y1M2RmNmJmZmE2YjhjMyIsIm5iZiI6MTczNDAwMTk5My42MzkwMDAyLCJzdWIiOiI2NzVhYzU0OTlhZTUyNmQ1MDhhOWNmOGIiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.5QxtZmHBD5OWY4MsxJKFi1Me51dzgXlbXp0-CsDINX8'
+                }
             })
                 .then(res => {
                     const filtered = res.data.results.filter(movie => movie.release_date > currentDate);
