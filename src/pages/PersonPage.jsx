@@ -1,9 +1,6 @@
 import * as React from 'react'
 import { Link, useParams } from 'react-router'
 
-// Placeholder 
-import personPlaceholder from '../assets/PersonPlaceholder.png'
-
 // Context
 import GlobalContext from '../context/GlobalContext'
 
@@ -43,8 +40,10 @@ export default function PersonPage() {
         <div className='sm:my-16 p-5'>
             <div className='flex flex-col justify-center items-center gap-10 sm:gap-18'>
                 <div className='flex gap-2'>
-                    <img src={person.profile_path ? path_img + person.profile_path : personPlaceholder} alt={person.name}
-                        className='w-[200px] h-[300px] rounded-xl' />
+                    {person.profile_path ?
+                        <img src={path_img + person.profile_path} alt={person.name} className='w-[200px] h-[300px] rounded-xl' />
+                        : <img src="/public/placeholder/PersonPlaceholder.png" alt={person.name} className='w-[250px] h-[300px] rounded-xl' />
+                    }
                     <div className='flex flex-col gap-5 sm:gap-15' >
                         <div className='flex flex-wrap items-baseline gap-5'>
                             <div className='text-2xl font-semibold mt-3'>{person.name ? person.name : 'Sconosciuto'}</div>

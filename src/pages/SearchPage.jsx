@@ -2,9 +2,6 @@ import * as React from 'react'
 import axios from 'axios'
 const KEY = import.meta.env.VITE_API_KEY
 
-// Placeholder
-import imagePlaceholder from '../assets/ImagePlaceholder.jpg'
-import personPlaceholder from '../assets/PersonPlaceholder.png'
 import CardPlaceholder from '../components/cardPlaceholder/CardPlaceholder'
 
 // Icons
@@ -96,8 +93,8 @@ export default function SearchPage() {
                                         image={e.media_type === 'tv' || e.media_type === 'movie' && e.poster_path ?
                                             path_img + e.poster_path
                                             : e.media_type === 'person' && e.profile_path ? path_img + e.profile_path :
-                                                e.media_type === 'person' ? personPlaceholder
-                                                    : imagePlaceholder
+                                                e.media_type === 'person' ? '/public/placeholder/PersonPlaceholder.png'
+                                                    : '/public/placeholder/ImagePlaceholder.jpg'
                                         }
                                         styleCard={mobileWidth ? 'w-[150px]' : 'w-[200px]'}
                                         styleImg={mobileWidth ? 'w-xs h-[220px]' : 'w-[200px] h-[300px]'}

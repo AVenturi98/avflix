@@ -1,9 +1,6 @@
 import * as React from 'react'
 import { Link } from 'react-router'
 
-// Placeholder
-import imagePlaceholder from '../assets/ImagePlaceholder.jpg'
-
 // Components
 import VoteStar from './VoteStar'
 import Flags from './Flags'
@@ -88,7 +85,7 @@ export default function Card({
         <Link to={`/${type}/${id}` + '-' + titleSlug(title || name)} onMouseEnter={onMouseEnter}>
             <div className='img_popular_card'>
                 <div className={`${styleCard} shadow-card rounded-2xl`}>
-                    <LazyLoader image={image !== null ? image : imagePlaceholder} style={`${styleImg} rounded-2xl relative`} />
+                    <LazyLoader image={image !== null ? image : '/public/placeholder/ImagePlaceholder.jpg'} style={`${styleImg} rounded-2xl relative`} />
 
                     {!mobileWidth ?
                         <div className='hover_el_popular_card flex justify-center items-start flex-col gap-5 p-3 rounded-2xl' >

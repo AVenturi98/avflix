@@ -3,9 +3,6 @@ import { Link } from "react-router";
 import "./Carousel.css";
 
 
-// Placeholder
-import personPlaceholder from '../../assets/PersonPlaceholder.png'
-
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleArrowLeft, faCircleArrowRight } from "@fortawesome/free-solid-svg-icons";
@@ -48,7 +45,7 @@ const Carousel = ({ images }) => {
                     {images.map((image, index) => (
                         <Link to={`/person/${image.id}` + '-' + titleSlug(image.name)} key={index}>
                             <div className="carousel-item" >
-                                <img src={image.profile_path ? `https://image.tmdb.org/t/p/w500${image.profile_path}` : personPlaceholder} alt={image.name} className="cast-img rounded-br-full rounded-bl-full rounded-tl-full" />
+                                <img src={image.profile_path ? `https://image.tmdb.org/t/p/w500${image.profile_path}` : '/public/placeholder/PersonPlaceholder.png'} alt={image.name} className="cast-img rounded-br-full rounded-bl-full rounded-tl-full" />
                                 <div className="cast-info">
                                     <h3 className="font-bold">{image.name}</h3>
                                     <p className="font-medium italic">Popularity:

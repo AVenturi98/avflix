@@ -3,9 +3,6 @@ const KEY = import.meta.env.VITE_API_KEY
 import axios from 'axios';
 import { Link, useParams } from 'react-router';
 
-// Placeholder
-import personPlaceholder from '../../assets/PersonPlaceholder.png'
-
 // Context
 import GlobalContext from '../../context/GlobalContext';
 
@@ -59,7 +56,7 @@ export default function CrewPage({ type }) {
                                 {cast.map(e =>
                                     <Link to={`/person/${e.id}` + '_' + titleSlug(e.name)}>
                                         <div key={e.id} className="flex flex-col items-center border border-amber-600 bg-amber-50 p-2 rounded-xl">
-                                            <img src={e.profile_path !== null ? path_img + e.profile_path : personPlaceholder} alt={e.name}
+                                            <img src={e.profile_path !== null ? path_img + e.profile_path : '/public/placeholder/PersonPlaceholder.png'} alt={e.name}
                                                 className='w-32 h-32 rounded-full shadow-lg object-cover mb-2' />
                                             <div className="text-center font-semibold">{e.name}</div>
                                             <div className='text-center italic text-gray-500'>{e.character}</div>
@@ -76,7 +73,7 @@ export default function CrewPage({ type }) {
                                 {crew.map(e =>
                                     <Link to={`/person/${e.id}`}>
                                         <div key={e.id} className="flex flex-col items-center">
-                                            <img src={e.profile_path !== null ? path_img + e.profile_path : personPlaceholder} alt={e.name}
+                                            <img src={e.profile_path !== null ? path_img + e.profile_path : '/public/placeholder/PersonPlaceholder.png'} alt={e.name}
                                                 className='w-32 h-32 rounded-full shadow-lg object-cover mb-2' />
                                             <div className="text-center font-semibold">{e.name}</div>
                                         </div>

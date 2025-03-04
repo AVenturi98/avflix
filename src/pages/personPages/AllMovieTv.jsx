@@ -7,9 +7,6 @@ import { useParams } from 'react-router'
 // Components
 import BtnSwitchWord from '../../components/BtnSwitchWord'
 
-// Placeholder
-import imagePlaceholder from '../../assets/ImagePlaceholder.jpg'
-
 // Icons 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
@@ -73,7 +70,7 @@ export default function AllMovieTv() {
                         <Card key={i}
                             type={e.media_type}
                             item={e}
-                            image={e.poster_path ? path_img + e.poster_path : imagePlaceholder}
+                            image={e.poster_path ? path_img + e.poster_path : '/public/placeholder/ImagePlaceholder.jpg'}
                             language={true}
                             stars={true}
                             overviewSmall={e.overview}
@@ -90,7 +87,7 @@ export default function AllMovieTv() {
                         <Card key={i}
                             type={e.media_type}
                             item={e}
-                            image={e.poster_path ? path_img + e.poster_path : imagePlaceholder}
+                            image={e.poster_path ? path_img + e.poster_path : '/public/placeholder/ImagePlaceholder.jpg'}
                             language={true}
                             stars={true}
                             overviewSmall={e.overview}

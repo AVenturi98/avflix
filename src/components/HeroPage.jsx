@@ -3,9 +3,6 @@ import Card from './Card'
 
 import GlobalContext from '../context/GlobalContext'
 
-// Placeholder
-import imagePlaceholder from '../assets/ImagePlaceholder.jpg'
-
 export default function HeroPage({ type, check, myArray = [] }) {
 
     const { mobileWidth, showMoreMovies, setShowMoreMovies, showMoreSeries, setShowMoreSeries } = React.useContext(GlobalContext)
@@ -46,7 +43,7 @@ export default function HeroPage({ type, check, myArray = [] }) {
                                     <Card key={e.id}
                                         type={check}
                                         item={e}
-                                        image={e.poster_path ? path_img + e.poster_path : imagePlaceholder}
+                                        image={e.poster_path ? path_img + e.poster_path : '/public/placeholder/ImagePlaceholder.jpg'}
                                         language={true}
                                         stars={true}
                                         overviewSmall={e.overview}
@@ -58,7 +55,7 @@ export default function HeroPage({ type, check, myArray = [] }) {
                                     <Card key={e.id}
                                         type={check}
                                         item={e}
-                                        image={e.poster_path ? path_img + e.poster_path : imagePlaceholder}
+                                        image={e.poster_path ? path_img + e.poster_path : '/public/placeholder/ImagePlaceholder.jpg'}
                                         language={true}
                                         stars={true}
                                         overviewSmall={e.overview}
@@ -97,7 +94,7 @@ export default function HeroPage({ type, check, myArray = [] }) {
                                     <Card key={e.id}
                                         type={check}
                                         item={e}
-                                        image={e.poster_path ? path_img + e.poster_path : imagePlaceholder}
+                                        image={e.poster_path ? path_img + e.poster_path : '/public/placeholder/ImagePlaceholder.jpg'}
                                         language={true}
                                         stars={true}
                                         overviewSmall={e.overview}
@@ -109,7 +106,7 @@ export default function HeroPage({ type, check, myArray = [] }) {
                                     <Card key={e.id}
                                         type={check}
                                         item={e}
-                                        image={e.poster_path ? path_img + e.poster_path : imagePlaceholder}
+                                        image={e.poster_path ? path_img + e.poster_path : '/public/placeholder/ImagePlaceholder.jpg'}
                                         language={true}
                                         stars={true}
                                         overviewSmall={e.overview}
