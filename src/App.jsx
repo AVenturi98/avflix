@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Routes, Route, BrowserRouter } from 'react-router'
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 // Components
 import BlankLayout from './layout/BlankLayout'
@@ -31,61 +32,65 @@ function App() {
 
 
   return (
-    <WindowProvider>
-      <GlobalProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path='/' element={<DefaultLayout />}>
+    <div>
+      <WindowProvider>
+        <GlobalProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path='/' element={<DefaultLayout />}>
 
-              <Route index element={<Home />} />
+                <Route index element={<Home />} />
 
-              {/* POPULAR MOVIES */}
-              <Route path='/popular-movie' element={<PopularMovie />} />
-              <Route path='/movie' >
-                <Route path=':id' element={<Show type='movie' />} />
-                <Route path=':id/dettails' element={<DefaultDettails type='movie' />}>
-                  <Route path='media' element={<MediasPage type='movie' />} />
-                  <Route path='video' element={<VideoPage type='movie' />} />
-                  <Route path='crew' element={<CrewPage type='movie' />} />
-                </Route>
-              </Route>
-
-              {/* POPULAR TVs */}
-              <Route path='/popular-tv' element={<PopularTv />} />
-              <Route path='/tv' >
-                <Route path=':id' element={<Show type='tv' />} />
-                <Route path=':id/dettails' element={<DefaultDettails type='tv' />}>
-                  <Route path='media' element={<MediasPage type='tv' />} />
-                  <Route path='video' element={<VideoPage type='tv' />} />
-                  <Route path='crew' element={<CrewPage type='tv' />} />
-                </Route>
-              </Route>
-
-              {/* PERSONS */}
-              <Route path='/person'>
-                <Route path=':id' element={<PersonPage />} />
-                <Route path=':id/dettails' element={<DefaultDettails type={'person'} />}>
-                  <Route path='media' >
-                    <Route path='person' element={<MediaPerson />} />
-                    <Route path='images' element={<MediaTaggedPerson />} />
-                    <Route path='shows' element={<AllMovieTv />} />
+                {/* POPULAR MOVIES */}
+                <Route path='/popular-movie' element={<PopularMovie />} />
+                <Route path='/movie' >
+                  <Route path=':id' element={<Show type='movie' />} />
+                  <Route path=':id/dettails' element={<DefaultDettails type='movie' />}>
+                    <Route path='media' element={<MediasPage type='movie' />} />
+                    <Route path='video' element={<VideoPage type='movie' />} />
+                    <Route path='crew' element={<CrewPage type='movie' />} />
                   </Route>
                 </Route>
+
+                {/* POPULAR TVs */}
+                <Route path='/popular-tv' element={<PopularTv />} />
+                <Route path='/tv' >
+                  <Route path=':id' element={<Show type='tv' />} />
+                  <Route path=':id/dettails' element={<DefaultDettails type='tv' />}>
+                    <Route path='media' element={<MediasPage type='tv' />} />
+                    <Route path='video' element={<VideoPage type='tv' />} />
+                    <Route path='crew' element={<CrewPage type='tv' />} />
+                  </Route>
+                </Route>
+
+                {/* PERSONS */}
+                <Route path='/person'>
+                  <Route path=':id' element={<PersonPage />} />
+                  <Route path=':id/dettails' element={<DefaultDettails type={'person'} />}>
+                    <Route path='media' >
+                      <Route path='person' element={<MediaPerson />} />
+                      <Route path='images' element={<MediaTaggedPerson />} />
+                      <Route path='shows' element={<AllMovieTv />} />
+                    </Route>
+                  </Route>
+                </Route>
+
+                {/* SEARCH */}
+                <Route path='/search' element={<SearchPage />} />
+
               </Route>
 
-              {/* SEARCH */}
-              <Route path='/search' element={<SearchPage />} />
+              {/* ERRORS */}
+              <Route path='/' element={<BlankLayout />}>
+                <Route path='not-found' element={<NotFound />}></Route>
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </GlobalProvider>
+      </WindowProvider>
 
-            </Route>
-
-            {/* ERRORS */}
-            <Route path='/' element={<BlankLayout />}>
-              <Route path='not-found' element={<NotFound />}></Route>
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </GlobalProvider>
-    </WindowProvider>
+      <SpeedInsights />
+    </div>
   )
 }
 

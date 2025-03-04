@@ -45,14 +45,14 @@ export default function Episodes({ id, type, episodeFiltered, seasonNumber, sele
         <>
             {/* EPISODES */}
             {episode &&
-                <div className='w-[100%] p-5'>
+                <div className='w-[100%] sm:p-5'>
                     <h2 className='font-extrabold text-3xl my-2'>Episodi</h2>
                     <select disabled={!selectedSeason} name="episodes" id="episodes"
                         value={selectedEpisode}
                         onChange={(e) => setSelectedEpisode(e.target.value)}
                         className='mt-4 mb-6 cursor-pointer hover:bg-blue-200 p-0.5 rounded-xl border-2 border-emerald-500'>
                         <option>{selectedSeason ? 'Episodi'
-                            : !selectedSeason ? 'Scegli una stagione per selzionare gli episodi'
+                            : !selectedSeason ? 'Scegli prima una stagione'
                                 : episode.length = 0 ? 'Nessun episodio disponibile' : ''}</option>
                         {episodeFiltered.map((e, i) =>
                             <option key={i} value={i + 1}>{'Episodio ' + (i + 1)}</option>
@@ -65,7 +65,7 @@ export default function Episodes({ id, type, episodeFiltered, seasonNumber, sele
 
                     <div className='text-white'>
                         {episodeFiltered.filter((e, i) => (i + 1) == selectedEpisode).map(e =>
-                            <div key={e.id} className='flex gap-5 rounded-xl h-[350px]' style={{
+                            <div key={e.id} className='flex gap-5 rounded-xl sm:h-[350px]' style={{
                                 backgroundImage: `linear-gradient(rgba(1, 1, 22, 0.6), rgba(1, 1, 22, 0.8)), url(${'https://image.tmdb.org/t/p/original' + e.still_path})`,
                                 backgroundPosition: 'center center', backgroundSize: 'cover'
                             }}>
@@ -106,7 +106,7 @@ export default function Episodes({ id, type, episodeFiltered, seasonNumber, sele
                             </div>
                         )}
                         {episode.slice(0, 1).map(e =>
-                            <div key={e.id} className={`flex gap-5 rounded-xl h-[350px] ${selectedEpisode ? 'hidden' : ''}`} style={{
+                            <div key={e.id} className={`flex gap-5 rounded-xl sm:h-[350px] ${selectedEpisode ? 'hidden' : ''}`} style={{
                                 backgroundImage: `linear-gradient(rgba(1, 1, 22, 0.65), rgba(1, 1, 22, 0.8)), url(${'https://image.tmdb.org/t/p/original' + e.still_path})`,
                                 backgroundPosition: 'center center', backgroundSize: 'cover'
                             }}>

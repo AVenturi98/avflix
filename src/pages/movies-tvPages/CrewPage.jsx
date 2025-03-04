@@ -71,8 +71,8 @@ export default function CrewPage({ type }) {
                             <h2 className="text-3xl font-semibold mb-4">Crew <span className='text-2xl opacity-60'>({crew.length})</span></h2>
                             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
                                 {crew.map(e =>
-                                    <Link to={`/person/${e.id}`}>
-                                        <div key={e.id} className="flex flex-col items-center">
+                                    <Link to={`/person/${e.id}`} key={e.id} >
+                                        <div className="flex flex-col items-center">
                                             <img src={e.profile_path !== null ? path_img + e.profile_path : '/placeholder/PersonPlaceholder.png'} alt={e.name}
                                                 className='w-32 h-32 rounded-full shadow-lg object-cover mb-2' />
                                             <div className="text-center font-semibold">{e.name}</div>

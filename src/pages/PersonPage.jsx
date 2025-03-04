@@ -42,10 +42,10 @@ export default function PersonPage() {
                 <div className='flex gap-2'>
                     {person.profile_path ?
                         <img src={path_img + person.profile_path} alt={person.name} className='w-[200px] h-[300px] rounded-xl' />
-                        : <img src="/placeholder/PersonPlaceholder.png" alt={person.name} className='w-[250px] h-[300px] rounded-xl' />
+                        : <img src="/placeholder/PersonPlaceholder.png" alt={person.name} className='w-[200px] h-[300px] rounded-xl' />
                     }
                     <div className='flex flex-col gap-5 sm:gap-15' >
-                        <div className='flex flex-wrap items-baseline gap-5'>
+                        <div className='flex flex-wrap items-baseline sm:gap-5'>
                             <div className='text-2xl font-semibold mt-3'>{person.name ? person.name : 'Sconosciuto'}</div>
                             <div className='italic text-gray-500'>{person.known_for_department + ', ' + otherRole}</div>
                         </div>
