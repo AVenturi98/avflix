@@ -62,6 +62,7 @@ export default function Home() {
     function fetchMedia() {
         if (trendImgWeek.media_type && trendImgWeek.id) {
             axios.get(`https://api.themoviedb.org/3/${trendImgWeek.media_type}/${trendImgWeek.id}/images?api_key=dba9492b080738637f53df6bffa6b8c3`)
+
                 .then(res => {
                     const logoEn = res.data.logos.find(logo => logo.iso_639_1 === 'en');
                     const logoIt = res.data.logos.find(logo => logo.iso_639_1 === 'it')
@@ -72,8 +73,9 @@ export default function Home() {
                     }
                     // console.log('Media', res.data.logos)
                 })
+
                 .catch(err => {
-                    console.error('Error fetch Media Home', err)
+                    console.error('Error fetch Media Home page', err)
                 });
         }
     }
