@@ -41,15 +41,11 @@ export default function SearchPage() {
         setLoading(true)
         setLoader(true)
 
-        axios.get(`https://api.themoviedb.org/3/search/multi`, {
+        axios.get(`https://api.themoviedb.org/3/search/multi?api_key=dba9492b080738637f53df6bffa6b8c3`, {
             params: {
                 language: 'it-IT',
                 query: search
             },
-            headers: {
-                accept: 'application/json',
-                Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkYmE5NDkyYjA4MDczODYzN2Y1M2RmNmJmZmE2YjhjMyIsIm5iZiI6MTczNDAwMTk5My42MzkwMDAyLCJzdWIiOiI2NzVhYzU0OTlhZTUyNmQ1MDhhOWNmOGIiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.5QxtZmHBD5OWY4MsxJKFi1Me51dzgXlbXp0-CsDINX8'
-            }
         })
             .then(res => {
                 setPost(res.data.results)

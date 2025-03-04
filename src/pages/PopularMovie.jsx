@@ -61,7 +61,7 @@ export default function PopularMovie() {
     function fetchCreditsId(movie_id) {
         const options = {
             method: 'GET',
-            url: `https://api.themoviedb.org/3/movie/${movie_id}/credits${KEY}`,
+            url: `https://api.themoviedb.org/3/movie/${movie_id}/credits?api_key=dba9492b080738637f53df6bffa6b8c3`,
             params: { language: 'it-IT' },
         };
 

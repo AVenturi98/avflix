@@ -5,6 +5,7 @@ import { Link, useParams, useNavigate } from 'react-router'
 
 // Placeholder 
 import imagePlaceholder from '../assets/ImagePlaceholder.jpg'
+import personPlaceholder from '../assets/PersonPlaceholder.png'
 
 // Components
 import BtnSwitchWord from '../components/BtnSwitchWord'
@@ -70,12 +71,8 @@ export default function Show({ type }) {
     function fetchMovieId() {
         const options = {
             method: 'GET',
-            url: `https://api.themoviedb.org/3/${type}/${id}`,
+            url: `https://api.themoviedb.org/3/${type}/${id}?api_key=dba9492b080738637f53df6bffa6b8c3`,
             params: { language: 'it-IT' },
-            headers: {
-                accept: 'application/json',
-                Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkYmE5NDkyYjA4MDczODYzN2Y1M2RmNmJmZmE2YjhjMyIsIm5iZiI6MTczNDAwMTk5My42MzkwMDAyLCJzdWIiOiI2NzVhYzU0OTlhZTUyNmQ1MDhhOWNmOGIiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.5QxtZmHBD5OWY4MsxJKFi1Me51dzgXlbXp0-CsDINX8'
-            }
         };
 
         axios
@@ -101,7 +98,7 @@ export default function Show({ type }) {
 
     // Seasons-Episodes fetch (only tv)
     function fetchEpisodes() {
-        axios.get(`https://api.themoviedb.org/3/tv/${id}/season/${seasonNumber || 1}${KEY}`, {
+        axios.get(`https://api.themoviedb.org/3/tv/${id}/season/${seasonNumber || 1}${KEY}?api_key=dba9492b080738637f53df6bffa6b8c3`, {
             params: {
                 language: 'it-IT'
             }
@@ -280,7 +277,7 @@ export default function Show({ type }) {
                                 {cast.slice(0, 10).map(e =>
                                     <Link to={`/person/${e.id}` + '-' + titleSlug(e.name)} key={e.id}>
                                         <div className='flex flex-col items-center'>
-                                            <LazyLoader image={'https://image.tmdb.org/t/p/w500' + e.profile_path}
+                                            <LazyLoader image={e.profile_path ? 'https://image.tmdb.org/t/p/w500' + e.profile_path : personPlaceholder}
                                                 style={`${mobileWidth ? 'min-w-30 min-h-30 max-w-30 max-h-30' : 'min-w-50 min-h-50 max-w-50 max-h-50'} rounded-full shadow-lg shadow-black object-cover`} />
                                             <div className='mt-2 text-center text-lg font-bold h-18'>{e.name}</div>
                                         </div>

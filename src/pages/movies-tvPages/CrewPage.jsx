@@ -23,12 +23,8 @@ export default function CrewPage({ type }) {
     function fetchMovieId() {
         const options = {
             method: 'GET',
-            url: `https://api.themoviedb.org/3/${type}/${id}`,
+            url: `https://api.themoviedb.org/3/${type}/${id}?api_key=dba9492b080738637f53df6bffa6b8c3`,
             params: { language: 'it-IT' },
-            headers: {
-                accept: 'application/json',
-                Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkYmE5NDkyYjA4MDczODYzN2Y1M2RmNmJmZmE2YjhjMyIsIm5iZiI6MTczNDAwMTk5My42MzkwMDAyLCJzdWIiOiI2NzVhYzU0OTlhZTUyNmQ1MDhhOWNmOGIiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.5QxtZmHBD5OWY4MsxJKFi1Me51dzgXlbXp0-CsDINX8'
-            }
         };
 
         axios
@@ -49,43 +45,49 @@ export default function CrewPage({ type }) {
     }, [])
 
     return (
-        <div className="container mx-auto px-4 py-8">
-            <h1 className="text-4xl font-bold text-center mb-8">{post.title || post.name}</h1>
+        <>
+            {cast.length > 0 || crew.lenght > 0 ?
+                <div className="container mx-auto px-4 py-8">
+                    <h1 className="text-4xl font-bold text-center mb-8">{post.title || post.name}</h1>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {/* CAST */}
-                <div>
-                    <h2 className="text-3xl font-semibold mb-4">Cast <span className='text-2xl opacity-60'>({cast.length})</span></h2>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
-                        {cast.map(e =>
-                            <Link to={`/person/${e.id}` + '_' + titleSlug(e.name)}>
-                                <div key={e.id} className="flex flex-col items-center border border-amber-600 bg-amber-50 p-2 rounded-xl">
-                                    <img src={e.profile_path !== null ? path_img + e.profile_path : personPlaceholder} alt={e.name}
-                                        className='w-32 h-32 rounded-full shadow-lg object-cover mb-2' />
-                                    <div className="text-center font-semibold">{e.name}</div>
-                                    <div className='text-center italic text-gray-500'>{e.character}</div>
-                                </div>
-                            </Link>
-                        )}
-                    </div>
-                </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        {/* CAST */}
+                        {cast.length > 0 ? <div>
+                            <h2 className="text-3xl font-semibold mb-4">Cast <span className='text-2xl opacity-60'>({cast.length})</span></h2>
+                            <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
+                                {cast.map(e =>
+                                    <Link to={`/person/${e.id}` + '_' + titleSlug(e.name)}>
+                                        <div key={e.id} className="flex flex-col items-center border border-amber-600 bg-amber-50 p-2 rounded-xl">
+                                            <img src={e.profile_path !== null ? path_img + e.profile_path : personPlaceholder} alt={e.name}
+                                                className='w-32 h-32 rounded-full shadow-lg object-cover mb-2' />
+                                            <div className="text-center font-semibold">{e.name}</div>
+                                            <div className='text-center italic text-gray-500'>{e.character}</div>
+                                        </div>
+                                    </Link>
+                                )}
+                            </div>
+                        </div> : ''}
 
-                {/* CREW */}
-                <div>
-                    <h2 className="text-3xl font-semibold mb-4">Crew <span className='text-2xl opacity-60'>({crew.length})</span></h2>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-                        {crew.map(e =>
-                            <Link to={`/person/${e.id}`}>
-                                <div key={e.id} className="flex flex-col items-center">
-                                    <img src={e.profile_path !== null ? path_img + e.profile_path : personPlaceholder} alt={e.name}
-                                        className='w-32 h-32 rounded-full shadow-lg object-cover mb-2' />
-                                    <div className="text-center font-semibold">{e.name}</div>
-                                </div>
-                            </Link>
-                        )}
+                        {/* CREW */}
+                        {crew.length > 0 ? <div>
+                            <h2 className="text-3xl font-semibold mb-4">Crew <span className='text-2xl opacity-60'>({crew.length})</span></h2>
+                            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+                                {crew.map(e =>
+                                    <Link to={`/person/${e.id}`}>
+                                        <div key={e.id} className="flex flex-col items-center">
+                                            <img src={e.profile_path !== null ? path_img + e.profile_path : personPlaceholder} alt={e.name}
+                                                className='w-32 h-32 rounded-full shadow-lg object-cover mb-2' />
+                                            <div className="text-center font-semibold">{e.name}</div>
+                                        </div>
+                                    </Link>
+                                )}
+                            </div>
+                        </div> : ''}
                     </div>
-                </div>
-            </div>
-        </div>
+                </div> :
+                <div className='flex justify-center'>
+                    Nessun elemento disponibile
+                </div>}
+        </>
     )
 }

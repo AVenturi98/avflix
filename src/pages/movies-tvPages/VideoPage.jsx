@@ -18,12 +18,8 @@ export default function VideoPage({ type }) {
     function fetchMovieId() {
         const options = {
             method: 'GET',
-            url: `https://api.themoviedb.org/3/${type}/${id}`,
+            url: `https://api.themoviedb.org/3/${type}/${id}?api_key=dba9492b080738637f53df6bffa6b8c3`,
             params: { language: 'it-IT' },
-            headers: {
-                accept: 'application/json',
-                Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkYmE5NDkyYjA4MDczODYzN2Y1M2RmNmJmZmE2YjhjMyIsIm5iZiI6MTczNDAwMTk5My42MzkwMDAyLCJzdWIiOiI2NzVhYzU0OTlhZTUyNmQ1MDhhOWNmOGIiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.5QxtZmHBD5OWY4MsxJKFi1Me51dzgXlbXp0-CsDINX8'
-            }
         };
 
         axios
@@ -70,27 +66,32 @@ export default function VideoPage({ type }) {
 
             {/* VIDEOS */}
             <h1 className='text-3xl font-bold'>Video <span className='text-2xl opacity-60'>({videos.length})</span></h1>
-            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6'>
-                {videos.map(e =>
-                    <div key={e.id} className="relative">
-                        <iframe
-                            id={`player-${e.id}`}
-                            width="100%"
-                            height="200px"
-                            src={`https://www.youtube.com/embed/${e.key}?enablejsapi=1`}
-                            title={e.name}
-                            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                            className='rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300'
-                        ></iframe>
-                        {playingVideo !== e.id && (
-                            <div className="absolute bottom-0 left-0 bg-black bg-opacity-50 text-white p-2 rounded-b-lg w-full text-center">
-                                {e.name}
-                            </div>
-                        )}
-                    </div>
-                )}
-            </div>
+            {videos.length >= 1 ?
+                <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6'>
+                    {videos.map(e =>
+                        <div key={e.id} className="relative">
+                            <iframe
+                                id={`player-${e.id}`}
+                                width="100%"
+                                height="200px"
+                                src={`https://www.youtube.com/embed/${e.key}?enablejsapi=1`}
+                                title={e.name}
+                                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                                className='rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300'
+                            ></iframe>
+                            {playingVideo !== e.id && (
+                                <div className="absolute bottom-0 left-0 bg-black bg-opacity-50 text-white p-2 rounded-b-lg w-full text-center">
+                                    {e.name}
+                                </div>
+                            )}
+                        </div>
+                    )}
+                </div> :
+                <div className='flex justify-center'>
+                    Nessun video disponbile
+                </div>
+            }
         </div>
     )
 }
