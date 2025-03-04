@@ -124,7 +124,7 @@ export default function Card({
                                 <p className='italic font-bold'>{name}</p>
                             </div> : ''}
 
-                    {image === imagePlaceholder && mobileWidth && !media_name ?
+                    {image === '/public/placeholder/ImagePlaceholder.jpg' && mobileWidth && !media_name ?
                         <div className='absolute top-5 bg-green-500 w-full rounded-xs p-2'>{title || name}</div>
                         : ''}
 

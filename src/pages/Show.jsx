@@ -94,7 +94,7 @@ export default function Show({ type }) {
 
     // Seasons-Episodes fetch (only tv)
     function fetchEpisodes() {
-        axios.get(`https://api.themoviedb.org/3/tv/${id}/season/${seasonNumber || 1}${KEY}?api_key=dba9492b080738637f53df6bffa6b8c3`, {
+        axios.get(`https://api.themoviedb.org/3/tv/${id}/season/${seasonNumber || 1}?api_key=dba9492b080738637f53df6bffa6b8c3`, {
             params: {
                 language: 'it-IT'
             }
