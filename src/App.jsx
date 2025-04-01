@@ -27,6 +27,8 @@ import NotFound from './erros_pages/NotFound'
 import { WindowProvider } from './context/WindowContext'
 import { GlobalProvider } from './context/GlobalContext'
 
+//Analytics
+import { Analytics } from "@vercel/analytics/react"
 
 function App() {
 
@@ -84,6 +86,7 @@ function App() {
               <Route path='/' element={<BlankLayout />}>
                 <Route path='not-found' element={<NotFound />}></Route>
               </Route>
+              <Analytics />
             </Routes>
           </BrowserRouter>
         </GlobalProvider>
