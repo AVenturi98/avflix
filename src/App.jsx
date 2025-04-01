@@ -86,8 +86,8 @@ function App() {
               <Route path='/' element={<BlankLayout />}>
                 <Route path='not-found' element={<NotFound />}></Route>
               </Route>
-              <Analytics />
             </Routes>
+            <Analytics />
           </BrowserRouter>
         </GlobalProvider>
       </WindowProvider>
