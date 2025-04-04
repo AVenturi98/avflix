@@ -1,5 +1,6 @@
 import * as React from 'react'
 import axios from 'axios'
+import { Link } from 'react-router'
 const KEY = import.meta.env.VITE_API_KEY
 
 // Components
@@ -93,12 +94,14 @@ export default function Home() {
             <div className='bg-gray-300 '>
                 <h1 className='text-3xl text-center py-4 title-home'>Scopri le tendenze del momento</h1>
             </div>
-            <div style={{
-                backgroundImage: `linear-gradient(rgba(21, 26, 102, 0.5), rgba(21, 26, 102, 0.6)), url(${path_img_or + trendImgWeek.backdrop_path})`
-            }}
-                className='h-[500px] bg-cover bg-center flex justify-center items-center hero_home text-center'>
-                <LazyLoader image={path_img_5 + logo.file_path} style={'opacity-80 px-2'} />
-            </div >
+            <Link to={`/${trendImgWeek.media_type}/${trendImgWeek.id}`}>
+                <div style={{
+                    backgroundImage: `linear-gradient(rgba(21, 26, 102, 0.5), rgba(21, 26, 102, 0.6)), url(${path_img_or + trendImgWeek.backdrop_path})`
+                }}
+                    className='h-[500px] bg-cover bg-center flex justify-center items-center hero_home text-center'>
+                    <LazyLoader image={path_img_5 + logo.file_path} style={'opacity-80 px-2'} />
+                </div >
+            </Link>
             <FilteredSection myArray={trendWeek} title={'Questa settimana'} type={trendWeek.map(e => e.media_type)} />
             <FilteredSection myArray={trendDay} title={'Selezione di oggi'} type={trendWeek.map(e => e.media_type)} />
             <div className='my-12'>
