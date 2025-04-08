@@ -9,7 +9,12 @@ export default function BtnDarkMode() {
     return (
         <>
             <label className="switch">
-                <input id="checkbox" type="checkbox" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')} />
+                <input
+                    id="checkbox"
+                    type="checkbox"
+                    checked={theme === 'light'}
+                    onChange={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                />
                 <span className="slider">
                     <div className="star star_1"></div>
                     <div className="star star_2"></div>
