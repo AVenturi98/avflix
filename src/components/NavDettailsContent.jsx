@@ -11,7 +11,7 @@ import { faArrowAltCircleLeft } from "@fortawesome/free-solid-svg-icons"
 
 export default function NavDettailsContent({ type }) {
 
-    const { mobileWidth } = useContext(GlobalContext)
+    const { mobileWidth, theme } = useContext(GlobalContext)
 
     const [showBack, setShowBack] = useState(false)
 
@@ -35,21 +35,21 @@ export default function NavDettailsContent({ type }) {
                     </Link>
                 </div>
                 <div className={`flex items-center gap-4 nav-dettails ${mobileWidth ? 'grow-1 justify-center' : ''}`}>
-                    <div className="contain-btn-dettails">
+                    <div className={theme === "dark" ? "contain-btn-dettails-dark" : "contain-btn-dettails"}>
                         <NavLink to='media'>
                             <p>
                                 IMMAGINI
                             </p>
                         </NavLink>
                     </div>
-                    <div className="contain-btn-dettails">
+                    <div className={theme === "dark" ? "contain-btn-dettails-dark" : "contain-btn-dettails"}>
                         <NavLink to='video'>
                             <p>
                                 VIDEO
                             </p>
                         </NavLink>
                     </div>
-                    <div className="contain-btn-dettails">
+                    <div className={theme === "dark" ? "contain-btn-dettails-dark" : "contain-btn-dettails"}>
                         <NavLink to='crew'>
                             <p>
                                 CREW

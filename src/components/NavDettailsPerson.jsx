@@ -10,7 +10,7 @@ import GlobalContext from '../context/GlobalContext'
 
 export default function NavDettailsPerson({ type }) {
 
-    const { mobileWidth } = React.useContext(GlobalContext)
+    const { mobileWidth, theme } = React.useContext(GlobalContext)
 
     const [showBack, setShowBack] = React.useState(false)
 
@@ -33,21 +33,21 @@ export default function NavDettailsPerson({ type }) {
                     </Link>
                 </div>
                 <div className={`flex flex-wrap items-center gap-4 nav-dettails ${mobileWidth ? 'grow-1 justify-center' : ''}`}>
-                    <div className='contain-btn-dettails'>
+                    <div className={theme === "dark" ? "contain-btn-dettails-dark" : "contain-btn-dettails"}>
                         <NavLink to='media/person'>
                             <p>
                                 personaggio
                             </p>
                         </NavLink>
                     </div>
-                    <div className='contain-btn-dettails '>
+                    <div className={theme === "dark" ? "contain-btn-dettails-dark" : "contain-btn-dettails"}>
                         <NavLink to='media/images'>
                             <p>
                                 correlate
                             </p>
                         </NavLink>
                     </div>
-                    <div className='contain-btn-dettails '>
+                    <div className={theme === "dark" ? "contain-btn-dettails-dark" : "contain-btn-dettails"}>
                         <NavLink to='media/shows'>
                             <p>
                                 shows

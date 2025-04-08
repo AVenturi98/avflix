@@ -15,6 +15,8 @@ import GlobalContext from '../context/GlobalContext'
 import LazyLoader from '../components/LazyLoader'
 
 export default function Home() {
+    const { theme, setTheme } = React.useContext(GlobalContext); // Access theme state
+
     // Path Image Original
     const path_img_or = 'https://image.tmdb.org/t/p/original'
     // Path Image W500
@@ -90,8 +92,8 @@ export default function Home() {
     }
 
     return (
-        <>
-            <div className='bg-gray-300 '>
+        <div className={theme === 'dark' ? 'dark-theme' : 'light-theme'}>
+            <div className='bg-gray-300'>
                 <h1 className='text-3xl text-center py-4 title-home'>Scopri le tendenze del momento</h1>
             </div>
             <Link to={`/${trendImgWeek.media_type}/${trendImgWeek.id}`}>
@@ -108,6 +110,6 @@ export default function Home() {
                 <TopCast myArray={trendPeople} title={'Personaggi popolari'} />
             </div>
             <FilteredSection myArray={upComing} title={'Prossimamente'} type={'movie'} />
-        </>
+        </div>
     )
 }

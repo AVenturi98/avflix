@@ -37,7 +37,8 @@ export default function Show({ type }) {
         videos,
         currentDate,
         upComing,
-        titleSlug } = React.useContext(GlobalContext)
+        titleSlug,
+        theme } = React.useContext(GlobalContext)
 
     const [post, setPost] = React.useState([]) // set Post
     const [company, setCompany] = React.useState([]) // set Company
@@ -164,7 +165,7 @@ export default function Show({ type }) {
     }
 
     return (
-        <>
+        <div className={theme === 'dark' ? 'dark-theme' : 'light-theme'}>
             {/* HERO SHOW */}
             <section id='hero-show' className={`relative max-w-screen mb-10 2xl:px-50 py-10 sm:py-20 lg:py-40 flex items-start flex-wrap sm:flex-nowrap ${mobileWidth ? 'justify-center gap-5 px-5' : 'px-15'} bg-gray-100 shadow-lg`}
                 style={{ backgroundImage: `linear-gradient(rgba(1, 1, 22, 0.7), rgba(1, 1, 22, 0.9)), url(https://image.tmdb.org/t/p/original${post.backdrop_path})`, backgroundSize: 'cover', backgroundPosition: 'center', zIndex: -99 }}>
@@ -194,7 +195,7 @@ export default function Show({ type }) {
                     </div>
                     <div className='flex gap-5'>
                         <div>{!undefined || !null || !isNaN(post.release_date) || isNaN(post.first_air_date) || isNaN(post.last_air_date) ?
-                            post.release_date || post.first_air_date + ' / ' + post.last_air_date : ''}</div>
+                            new Date(post.release_date).toLocaleDateString() || new Date(post.first_air_date).toLocaleDateString() + ' / ' + new Date(post.last_air_date).toLocaleDateString() : ''}</div>
                         -
                         <div>
                             {post.runtime || post.number_of_episodes ? <FontAwesomeIcon icon={faClock} /> : ''}
@@ -248,7 +249,7 @@ export default function Show({ type }) {
                                 ></iframe>
                             </div> : viewMode === 'video' && !videos &&
                             'Non disponibile'}
-                        <div className='contain-btn-dettails w-[50%] sm:w-[30%] text-center my-3'>
+                        <div className={`${theme === 'dark' ? 'contain-btn-dettails-dark' : 'contain-btn-dettails'} w-[50%] sm:w-[30%] text-center my-3`}>
                             <Link to={`/${type}/${id}/dettails/${viewMode === 'immagini' ? 'media' : 'video'}`} >
                                 <p>Vedi tutti</p>
                             </Link>
@@ -331,12 +332,12 @@ export default function Show({ type }) {
                         post.release_date ?
                         <>
                             <h3 className='font-semibold text-lg my-1'>Data d'uscita</h3>
-                            <p>{post.release_date}</p>
+                            <p>{new Date(post.release_date).toLocaleDateString()}</p>
                         </> :
                         post.first_air_date || post.last_air_date && !undefined && !null && !isNaN(post.first_air_date) && !isNaN(post.last_air_date) ?
                             <>
                                 <h3 className='font-semibold text-lg my-1'>Data primo/ultimo episodio</h3>
-                                <p>{post.first_air_date + ' / ' + post.last_air_date}</p>
+                                <p>{new Date(post.first_air_date).toLocaleDateString() + ' - ' + new Date(post.last_air_date).toLocaleDateString()}</p>
                             </> : !post.first_air_date || post.last_air_date && !undefined && !null && !isNaN(post.last_air_date) ?
                                 <>
                                     <h3 className='font-semibold text-lg my-1'>Data ultimo episodio</h3>
@@ -502,6 +503,6 @@ export default function Show({ type }) {
             {/* UP COMING if not Up Coming Movie */}
             {upComing && post.release_date < currentDate && type === 'movie' ?
                 < FilteredSection myArray={upComing} type={type} title={'In arrivo'} /> : ''}
-        </>
+        </div>
     )
 }

@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import GlobalContext from "../context/GlobalContext";
 
 /**
  * 
@@ -19,6 +20,9 @@ import { useState } from "react";
  */
 
 export default function BtnSwitchWord({ text1, text2, text3, length1, length2, length3, set1, set2, set3, styleSelected, styleSelectedText2, flex }) {
+
+    const { theme } = useContext(GlobalContext);
+
     const [selectedWord, setSelectedWord] = useState(text1);
 
     const handleClick = (word) => {
@@ -28,7 +32,7 @@ export default function BtnSwitchWord({ text1, text2, text3, length1, length2, l
     return (
         <div className={`${flex}`}>
             <button
-                className={`contain-btn-dettails cursor-pointer text-lg transition-all duration-300 ${selectedWord === text1
+                className={`${theme === 'dark' ? 'contain-btn-dettails-dark' : 'contain-btn-dettails'} cursor-pointer text-lg transition-all duration-300 ${selectedWord === text1
                     ? `${styleSelected} scale-101`
                     : "bg-transparent  hover:bg-gray-400"
                     }`}
@@ -40,7 +44,7 @@ export default function BtnSwitchWord({ text1, text2, text3, length1, length2, l
             </button>
 
             <button
-                className={`mx-3 contain-btn-dettails cursor-pointer text-lg transition-all duration-300 ${styleSelectedText2} ${selectedWord === text2
+                className={`${theme === 'dark' ? 'contain-btn-dettails-dark' : 'contain-btn-dettails'} mx-3 cursor-pointer text-lg transition-all duration-300 ${styleSelectedText2} ${selectedWord === text2
                     ? `${styleSelected} scale-101`
                     : "bg-transparent  hover:bg-gray-400"
                     }`}
@@ -53,7 +57,7 @@ export default function BtnSwitchWord({ text1, text2, text3, length1, length2, l
 
             {text3 &&
                 <button
-                    className={`contain-btn-dettails cursor-pointer text-lg transition-all duration-300 ${selectedWord === text3
+                    className={`${theme === 'dark' ? 'contain-btn-dettails-dark' : 'contain-btn-dettails'} cursor-pointer text-lg transition-all duration-300 ${selectedWord === text3
                         ? `${styleSelected} scale-101`
                         : "bg-transparent  hover:bg-gray-400"
                         }`}
