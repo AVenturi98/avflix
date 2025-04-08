@@ -8,7 +8,7 @@ import logo from '../assets/logo.png';
 import GlobalContext from "../context/GlobalContext";
 // Components
 import MenuMobile from './mobile-menu/MenuMobile';
-import BtnDarkMode from './BtnDarkMode';
+import BtnDarkMode from './btnTheme/BtnDarkMode';
 
 export default function Nav() {
     const { mobileWidth } = React.useContext(GlobalContext);

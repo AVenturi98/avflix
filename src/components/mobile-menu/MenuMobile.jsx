@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faFilm, faSearch, faTv, faX } from '@fortawesome/free-solid-svg-icons';
 
 //Components
-import BtnDarkMode from '../BtnDarkMode';
+import BtnDarkMode from '../btnTheme/BtnDarkMode';
 
 export default function MenuMobile() {
 
