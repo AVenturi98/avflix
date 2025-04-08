@@ -13,7 +13,7 @@ import GlobalContext from "../../context/GlobalContext";
 
 const Carousel = ({ images }) => {
 
-    const { titleSlug } = useContext(GlobalContext)
+    const { titleSlug, theme } = useContext(GlobalContext)
 
     // Stato per gestire l'indice dell'immagine corrente
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -60,7 +60,7 @@ const Carousel = ({ images }) => {
                 </div>
             </div>
             <button type="button" disabled={currentIndex === 6 && !mobileWidth} className={`next button ${currentIndex === 6 && !mobileWidth ? 'hidden' : ''} ${currentIndex === 9 && mobileWidth ? 'hidden' : ''}`} onClick={next}>
-                <FontAwesomeIcon icon={faCircleArrowRight} />
+                <FontAwesomeIcon icon={faCircleArrowRight} style={{ color: theme === 'dark' ? '#ffffff' : '' }} />
             </button>
         </div>
     );

@@ -24,6 +24,12 @@ export function GlobalProvider({ children }) {
 
     const [person, setPerson] = React.useState([]) // set Person ID
 
+    const [theme, setTheme] = React.useState('light'); // Add theme state
+
+    React.useEffect(() => {
+        document.body.className = theme === 'light' ? 'light-theme' : 'dark-theme'; // Apply theme class to body
+    }, [theme]);
+
     // SLUG
     const titleSlug = (title) => (title).toLowerCase().replace(/ /g, '_');
 
@@ -243,7 +249,8 @@ export function GlobalProvider({ children }) {
             person, setPerson,
             titleSlug,
             loader, setLoader,
-            loading
+            loading,
+            theme, setTheme, // Expose theme and setTheme
         }}>
             {children}
             <BtnBackTop />

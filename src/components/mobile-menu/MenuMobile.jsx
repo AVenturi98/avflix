@@ -1,13 +1,16 @@
-import * as React from 'react'
-import { NavLink, Link } from 'react-router'
-import './MenuMobile.css'
+import * as React from 'react';
+import { NavLink, Link } from 'react-router';
+import './MenuMobile.css';
 
 // Logo
-import logo from '../../assets/logo.png'
+import logo from '../../assets/logo.png';
 
 // Icons 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faFilm, faSearch, faTv, faX } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars, faFilm, faSearch, faTv, faX } from '@fortawesome/free-solid-svg-icons';
+
+//Components
+import BtnDarkMode from '../BtnDarkMode';
 
 export default function MenuMobile() {
 
@@ -56,6 +59,7 @@ export default function MenuMobile() {
                                     </span>
                                 </div>
                             </NavLink>
+                            <BtnDarkMode />
                         </div>
                     </div>}
             </div>
