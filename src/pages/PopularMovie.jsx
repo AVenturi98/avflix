@@ -151,8 +151,9 @@ export default function PopularMovie() {
             <FilteredGenres myArray={filtersGenres} check={'movie'} init={0} finish={3} />
 
             {/* TOP RATED */}
-            <TopRated myArray={top5Votes} check={'movie'} set={fetchMedia} backgroundVoteImage={backgroundVoteImage} setBackgroundImage={setBackgroundVoteImage} />
-
+            <div className='mt-12'>
+                <TopRated myArray={top5Votes} check={'movie'} set={fetchMedia} backgroundVoteImage={backgroundVoteImage} setBackgroundImage={setBackgroundVoteImage} />
+            </div>
             {/* TOP CAST */}
             <TopCast myArray={top5Cast} title={'Top cast'} />
 

@@ -32,6 +32,7 @@ export default function BtnSwitchWord({ text1, text2, text3, length1, length2, l
     return (
         <div className={`${flex}`}>
             <button
+                type="button"
                 className={`${theme === 'dark' ? 'contain-btn-dettails-dark' : 'contain-btn-dettails'} cursor-pointer text-lg transition-all duration-300 ${selectedWord === text1
                     ? `${styleSelected} scale-101`
                     : "bg-transparent  hover:bg-gray-400"
@@ -44,6 +45,7 @@ export default function BtnSwitchWord({ text1, text2, text3, length1, length2, l
             </button>
 
             <button
+                type="button"
                 className={`${theme === 'dark' ? 'contain-btn-dettails-dark' : 'contain-btn-dettails'} mx-3 cursor-pointer text-lg transition-all duration-300 ${styleSelectedText2} ${selectedWord === text2
                     ? `${styleSelected} scale-101`
                     : "bg-transparent  hover:bg-gray-400"
@@ -57,6 +59,7 @@ export default function BtnSwitchWord({ text1, text2, text3, length1, length2, l
 
             {text3 &&
                 <button
+                    type="button"
                     className={`${theme === 'dark' ? 'contain-btn-dettails-dark' : 'contain-btn-dettails'} cursor-pointer text-lg transition-all duration-300 ${selectedWord === text3
                         ? `${styleSelected} scale-101`
                         : "bg-transparent  hover:bg-gray-400"

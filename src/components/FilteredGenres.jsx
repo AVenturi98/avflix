@@ -14,9 +14,9 @@ export default function FilteredGenres({ myArray = [], check, init = Number, fin
         <section className="filtered-genres-container ">
             {myArray.slice(init, finish).map(filter => (
                 filter.movies.length >= 5 &&
-                <div className="filtered-genres-content mb-10" key={filter.title}>
-                    <h2 className='px-10 filtered-genres-title text-4xl font-bold my-6'>{filter.title}</h2>
-                    <div className='px-10 flex items-center grow-1 gap-2 sm:gap-5 overflow-x-auto overflow-y-hidden pb-8'>
+                <div className="filtered-genres-content md:mb-10" key={filter.title}>
+                    <h2 className='px-2 filtered-genres-title text-4xl font-bold mt-6 md:mb-5'>{filter.title}</h2>
+                    <div className='px-2 flex items-center grow-1 gap-2 sm:gap-5 overflow-x-auto overflow-y-hidden md:pb-5'>
                         {filter.movies.slice(0, 10).map(e =>
                             <Card key={e.id} type={check}
                                 item={e}

@@ -106,7 +106,7 @@ export default function Home() {
             </Link>
             <FilteredSection myArray={trendWeek} title={'Questa settimana'} type={trendWeek.map(e => e.media_type)} />
             <FilteredSection myArray={trendDay} title={'Selezione di oggi'} type={trendWeek.map(e => e.media_type)} />
-            <div className='my-12'>
+            <div className='mt-12'>
                 <TopCast myArray={trendPeople} title={'Personaggi popolari'} />
             </div>
             <FilteredSection myArray={upComing} title={'Prossimamente'} type={'movie'} />

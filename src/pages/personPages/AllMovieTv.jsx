@@ -53,14 +53,17 @@ export default function AllMovieTv() {
 
                 {/* FILTER */}
                 {viewModeImg === 'apparizioni' ?
-                    <select name="shows" id="shows"
-                        onChange={(e) => setMediaTypeSelected(e.target.value)}
-                        className='cursor-pointer hover:bg-blue-200 py-1 px-2 rounded-xl border-2 border-emerald-500'>
-                        <option value="">Tutto</option>
-                        {uniqueType.map(e =>
-                            <option key={e.media_type} value={e.media_type}>{e.media_type}</option>
-                        )}
-                    </select> : ''}
+                    <>
+                        <label htmlFor="shows"></label>
+                        <select name="shows" id="shows"
+                            onChange={(e) => setMediaTypeSelected(e.target.value)}
+                            className='cursor-pointe py-1 px-2 rounded-xl border-2 border-emerald-500'>
+                            <option value="">Tutto</option>
+                            {uniqueType.map(e =>
+                                <option key={e.media_type} value={e.media_type} className='bg-blue-400'>{e.media_type}</option>
+                            )}
+                        </select>
+                    </> : ''}
             </div>
 
             {/* APPARIZIONI */}

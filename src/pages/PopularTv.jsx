@@ -140,8 +140,9 @@ export default function PopularMovie() {
 
 
             {/* TOP RATED */}
-            <TopRated myArray={top5Votes} check={'tv'} set={fetchMedia} backgroundVoteImage={backgroundVoteImage} setBackgroundImage={setBackgroundVoteImage} />
-
+            <div className="mt-12">
+                <TopRated myArray={top5Votes} check={'tv'} set={fetchMedia} backgroundVoteImage={backgroundVoteImage} setBackgroundImage={setBackgroundVoteImage} />
+            </div>
             {/* TOP CAST */}
             <TopCast myArray={top5Cast} title={'Top cast'} />
 
