@@ -24,10 +24,16 @@ export function GlobalProvider({ children }) {
 
     const [person, setPerson] = React.useState([]) // set Person ID
 
-    const [theme, setTheme] = React.useState('light'); // Add theme state
+    const [theme, setTheme] = React.useState(() => {
+        // Recupera il tema dal localStorage o usa 'light' come predefinito
+        return localStorage.getItem('theme') || 'light';
+    }); // Theme Choose
 
     React.useEffect(() => {
-        document.body.className = theme === 'light' ? 'light-theme' : 'dark-theme'; // Apply theme class to body
+        // Applica il tema al body
+        document.body.className = theme === 'light' ? 'light-theme' : 'dark-theme';
+        // Salva il tema nel localStorage
+        localStorage.setItem('theme', theme);
     }, [theme]);
 
     // SLUG
