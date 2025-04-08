@@ -249,7 +249,7 @@ export function GlobalProvider({ children }) {
             person, setPerson,
             titleSlug,
             loader, setLoader,
-            loading,
+            loading, setLoading,
             theme, setTheme, // Expose theme and setTheme
         }}>
             {children}

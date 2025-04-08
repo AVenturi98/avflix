@@ -35,7 +35,7 @@ const Carousel = ({ images }) => {
     return (
         <div className='carousel-container'>
             <button type="button" disabled={currentIndex == 0} className={`prev button ${currentIndex == 0 ? 'hidden' : ''}`} id='prev' onClick={prev}>
-                <FontAwesomeIcon icon={faCircleArrowLeft} />
+                <FontAwesomeIcon icon={faCircleArrowLeft} style={{ color: theme === 'dark' ? '#ffffff' : '' }} />
             </button>
             <div className="carousel-wrapper">
                 <div
