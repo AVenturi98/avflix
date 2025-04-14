@@ -37,7 +37,7 @@ export function GlobalProvider({ children }) {
     }, [theme]);
 
     // SLUG
-    const titleSlug = (title) => (title).toLowerCase().replace(/ /g, '_');
+    const titleSlug = (title) => (title).toLowerCase().replace(/ /g, '-');
 
     // Loader
     const [loader, setLoader] = React.useState(false)

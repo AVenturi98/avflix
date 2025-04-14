@@ -15,7 +15,7 @@ import GlobalContext from '../context/GlobalContext'
 import LazyLoader from '../components/LazyLoader'
 
 export default function Home() {
-    const { theme, setTheme } = React.useContext(GlobalContext); // Access theme state
+    const { theme, titleSlug } = React.useContext(GlobalContext); // Access theme state
 
     // Path Image Original
     const path_img_or = 'https://image.tmdb.org/t/p/original'
@@ -115,7 +115,7 @@ export default function Home() {
             </div>
 
             {/* HERO */}
-            <Link to={`/${currentContent.media_type}/${currentContent.id}`}>
+            <Link to={`/${currentContent.media_type}/${currentContent.id}` + '-' + titleSlug(currentContent.title || currentContent.name)}>
                 <div
                     style={{
                         backgroundImage: `linear-gradient(rgba(21, 26, 102, 0.5), rgba(21, 26, 102, 0.6)), url(${path_img_or + currentContent.backdrop_path})`,
