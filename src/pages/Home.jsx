@@ -30,6 +30,8 @@ export default function Home() {
     const [trendDay, setTrendDay] = React.useState([]) // Get Trend Day
     const [trendPeople, setTrendPeople] = React.useState([]) // Get Trend People
     const [loading, setLoading] = React.useState(true) // Add loading state
+    const [currentSlide, setCurrentSlide] = React.useState(0); // Stato per il carosello
+    const [fade, setFade] = React.useState(false); // Stato per la dissolvenza
 
     React.useEffect(() => {
         const timer = setTimeout(() => {
@@ -43,6 +45,20 @@ export default function Home() {
 
         return () => clearTimeout(timer) // Clear timeout if component unmounts
     }, [])
+
+    React.useEffect(() => {
+        const interval = setInterval(() => {
+            setFade(true); // Attiva la dissolvenza
+            setTimeout(() => {
+                setCurrentSlide((prevSlide) => (prevSlide + 1) % 5); // Cambia slide
+                setFade(false); // Disattiva la dissolvenza
+            }, 500); // Durata della dissolvenza
+        }, 7000);
+
+        return () => clearInterval(interval) // Pulisci l'intervallo quando il componente viene smontato
+    }, []);
+
+    const currentContent = trendWeek[currentSlide] || {}; // Ottieni il contenuto corrente del carosello
 
     // Handle For Section
     function fetchTrend(time_window, set = () => { }, setTrendImg = () => { }) {
@@ -61,31 +77,32 @@ export default function Home() {
             })
     }
 
-    // Handle images
+    // Aggiorna fetchMedia per ottenere i loghi per tutti i contenuti del carosello
     function fetchMedia() {
-        if (trendImgWeek.media_type && trendImgWeek.id) {
-            axios.get(`https://api.themoviedb.org/3/${trendImgWeek.media_type}/${trendImgWeek.id}/images?api_key=dba9492b080738637f53df6bffa6b8c3`)
-
-                .then(res => {
-                    const logoEn = res.data.logos.find(logo => logo.iso_639_1 === 'en');
-                    const logoIt = res.data.logos.find(logo => logo.iso_639_1 === 'it')
-                    if (logoIt) {
-                        setLogo(logoIt)
-                    } else if (logoEn) {
-                        setLogo(logoEn)
-                    }
-                    // console.log('Media', res.data.logos)
-                })
-
-                .catch(err => {
-                    console.error('Error fetch Media Home page', err)
-                });
-        }
+        trendWeek.slice(0, 5).forEach((content, index) => {
+            if (content.media_type && content.id) {
+                axios.get(`https://api.themoviedb.org/3/${content.media_type}/${content.id}/images?api_key=dba9492b080738637f53df6bffa6b8c3`)
+                    .then(res => {
+                        const logoEn = res.data.logos.find(logo => logo.iso_639_1 === 'en');
+                        const logoIt = res.data.logos.find(logo => logo.iso_639_1 === 'it');
+                        setLogo(prevLogos => {
+                            const updatedLogos = [...prevLogos];
+                            updatedLogos[index] = logoIt || logoEn || {};
+                            return updatedLogos;
+                        });
+                    })
+                    .catch(err => {
+                        console.error('Error fetch Media Home page', err);
+                    });
+            }
+        });
     }
 
     React.useEffect(() => {
-        fetchMedia()
-    }, [trendImgWeek])
+        if (trendWeek.length > 0) {
+            fetchMedia(); // Fetch media per i primi 5 contenuti
+        }
+    }, [trendWeek]);
 
     if (loading) {
         return <Spinner /> // Show spinner while loading
@@ -96,13 +113,21 @@ export default function Home() {
             <div className='bg-gray-300'>
                 <h1 className='text-3xl text-center py-4 title-home'>Scopri le tendenze del momento</h1>
             </div>
-            <Link to={`/${trendImgWeek.media_type}/${trendImgWeek.id}`}>
-                <div style={{
-                    backgroundImage: `linear-gradient(rgba(21, 26, 102, 0.5), rgba(21, 26, 102, 0.6)), url(${path_img_or + trendImgWeek.backdrop_path})`
-                }}
+
+            {/* HERO */}
+            <Link to={`/${currentContent.media_type}/${currentContent.id}`}>
+                <div
+                    style={{
+                        backgroundImage: `linear-gradient(rgba(21, 26, 102, 0.5), rgba(21, 26, 102, 0.6)), url(${path_img_or + currentContent.backdrop_path})`,
+                        transition: 'opacity 0.5s ease-in-out', // Transizione per la dissolvenza
+                        opacity: fade ? 0 : 1, // Cambia opacità durante la dissolvenza
+                    }}
                     className='h-[500px] bg-cover bg-center flex justify-center items-center hero_home text-center'>
-                    <LazyLoader image={path_img_5 + logo.file_path} style={'opacity-80 px-2'} />
-                </div >
+                    <LazyLoader
+                        image={path_img_5 + (logo[currentSlide]?.file_path || '')}
+                        style={`opacity-80 px-2 transition-opacity duration-500 ${fade ? 'opacity-0' : 'opacity-100'}`} // Transizione per il logo
+                    />
+                </div>
             </Link>
             <FilteredSection myArray={trendWeek} title={'Questa settimana'} type={trendWeek.map(e => e.media_type)} />
             <FilteredSection myArray={trendDay} title={'Selezione di oggi'} type={trendWeek.map(e => e.media_type)} />
