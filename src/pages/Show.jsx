@@ -194,8 +194,12 @@ export default function Show({ type }) {
                             </div>}
                     </div>
                     <div className='flex gap-5'>
-                        <div>{!undefined || !null || !isNaN(post.release_date) || isNaN(post.first_air_date) || isNaN(post.last_air_date) ?
-                            new Date(post.release_date).toLocaleDateString() || new Date(post.first_air_date).toLocaleDateString() + ' / ' + new Date(post.last_air_date).toLocaleDateString() : ''}</div>
+                        <div>
+                            {!undefined && post.release_date ?
+                                new Date(post.release_date).toLocaleDateString() :
+                                !undefined && post.first_air_date || post.last_air_date ?
+                                    new Date(post.first_air_date).toLocaleDateString() + ' - ' + new Date(post.last_air_date).toLocaleDateString() : ''}
+                        </div>
                         -
                         <div>
                             {post.runtime || post.number_of_episodes ? <FontAwesomeIcon icon={faClock} /> : ''}
