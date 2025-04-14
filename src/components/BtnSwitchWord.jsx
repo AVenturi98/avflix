@@ -46,7 +46,7 @@ export default function BtnSwitchWord({ text1, text2, text3, length1, length2, l
 
             <button
                 type="button"
-                className={`${theme === 'dark' ? 'contain-btn-dettails-dark' : 'contain-btn-dettails'} mx-3 cursor-pointer text-lg transition-all duration-300 ${styleSelectedText2} ${selectedWord === text2
+                className={`${theme === 'dark' ? 'contain-btn-dettails-dark' : 'contain-btn-dettails'} ${btnUpComing && 'contain-btn-dettails-dark'} mx-3 cursor-pointer text-lg transition-all duration-300 ${styleSelectedText2} ${selectedWord === text2
                     ? `${styleSelected} scale-101`
                     : "bg-transparent  hover:bg-gray-400"
                     }`}
