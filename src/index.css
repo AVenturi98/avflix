@@ -591,6 +591,11 @@ nav a.active {
         padding: 0 10px
     }
 
+    .coming-show {
+        font-size: 50px;
+    }
+
+
     ::-webkit-scrollbar-track {
         background: transparent;
     }

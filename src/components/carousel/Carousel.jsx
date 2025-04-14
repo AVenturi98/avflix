@@ -45,7 +45,7 @@ const Carousel = ({ images }) => {
                     {images.map((image, index) => (
                         <Link to={`/person/${image.id}` + '-' + titleSlug(image.name)} key={index}>
                             <div className="carousel-item" >
-                                <img src={image.profile_path ? `https://image.tmdb.org/t/p/w500${image.profile_path}` : '/placeholder/PersonPlaceholder.png'} alt={image.name} className="cast-img rounded-br-full rounded-bl-full rounded-tl-full" />
+                                <img src={image.profile_path ? `https://image.tmdb.org/t/p/w500${image.profile_path}` : '/placeholder/PersonPlaceholder.png'} alt={image.name} className="cast-img min-h-full rounded-br-full rounded-bl-full rounded-tl-full" />
                                 <div className="cast-info">
                                     <h3 className="font-bold">{image.name}</h3>
                                     <p className="font-medium italic">Popularity:

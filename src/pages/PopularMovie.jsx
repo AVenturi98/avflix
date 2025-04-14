@@ -164,12 +164,12 @@ export default function PopularMovie() {
             <section className='popular relative mb-17' >
                 <div className='votes relative py-70 sm:py-100' id='upComing'
                     style={{ backgroundImage: `linear-gradient(rgba(21, 26, 102, 0.78), rgba(21, 26, 102, 0.6)), url(${backgroundUpComingImage || `https://image.tmdb.org/t/p/original${mobileWidth ? posterComingPath : backdropComingPath}`})` }}></div>
-                <div className={`flex sm:justify-center mb-5 btnSwitch text-white w-full`}>
-                    {!mobileWidth ?
-                        <BtnSwitchWord text1={'poster'} set1={() => setViewMode('poster')}
-                            text2={'trailer'} set2={() => setViewMode('trailer')}
-                            class={'flex justify-center gap-10'}
-                            styleSelected={'bg-green-500'} /> : ''}
+                <div className="flex justify-center mb-5 btnSwitch text-white w-full">
+                    <BtnSwitchWord text1={'poster'} set1={() => setViewMode('poster')}
+                        text2={'trailer'} set2={() => setViewMode('trailer')}
+                        class={'flex justify-center gap-10'}
+                        styleSelected={'bg-green-500'}
+                        btnUpComing={true} />
                 </div>
                 <div className='contain-top5 absolute'>
                     <div className={`flex items-center overflow-y-hidden pb-8 justify-baseline xl:justify-center sm:px-5 ${mobileWidth ? 'overflow-x-scroll gap-3 px-3' : 'gap-4'}`}>
@@ -188,10 +188,10 @@ export default function PopularMovie() {
                                     onMouseEnter={() => fetchMedia(e.id, 'movie', setBackgroundUpComingImage, () => { })}
                                 />
                             ) : (
-                                <div key={i} className="relative flex flex-wrap w-[350px] h-[200px] transform transition-transform duration-300 hover:scale-102">
+                                <div key={i} className={`relative flex flex-wrap transform transition-transform duration-300 hover:scale-102 ${!mobileWidth ? 'w-[350px] h-[200px]' : 'min-w-[300px] h-[250px]'}`}>
                                     <div onMouseEnter={() => fetchMedia(e.id, 'movie', setBackgroundUpComingImage, () => { })}>
                                         <img
-                                            src={e.backdrop_path ? `https://image.tmdb.org/t/p/original${e.backdrop_path}` : '/placeholder/VideoPlaceholder.webp'}
+                                            src={e.backdrop_path ? `https://image.tmdb.org/t/p/w500${e.backdrop_path}` : '/placeholder/VideoPlaceholder.webp'}
                                             alt={e.title}
                                             className="w-full h-full object-cover object-center rounded-xl"
                                         />
@@ -204,7 +204,7 @@ export default function PopularMovie() {
                                     </div>
                                     {playingVideo === video?.key && (
                                         <iframe
-                                            width="350"
+                                            width="500"
                                             height="200"
                                             src={`https://www.youtube.com/embed/${video.key}?autoplay=1`}
                                             title="YouTube video player"

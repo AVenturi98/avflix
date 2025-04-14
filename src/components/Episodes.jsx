@@ -45,7 +45,7 @@ export default function Episodes({ id, type, episodeFiltered, seasonNumber, sele
         <>
             {/* EPISODES */}
             {episode &&
-                <div className='w-[100%] sm:p-5'>
+                <div className='w-[100%] p-2'>
                     <h2 className='font-extrabold text-3xl my-2'>Episodi</h2>
                     <select disabled={!selectedSeason} name="episodes" id="episodes"
                         value={selectedEpisode}
@@ -65,7 +65,7 @@ export default function Episodes({ id, type, episodeFiltered, seasonNumber, sele
 
                     <div className='text-white'>
                         {episodeFiltered.filter((e, i) => (i + 1) == selectedEpisode).map(e =>
-                            <div key={e.id} className='flex gap-5 rounded-xl sm:h-[350px]' style={{
+                            <div key={e.id} className='flex gap-5 rounded-xl' style={{
                                 backgroundImage: `linear-gradient(rgba(1, 1, 22, 0.6), rgba(1, 1, 22, 0.8)), url(${'https://image.tmdb.org/t/p/original' + e.still_path})`,
                                 backgroundPosition: 'center center', backgroundSize: 'cover'
                             }}>
@@ -94,7 +94,7 @@ export default function Episodes({ id, type, episodeFiltered, seasonNumber, sele
                                     {e.air_date ?
                                         <div>
                                             <h3 className='font-extrabold'>Data d'uscita</h3>
-                                            <p className='text-center border-2 border-green-500 p-1 rounded-4xl'>{e.air_date}</p>
+                                            <p className='text-center border-2 border-green-500 p-1 rounded-4xl'>{new Date(e.air_date).toLocaleDateString()}</p>
                                         </div> : ''}
                                     {e.overview &&
                                         <div>
@@ -135,7 +135,7 @@ export default function Episodes({ id, type, episodeFiltered, seasonNumber, sele
                                     {e.air_date &&
                                         <div>
                                             <h3 className='font-extrabold'>Data d'uscita</h3>
-                                            <p className='text-center border-2 border-green-500 p-1 rounded-4xl'>{e.air_date}</p>
+                                            <p className='text-center border-2 border-green-500 p-1 rounded-4xl'>{new Date(e.air_date).toLocaleDateString()}</p>
                                         </div>}
                                     {e.overview &&
                                         <div>
