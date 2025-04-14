@@ -110,7 +110,7 @@ export default function Home() {
 
     return (
         <div className={theme === 'dark' ? 'dark-theme' : 'light-theme'}>
-            <div className='bg-gray-300'>
+            <div className={theme === 'dark' ? 'bg-gray-900' : 'bg-gray-300'}>
                 <h1 className='text-3xl text-center py-4 title-home'>Scopri le tendenze del momento</h1>
             </div>
 
@@ -125,7 +125,7 @@ export default function Home() {
                     className='h-[500px] bg-cover bg-center flex justify-center items-center hero_home text-center'>
                     <LazyLoader
                         image={path_img_5 + (logo[currentSlide]?.file_path || '')}
-                        style={`opacity-80 px-2 transition-opacity duration-500 ${fade ? 'opacity-0' : 'opacity-100'}`} // Transizione per il logo
+                        style={`opacity-80 px-2 transition-opacity duration-500 max-h-[400px] ${fade ? 'opacity-0' : 'opacity-100'}`} // Transizione per il logo
                     />
                 </div>
             </Link>
