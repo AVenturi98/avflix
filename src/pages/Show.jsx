@@ -80,7 +80,7 @@ export default function Show({ type }) {
                 setCompany(res.data.production_companies)
                 setCountry(res.data.production_countries)
                 setSeason(res.data.seasons)
-                // console.log('Show Page', res.data)
+                console.log('Show Page', res.data)
                 setLoading(false)
             })
             .catch(err => {

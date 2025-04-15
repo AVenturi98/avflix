@@ -53,7 +53,7 @@ const Carousel = ({ images }) => {
                                             className={image.popularity > 100 ? 'text-green-500' : '' ||
                                                 image.popularity < 100 ? 'text-blue-500' : '' ||
                                                     image.popularity < 80 ? 'text-orange-400' : '' ||
-                                                        image.popularity <= 50 ? 'text-orange-700' : ''}>{image.popularity}</span></p>
+                                                        image.popularity <= 50 ? 'text-orange-700' : ''}>{image.popularity.toFixed(2)}</span></p>
                                 </div>
                             </div></Link>
                     ))}

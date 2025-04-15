@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Modal from "react-modal";
 
 // Lazy Loader
@@ -9,10 +9,14 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight, faX } from "@fortawesome/free-solid-svg-icons";
 
+//Context
+import GlobalContext from "../../context/GlobalContext";
+
 // Definiamo l'elemento principale dell'app per evitare il warning
 Modal.setAppElement("#root");
 
 const CollageGallery = ({ images = [] }) => {
+    const { mobileWidth } = useContext(GlobalContext)
     const [selectedIndex, setSelectedIndex] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
 
@@ -79,7 +83,7 @@ const CollageGallery = ({ images = [] }) => {
                     overlay: { zIndex: 1000, backgroundColor: "rgba(0, 0, 0, 0.5)" },
                     content: {
                         width: "80%",
-                        height: "60vh",
+                        height: mobileWidth ? "60vh" : "80vh",
                         margin: "auto",
                         display: "flex",
                         alignItems: "center",
@@ -91,7 +95,7 @@ const CollageGallery = ({ images = [] }) => {
                     }
                 }}
             >
-                <div className="absolute top-5 left-5 z-50">
+                <div className="absolute text-black lg:text-white top-5 left-5 z-50">
                     {(selectedIndex + 1) + ' / ' + images.length}
                 </div>
                 {selectedIndex !== null && (
@@ -106,7 +110,7 @@ const CollageGallery = ({ images = [] }) => {
                         <button onClick={nextImage} style={{ position: "absolute", right: "10px" }} className="text-3xl bg-[rgba(4,45,73,0.3)] hover:bg-gray-300 p-5 rounded-xl">
                             <FontAwesomeIcon icon={faArrowRight} />
                         </button>
-                        <button onClick={closeModal} className="hover:text-gray-300 p-3">
+                        <button onClick={closeModal} className="hover:text-gray-300 text-black lg:text-white p-3">
                             <FontAwesomeIcon icon={faX} className="absolute top-2 right-2" />
                         </button>
                     </div>
