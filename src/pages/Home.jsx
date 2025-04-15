@@ -110,7 +110,7 @@ export default function Home() {
 
     return (
         <div className={theme === 'dark' ? 'dark-theme' : 'light-theme'}>
-            <div className={theme === 'dark' ? 'bg-gray-900' : 'bg-gray-300'}>
+            <div className={theme === 'dark' ? 'bg-[rgb(20,20,20)]' : 'bg-gray-300'}>
                 <h1 className='text-3xl text-center py-4 title-home'>Scopri le tendenze del momento</h1>
             </div>
 

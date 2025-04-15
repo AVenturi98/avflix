@@ -1,24 +1,25 @@
-import * as React from 'react'
-import { Link, useParams } from 'react-router'
+import * as React from 'react';
+import { Link, useParams } from 'react-router';
 
 // Context
-import GlobalContext from '../context/GlobalContext'
+import GlobalContext from '../context/GlobalContext';
 
 // Components
-import FilteredSection from '../components/FilteredSection'
+import FilteredSection from '../components/FilteredSection';
+import DettailsPerson from '../components/DettailsPerson';
 
 export default function PersonPage() {
 
     // Path Image
     const path_img = 'https://image.tmdb.org/t/p/w500'
 
-    const { fetchPersonId, person, fetchSectionID, mobileWidth } = React.useContext(GlobalContext)
+    const { fetchPersonId, person, fetchSectionID, mobileWidth } = React.useContext(GlobalContext);;
 
-    const [credits, setCredits] = React.useState({ cast: [], crew: [] }) // Set Person Credits
-    const [loading, setLoading] = React.useState(false)
+    const [credits, setCredits] = React.useState({ cast: [], crew: [] });; // Set Person Credits
+    const [loading, setLoading] = React.useState(false);;
 
 
-    const { id } = useParams() // get ID
+    const { id } = useParams();; // get ID
 
 
     React.useEffect(() => {
@@ -32,9 +33,12 @@ export default function PersonPage() {
         document.documentElement.scrollTop = 0
 
         return () => clearTimeout(timer) // Clear timeout if component unmounts
-    }, [id])
+    }, [id]);;
 
-    const otherRole = credits.crew.map(e => e.job).filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i)
+    const otherRole = credits.crew.map(e => e.job).filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i); // non ripete il ruolo
+
+    const agePerson = person.birthday ? new Date().getFullYear() - new Date(person.birthday).getFullYear() : null; // calcola l'età della persona
+    const age = agePerson ? `${agePerson} anni` : '';
 
     return (
         <div className='sm:my-16 p-5'>
@@ -49,27 +53,14 @@ export default function PersonPage() {
                             <div className='text-2xl font-semibold mt-3'>{person.name ? person.name : 'Sconosciuto'}</div>
                             <div className='italic text-gray-500'>{person.known_for_department + ', ' + otherRole}</div>
                         </div>
-                        <div>
-                            <h4 className='text-lg font-semibold italic'>{person.birthday || person.place_of_birth ? 'Quando e dove' : ''}</h4>
-                            <div>
-                                {person.birthday && person.deathday ?
-                                    `${person.birthday}/${person.deathday}, `
-                                    : person.birthday && !person.deathday ? person.birthday + ', '
-                                        : ''}
-                            </div>
-                            <div>{person.place_of_birth}</div>
-                        </div>
-                        <div className='sm:w-[50%] lg:w-[60%] italic border-4 border-sky-950 rounded-full text-center hover:bg-sky-950 hover:text-white'>
-                            <Link to='dettails/media/person'>
-                                <p className='border-2 border-white rounded-full'>
-                                    tutti i contenuti
-                                </p>
-                            </Link>
-                        </div>
+                        {!mobileWidth &&
+                            <DettailsPerson item={person} agePers={age} />}
                     </div>
                 </div>
                 <div className=' sm:w-[50%]'>
-                    <h4 className='text-lg sm:text-2xl font-semibold italic'>Biografia</h4>
+                    {mobileWidth &&
+                        <DettailsPerson item={person} agePers={age} />}
+                    <h4 className='text-xl sm:text-2xl font-bold italic'>Biografia</h4>
                     {person.biography ?
                         <div className='sm:text-lg'>{person.biography}</div>
                         : <div className='text-gray-500'>Nessuna Biografia disponibile</div>
