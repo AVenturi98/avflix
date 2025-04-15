@@ -60,6 +60,10 @@ export default function Show({ type }) {
     const [arrowMore, setArrowMore] = React.useState(false)
     const [loading, setLoading] = React.useState(true) // Add loading state
 
+    const [idWatch, setIdWatch] = React.useState('') // Get Id Watch
+    const [slug, setSlug] = React.useState('') // Get Slug
+
+
 
     const { id } = useParams()
     const navigate = useNavigate()
@@ -80,7 +84,7 @@ export default function Show({ type }) {
                 setCompany(res.data.production_companies)
                 setCountry(res.data.production_countries)
                 setSeason(res.data.seasons)
-                console.log('Show Page', res.data)
+                // console.log('Show Page', res.data)
                 setLoading(false)
             })
             .catch(err => {
@@ -109,10 +113,20 @@ export default function Show({ type }) {
             })
     }
 
+    // Fetch get id watch
+    function fetchWatchId() {
+        axios.get(`http://localhost:3033/${id}}`)
+            .then(res => {
+                setIdWatch(res.data.map(e => e.id_watch));
+                setSlug(res.data.map(e => e.title_slug))
+                console.log('Fetch watch id', res.data.map(e => e.title_slug))
+            })
+            .catch(err => {
+                console.log('Error fetch watch id', err)
+            })
+    }
+
     React.useEffect(() => {
-        const timer = setTimeout(() => {
-            setLoading(false)
-        }, 500) // Set loading to false after 500ms
 
         fetchMovieId()
         fetchCreditsId(type, id)
@@ -121,9 +135,10 @@ export default function Show({ type }) {
         fetchSectionID(type, id, 'similar', setSimilar) // handle similar content
         fetchSectionID(type, id, 'recommendations', setRecommendations) // handle recommendations content
 
+        fetchWatchId()
+
         document.documentElement.scrollTop = 0
 
-        return () => clearTimeout(timer) // Clear timeout if component unmounts
     }, [id])
 
 
@@ -163,6 +178,8 @@ export default function Show({ type }) {
     if (loading) {
         return <Spinner /> // Show spinner while loading
     }
+
+
 
     return (
         <div className={theme === 'dark' ? 'dark-theme' : 'light-theme'}>
@@ -234,12 +251,21 @@ export default function Show({ type }) {
                 <div className={`${mobileWidth ? 'px-5 w-full' : 'px-10 w-[70%]'} grow-1`}>
                     <div className='flex flex-col'>
                         <div className='pb-5'>
-                            <BtnSwitchWord text1={'immagini'} set1={() => setViewMode('immagini')} text2={'video'} set2={() => setViewMode('video')} styleSelected={'bg-green-500'} />
+                            <BtnSwitchWord
+                                text1={'immagini'}
+                                set1={() => setViewMode('immagini')}
+                                text2={'video'}
+                                set2={() => setViewMode('video')}
+                                styleSelected={'bg-green-500'} />
                         </div>
+
+                        {/* IMMAGINI */}
                         {viewMode === 'immagini' && img.length > 3 ?
                             <ImageCollage images={collageImages} />
                             : viewMode === 'immagini' && img.length < 4 &&
                             'Non disponibile'}
+
+                        {/* VIDEO */}
                         {viewMode === 'video' && videos ?
                             <div className='relative w-full max-w-lg'>
                                 <iframe
@@ -253,10 +279,17 @@ export default function Show({ type }) {
                                 ></iframe>
                             </div> : viewMode === 'video' && !videos &&
                             'Non disponibile'}
-                        <div className={`${theme === 'dark' ? 'contain-btn-dettails-dark' : 'contain-btn-dettails'} w-[50%] sm:w-[30%] text-center my-3`}>
-                            <Link to={`/${type}/${id}/dettails/${viewMode === 'immagini' ? 'media' : 'video'}`} >
-                                <p>Vedi tutti</p>
-                            </Link>
+                        <div className='flex gap-2'>
+                            <div className={`${theme === 'dark' ? 'contain-btn-dettails-dark' : 'contain-btn-dettails'} w-[47%] sm:w-[30%] text-center my-3`}>
+                                <Link to={`/${type}/${id}/dettails/${viewMode === 'immagini' ? 'media' : 'video'}`} >
+                                    <p>Vedi tutto</p>
+                                </Link>
+                            </div>
+                            <div className={`${theme === 'dark' ? 'contain-btn-dettails-dark' : 'contain-btn-dettails'} w-[47%] sm:w-[30%] text-center my-3`}>
+                                <Link to={`https://streamingcommunity.airforce/watch/${idWatch}${slug ? '-' + slug : ''}`} >
+                                    <p>guarda ora </p>
+                                </Link>
+                            </div>
                         </div>
                     </div>
 
@@ -412,7 +445,7 @@ export default function Show({ type }) {
 
                             {/* SEASONS */}
                             {season &&
-                                <div className='w-full p-2 font-semibold'>
+                                <div className={selectedSeason ? `w-full p-2 font-semibold` : 'w-[70%] p-1 sm:p-2'}>
                                     <h2 className='font-extrabold text-3xl my-2'>Stagioni</h2>
                                     <select disabled={!season.length > 0} name="seasons" id="seasons"
                                         className='mt-4 mb-6 cursor-pointer hover:bg-blue-200 p-0.5 rounded-xl border-2 border-emerald-500'
