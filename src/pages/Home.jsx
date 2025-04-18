@@ -58,7 +58,7 @@ export default function Home() {
         return () => clearInterval(interval) // Pulisci l'intervallo quando il componente viene smontato
     }, []);
 
-    const currentContent = trendWeek[currentSlide] || {}; // Ottieni il contenuto corrente del carosello
+    const currentContent = trendDay[currentSlide] || {}; // Ottieni il contenuto corrente del carosello
 
     // Handle For Section
     function fetchTrend(time_window, set = () => { }, setTrendImg = () => { }) {
@@ -79,7 +79,7 @@ export default function Home() {
 
     // Aggiorna fetchMedia per ottenere i loghi per tutti i contenuti del carosello
     function fetchMedia() {
-        trendWeek.slice(0, 5).forEach((content, index) => {
+        trendDay.slice(0, 5).forEach((content, index) => {
             if (content.media_type && content.id) {
                 axios.get(`https://api.themoviedb.org/3/${content.media_type}/${content.id}/images?api_key=dba9492b080738637f53df6bffa6b8c3`)
                     .then(res => {
@@ -99,7 +99,7 @@ export default function Home() {
     }
 
     React.useEffect(() => {
-        if (trendWeek.length > 0) {
+        if (trendDay.length > 0) {
             fetchMedia(); // Fetch media per i primi 5 contenuti
         }
     }, [trendWeek]);
