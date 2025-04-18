@@ -30,7 +30,7 @@ const Carousel = ({ images }) => {
 
     // Mobile Width
     const { windowWidth } = useWindowWidth();
-    const mobileWidth = windowWidth <= 640
+    const mobileWidth = windowWidth <= 640;
 
     return (
         <div className='carousel-container'>

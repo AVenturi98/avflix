@@ -12,17 +12,20 @@ const GlobalContext = createContext();
 export function GlobalProvider({ children }) {
 
     // Set Buttons
-    const [showMoreMovies, setShowMoreMovies] = React.useState(false) //set Show More Movies
-    const [showMoreSeries, setShowMoreSeries] = React.useState(false) //set Show More Series
+    const [showMoreMovies, setShowMoreMovies] = React.useState(false);; //set Show More Movies
+    const [showMoreSeries, setShowMoreSeries] = React.useState(false);; //set Show More Series
 
-    const [cast, setCast] = React.useState([]) // set Cast
-    const [crew, setCrew] = React.useState([]) // set Crew
+    const [cast, setCast] = React.useState([]); // set Cast
+    const [crew, setCrew] = React.useState([]); // set Crew
 
-    const [videos, setVideos] = React.useState([]) // set Videos
-    const [videoPrev, setVideoPrev] = React.useState([]) // set Videos
-    const [upComing, setUpComing] = React.useState([]) // set Up Coming
+    const [videos, setVideos] = React.useState([]); // set Videos
+    const [videoPrev, setVideoPrev] = React.useState([]); // set Videos
+    const [upComing, setUpComing] = React.useState([]); // set Up Coming
 
-    const [person, setPerson] = React.useState([]) // set Person ID
+    const [person, setPerson] = React.useState([]); // set Person ID
+
+    const [readMore, setReadMore] = React.useState(false) // set Open Read More overview (seasons)
+
 
     const [theme, setTheme] = React.useState(() => {
         // Recupera il tema dal localStorage o usa 'light' come predefinito
@@ -37,12 +40,12 @@ export function GlobalProvider({ children }) {
     }, [theme]);
 
     // SLUG
-    const titleSlug = (title) => (title).toLowerCase().replace(/ /g, '-');
+    const titleSlug = (title) => title?.toLowerCase().replace(/ /g, '-');
 
     // Loader
-    const [loader, setLoader] = React.useState(false)
+    const [loader, setLoader] = React.useState(false);
 
-    const [loading, setLoading] = React.useState(false)
+    const [loading, setLoading] = React.useState(false);
 
 
     // fetch Popular Movies
@@ -238,9 +241,26 @@ export function GlobalProvider({ children }) {
             })
     }
 
+    // Limit Text
+    function overTextSmall(text) {
+        const textLimited = text.split(' ')
+        if (textLimited.length > 10) {
+            return textLimited.slice(0, 10).join(' ') + '...'
+        }
+        return text
+    };
+
+    function overTextLong(text, n) {
+        const textLimited = text.split(' ')
+        if (textLimited.length > 20) {
+            return textLimited.slice(0, n).join(' ') + '...'
+        }
+        return text
+    };
+
     // Mobile Width
     const { windowWidth } = useWindowWidth();
-    const mobileWidth = windowWidth <= 640
+    const mobileWidth = windowWidth <= 640;
     return (
         <GlobalContext.Provider value={{
             fetchSections, fetchMovies, fetchMedia, fetchVideos, fetchCreditsId, fetchUpComing, fetchSectionID, fetchPersonId, mobileWidth,
@@ -256,7 +276,9 @@ export function GlobalProvider({ children }) {
             titleSlug,
             loader, setLoader,
             loading, setLoading,
-            theme, setTheme, // Expose theme and setTheme
+            theme, setTheme,
+            overTextSmall, overTextLong,
+            readMore, setReadMore
         }}>
             {children}
             <BtnBackTop />

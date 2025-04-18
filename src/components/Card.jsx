@@ -47,26 +47,10 @@ export default function Card({
     media_type,
     titled }) {
 
-    const { id, title, name, original_language, vote_average } = item
+    const { id, title, name, original_language, vote_average, release_date
+    } = item
 
-    const { mobileWidth, titleSlug } = React.useContext(GlobalContext)
-
-
-    function overTextSmall(text) {
-        const textLimited = text.split(' ')
-        if (textLimited.length > 10) {
-            return textLimited.slice(0, 10).join(' ') + '...'
-        }
-        return text
-    }
-
-    function overTextLong(text) {
-        const textLimited = text.split(' ')
-        if (textLimited.length > 20) {
-            return textLimited.slice(0, 20).join(' ') + '...'
-        }
-        return text
-    }
+    const { mobileWidth, titleSlug, overTextSmall, overTextLong } = React.useContext(GlobalContext)
 
 
     const { value: value2, reset } = useCountUp({
@@ -98,7 +82,7 @@ export default function Card({
                                     </span>
                                 </div>}
                             <div>{overviewSmall ? overTextSmall(overviewSmall) : ''}</div>
-                            <div>{overviewLong ? overTextLong(overviewLong) : ''}</div>
+                            <div>{overviewLong ? overTextLong(overviewLong, 20) : ''}</div>
                             {showVote &&
                                 <div className='flex justify-center items-center gap-3'>
                                     <VoteStar vote={vote_average} />

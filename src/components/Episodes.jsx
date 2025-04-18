@@ -7,7 +7,7 @@ import GlobalContext from '../context/GlobalContext'
 
 export default function Episodes({ id, type, episodeFiltered, seasonNumber, selectedSeason }) {
 
-    const { mobileWidth } = React.useContext(GlobalContext)
+    const { mobileWidth, overTextLong, readMore, setReadMore } = React.useContext(GlobalContext)
 
     const [episode, setEpisode] = React.useState([]) // set Show Episode
     const [selectedEpisode, setSelectedEpisode] = React.useState('') // set Show Selected Episode
@@ -28,7 +28,7 @@ export default function Episodes({ id, type, episodeFiltered, seasonNumber, sele
             .catch(err => {
                 console.log('Error fetch episodes to Show Page', err)
             })
-    }
+    };
 
 
     // effettuo la chiamata solo se il type è relativo a tv
@@ -39,7 +39,8 @@ export default function Episodes({ id, type, episodeFiltered, seasonNumber, sele
                 fetchEpisodes()
         }
 
-    }, [selectedSeason])
+    }, [selectedSeason]);
+
 
     return (
         <>
@@ -66,7 +67,7 @@ export default function Episodes({ id, type, episodeFiltered, seasonNumber, sele
                     <div className='text-white'>
                         {episodeFiltered.filter((e, i) => (i + 1) == selectedEpisode).map(e =>
                             <div key={e.id} className='flex gap-5 rounded-xl' style={{
-                                backgroundImage: `linear-gradient(rgba(1, 1, 22, 0.6), rgba(1, 1, 22, 0.8)), url(${'https://image.tmdb.org/t/p/original' + e.still_path})`,
+                                backgroundImage: `linear-gradient(rgba(1, 1, 22, 0.6), rgba(1, 1, 22, ${readMore && !mobileWidth ? '1' : '0.8'})), url(${'https://image.tmdb.org/t/p/w500' + e.still_path})`,
                                 backgroundPosition: 'center center', backgroundSize: 'cover'
                             }}>
                                 <div className='p-5 px-4 lg:py-8 sm:py-6 grow-1'>
@@ -99,7 +100,21 @@ export default function Episodes({ id, type, episodeFiltered, seasonNumber, sele
                                     {e.overview &&
                                         <div>
                                             <h3 className='font-extrabold'>Trama</h3>
-                                            <p className='text-center border-2 border-green-500 p-2 rounded-4xl'>{e.overview}</p>
+                                            <p className='text-center border-2 border-green-500 p-2 rounded-4xl'>{overTextLong(e.overview, 50) + ' '}
+                                                <span className='text-green-400'>
+                                                    <button type="button" onClick={() => setReadMore(true)}> leggi tutto</button>
+                                                </span>
+                                            </p>
+
+                                            {readMore && !mobileWidth &&
+                                                <div className='center_position bg-amber-400 w-[80%] h-[80%] rounded-md flex justify-center items-center'>
+                                                    <button type="button" onClick={() => setReadMore(false)} className='absolute top-2 right-2 text-red-500'>X</button>
+                                                    <div className='flex flex-col gap-3 p-3'>
+                                                        <h1 className='text-center font-bold'>Trama: {e.name}</h1>
+                                                        <hr />
+                                                        <p>{e.overview}</p>
+                                                    </div>
+                                                </div>}
                                         </div>}
                                 </div>
 
@@ -107,7 +122,7 @@ export default function Episodes({ id, type, episodeFiltered, seasonNumber, sele
                         )}
                         {episode.slice(0, 1).map(e =>
                             <div key={e.id} className={`flex gap-5 rounded-xl sm:h-[350px] ${selectedEpisode ? 'hidden' : ''}`} style={{
-                                backgroundImage: `linear-gradient(rgba(1, 1, 22, 0.65), rgba(1, 1, 22, 0.8)), url(${'https://image.tmdb.org/t/p/original' + e.still_path})`,
+                                backgroundImage: `linear-gradient(rgba( ${readMore && !mobileWidth ? '20, 20, 20, 1' : '1, 1, 22, 0.65'}), rgba( ${readMore && !mobileWidth ? '20, 20, 20, 1' : '1, 1, 22, 0.8'})), url(${'https://image.tmdb.org/t/p/w500' + e.still_path})`,
                                 backgroundPosition: 'center center', backgroundSize: 'cover'
                             }}>
                                 <div className='p-5 px-4 lg:py-8 sm:py-6 grow-1'>
@@ -140,7 +155,22 @@ export default function Episodes({ id, type, episodeFiltered, seasonNumber, sele
                                     {e.overview &&
                                         <div>
                                             <h3 className='font-extrabold'>Trama</h3>
-                                            <p className='text-center border-2 border-green-500 p-2 rounded-4xl'>{e.overview}</p>
+                                            <p className='text-center border-2 border-green-500 p-2 rounded-4xl'>{!mobileWidth ? overTextLong(e.overview, 50) + ' ' : e.overview}
+                                                {!mobileWidth &&
+                                                    <span className='text-green-400'>
+                                                        <button type="button" onClick={() => setReadMore(true)}> leggi tutto</button>
+                                                    </span>}
+                                            </p>
+
+                                            {readMore && !mobileWidth &&
+                                                <div className='center_position bg-amber-400 w-[80%] h-[80%] rounded-md flex justify-center items-center'>
+                                                    <button type="button" onClick={() => setReadMore(false)} className='absolute top-2 right-2 text-red-500'>X</button>
+                                                    <div className='flex flex-col gap-3 p-3'>
+                                                        <h1 className='text-center font-bold'>Trama: {e.name}</h1>
+                                                        <hr />
+                                                        <p>{e.overview}</p>
+                                                    </div>
+                                                </div>}
                                         </div>}
                                 </div>
 

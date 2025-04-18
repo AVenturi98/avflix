@@ -115,7 +115,7 @@ export default function Home() {
             </div>
 
             {/* HERO */}
-            <Link to={`/${currentContent.media_type}/${currentContent.id}`}>
+            <Link to={`/${currentContent.media_type}/${currentContent.id}-${titleSlug(currentContent.title || currentContent.name)}`}>
                 <div
                     style={{
                         backgroundImage: `linear-gradient(rgba(21, 26, 102, 0.5), rgba(21, 26, 102, 0.6)), url(${path_img_or + currentContent.backdrop_path})`,

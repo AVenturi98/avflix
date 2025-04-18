@@ -38,7 +38,9 @@ export default function Show({ type }) {
         currentDate,
         upComing,
         titleSlug,
-        theme } = React.useContext(GlobalContext)
+        theme,
+        overTextLong,
+        readMore, setReadMore } = React.useContext(GlobalContext)
 
     const [post, setPost] = React.useState([]) // set Post
     const [company, setCompany] = React.useState([]) // set Company
@@ -84,7 +86,7 @@ export default function Show({ type }) {
                 setCompany(res.data.production_companies)
                 setCountry(res.data.production_countries)
                 setSeason(res.data.seasons)
-                // console.log('Show Page', res.data)
+                console.log('Show Page', res.data)
                 setLoading(false)
             })
             .catch(err => {
@@ -437,7 +439,7 @@ export default function Show({ type }) {
             </section >
 
             {/* SEASONS DETTAILS */}
-            < section className='my-14'>
+            < section className={`relative my-14 ${readMore && !mobileWidth && 'bg-[rgba(20,20,20,0.8)]'} `}>
                 {type === 'tv' &&
                     <>
                         <h2 className='font-extrabold text-4xl my-2'>Esplora la serie</h2>
@@ -460,7 +462,8 @@ export default function Show({ type }) {
 
                                     {season.filter(e => e.name === selectedSeason).map(e =>
                                         <div key={e.id} className={`flex gap-5 ${mobileWidth ? 'text-white' : ''}`}>
-                                            {!mobileWidth ? <img src={e.poster_path ? 'https://image.tmdb.org/t/p/w500' + e.poster_path : '/placeholder/moviesPlaceholder.png'} alt={e.name} className='w-[250px] h-[350px] rounded-xl' /> : ''}
+                                            {!mobileWidth ?
+                                                <img src={e.poster_path ? 'https://image.tmdb.org/t/p/w500' + e.poster_path : '/placeholder/moviesPlaceholder.png'} alt={e.name} className={`w-[250px] h-[350px] rounded-xl ${readMore && !mobileWidth && 'z-[-99]'}`} /> : ''}
                                             <div className='flex flex-col justify-around rounded-xl p-3' id='seasons'
                                                 style={mobileWidth ? { backgroundImage: `linear-gradient(rgba(1, 1, 22, 0.6), rgba(1, 1, 22, 0.8)), url(${e.poster_path ? 'https://image.tmdb.org/t/p/w500' + e.poster_path : ''})`, minWidth: '320px', minHeight: '300px' } : undefined}>
                                                 {e.name &&
@@ -478,20 +481,33 @@ export default function Show({ type }) {
                                                         <h3 className='font-extrabold'>Data</h3>
                                                         <p className='border-1 border-green-500 rounded-4xl p-1.5 text-center'>{new Date(e.air_date).toLocaleDateString()}</p>
                                                     </div>}
-                                                <div>
-                                                    {e.overview ?
-                                                        <>
-                                                            <h3>Trama</h3>
-                                                            <p className='border-1 border-green-500 rounded-2xl p-1 text-center'>{e.overview}</p>
-                                                        </> : ''}
-                                                </div>
+                                                {e.overview &&
+                                                    <div>
+                                                        <h3 className='font-extrabold'>Trama</h3>
+                                                        <p className='text-center border-2 border-green-500 p-2 rounded-4xl'>{!mobileWidth && e.overview.length > 50 ? overTextLong(e.overview, 50) + ' ' : e.overview}
+                                                            {!mobileWidth &&
+                                                                <span className='text-green-400'>
+                                                                    <button type="button" onClick={() => setReadMore(true)}> leggi tutto</button>
+                                                                </span>}
+                                                        </p>
+
+                                                        {readMore && !mobileWidth &&
+                                                            <div className='center_position bg-amber-400 w-[80%] h-[80%] rounded-md flex justify-center items-center'>
+                                                                <button type="button" onClick={() => setReadMore(false)} className='absolute top-2 right-2 text-red-500'>X</button>
+                                                                <div className='flex flex-col gap-3 p-3'>
+                                                                    <h1 className='text-center font-bold'>Trama: {e.name}</h1>
+                                                                    <hr />
+                                                                    <p>{e.overview}</p>
+                                                                </div>
+                                                            </div>}
+                                                    </div>}
                                             </div>
                                         </div>
                                     )}
 
                                     {season.slice(0, 1).map(e =>
                                         <div key={e.name} className={`flex gap-5 ${selectedSeason ? 'hidden' : ''}`}>
-                                            <img src={e.poster_path ? 'https://image.tmdb.org/t/p/w500' + e.poster_path : '/placeholder/moviesPlaceholder.png'} alt={e.name} className='w-[250px] h-[350px] rounded-xl' />
+                                            <img src={e.poster_path ? 'https://image.tmdb.org/t/p/w500' + e.poster_path : '/placeholder/moviesPlaceholder.png'} alt={e.name} className={`w-[250px] h-[350px] rounded-xl ${readMore && !mobileWidth && 'z-[-99]'}`} />
                                             <div className='flex flex-col justify-around'>
                                                 {e.name &&
                                                     <div>
@@ -508,13 +524,6 @@ export default function Show({ type }) {
                                                         <h3>Data</h3>
                                                         <p className='border-1 border-green-500 rounded-4xl p-1.5 text-center'>{new Date(e.air_date).toLocaleDateString()}</p>
                                                     </div>}
-                                                <div>
-                                                    {e.overview ?
-                                                        <>
-                                                            <h3>Trama</h3>
-                                                            <p className='border-1 border-green-500 rounded-2xl p-1 text-center'>{e.overview}</p>
-                                                        </> : ''}
-                                                </div>
                                             </div>
                                         </div>
                                     )}
