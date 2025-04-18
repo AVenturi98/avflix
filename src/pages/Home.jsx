@@ -1,18 +1,18 @@
-import * as React from 'react'
-import axios from 'axios'
-import { Link } from 'react-router'
-const KEY = import.meta.env.VITE_API_KEY
+import * as React from 'react';
+import axios from 'axios';
+import { Link } from 'react-router';
+const KEY = import.meta.env.VITE_API_KEY;
 
 // Components
-import TopCast from '../components/TopCast'
-import FilteredSection from '../components/FilteredSection'
-import Spinner from '../components/Spinner'
+import TopCast from '../components/TopCast';
+import FilteredSection from '../components/FilteredSection';
+import Spinner from '../components/Spinner';
 
 // Context
-import GlobalContext from '../context/GlobalContext'
+import GlobalContext from '../context/GlobalContext';
 
 // Lazy Loeader
-import LazyLoader from '../components/LazyLoader'
+import LazyLoader from '../components/LazyLoader';
 
 export default function Home() {
     const { theme, titleSlug } = React.useContext(GlobalContext); // Access theme state
@@ -108,6 +108,11 @@ export default function Home() {
         return <Spinner /> // Show spinner while loading
     }
 
+    function redirectToSearch() {
+        // Funzione per reindirizzare alla pagina di ricerca
+        window.location.href = '/search'; // Cambia l'URL della pagina corrente
+    }
+
     return (
         <div className={theme === 'dark' ? 'dark-theme' : 'light-theme'}>
             <div className={theme === 'dark' ? 'bg-[rgb(20,20,20)]' : 'bg-gray-300'}>
@@ -122,11 +127,15 @@ export default function Home() {
                         transition: 'opacity 0.5s ease-in-out', // Transizione per la dissolvenza
                         opacity: fade ? 0 : 1, // Cambia opacità durante la dissolvenza
                     }}
-                    className='h-[500px] bg-cover bg-center flex justify-center items-center hero_home text-center'>
+                    className='relative h-[500px] bg-cover bg-center flex justify-center items-center hero_home text-center'>
                     <LazyLoader
                         image={path_img_5 + (logo[currentSlide]?.file_path || '')}
                         style={`opacity-80 px-2 transition-opacity duration-500 max-h-[400px] ${fade ? 'opacity-0' : 'opacity-100'}`} // Transizione per il logo
                     />
+                    <div className='absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent'>
+                        <input type="text" placeholder='cerca film, serie tv o personaggi...' onClick={redirectToSearch} className='w-[90%] bg-[#ffffffe5] rounded-b-2xl p-2 text-black' />
+
+                    </div>
                 </div>
             </Link>
             <FilteredSection myArray={trendWeek} title={'Questa settimana'} type={trendWeek.map(e => e.media_type)} />
