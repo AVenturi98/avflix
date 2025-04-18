@@ -102,7 +102,7 @@ export default function Home() {
         if (trendDay.length > 0) {
             fetchMedia(); // Fetch media per i primi 5 contenuti
         }
-    }, [trendWeek]);
+    }, [trendDay]);
 
     if (loading) {
         return <Spinner /> // Show spinner while loading
