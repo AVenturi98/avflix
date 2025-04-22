@@ -123,8 +123,13 @@ export default function Home() {
             </div>
 
             {/* INPUT */}
-            <div className='absolute top-22 left-5 sm:top-12 sm:left-15 w-full h-full bg-gradient-to-b from-transparent'>
-                <input type="text" placeholder='cerca film, serie tv o personaggi...' onClick={redirectToSearch} className='w-[90%] bg-[#ffffff] rounded-full p-2 text-black' />
+            <div className='absolute top-22 left-0 sm:top-15 w-full flex justify-center z-10'>
+                <input
+                    type="text"
+                    placeholder='Cerca film, serie tv o personaggi...'
+                    onClick={redirectToSearch}
+                    className='w-[90%] bg-[#ffffff] rounded-full p-2 text-black shadow-md'
+                />
             </div>
 
             {/* HERO */}
@@ -135,7 +140,7 @@ export default function Home() {
                         transition: 'opacity 0.5s ease-in-out', // Transizione per la dissolvenza
                         opacity: fade ? 0 : 1, // Cambia opacità durante la dissolvenza
                     }}
-                    className='h-[500px] bg-cover bg-center flex justify-center items-center hero_home text-center'>
+                    className='h-[500px] bg-cover bg-center flex justify-center items-center hero_home text-center relative'>
                     <LazyLoader
                         image={path_img_5 + (logo[currentSlide]?.file_path || '')}
                         style={`opacity-80 px-2 transition-opacity duration-500 max-h-[400px] ${fade ? 'opacity-0' : 'opacity-100'}`} // Transizione per il logo
