@@ -47,8 +47,7 @@ export default function Card({
     media_type,
     titled }) {
 
-    const { id, title, name, original_language, vote_average, release_date
-    } = item
+    const { id, title, name, original_language, vote_average } = item
 
     const { mobileWidth, titleSlug, overTextSmall, overTextLong } = React.useContext(GlobalContext)
 

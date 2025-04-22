@@ -83,11 +83,13 @@ export default function Home() {
             if (content.media_type && content.id) {
                 axios.get(`https://api.themoviedb.org/3/${content.media_type}/${content.id}/images?api_key=dba9492b080738637f53df6bffa6b8c3`)
                     .then(res => {
+                        const logoOriginal = res.data.logos.find(logo => logo.iso_639_1 === content.original_language); // Trova il logo con la lingua originale
                         const logoEn = res.data.logos.find(logo => logo.iso_639_1 === 'en');
                         const logoIt = res.data.logos.find(logo => logo.iso_639_1 === 'it');
+
                         setLogo(prevLogos => {
                             const updatedLogos = [...prevLogos];
-                            updatedLogos[index] = logoIt || logoEn || {};
+                            updatedLogos[index] = logoIt || logoEn || logoOriginal; // Usa il logo originale, altrimenti fallback su italiano o inglese
                             return updatedLogos;
                         });
                     })
@@ -113,6 +115,7 @@ export default function Home() {
         window.location.href = '/search'; // Cambia l'URL della pagina corrente
     }
 
+
     return (
         <div className={theme === 'dark' ? 'dark-theme' : 'light-theme'}>
             <div className={theme === 'dark' ? 'bg-[rgb(20,20,20)]' : 'bg-gray-300'}>
@@ -132,12 +135,11 @@ export default function Home() {
                         image={path_img_5 + (logo[currentSlide]?.file_path || '')}
                         style={`opacity-80 px-2 transition-opacity duration-500 max-h-[400px] ${fade ? 'opacity-0' : 'opacity-100'}`} // Transizione per il logo
                     />
-                    <div className='absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent'>
-                        <input type="text" placeholder='cerca film, serie tv o personaggi...' onClick={redirectToSearch} className='w-[90%] bg-[#ffffffe5] rounded-b-2xl p-2 text-black' />
-
-                    </div>
                 </div>
             </Link>
+            <div className='absolute top-40 left-10 w-full h-full bg-gradient-to-b from-transparent'>
+                <input type="text" placeholder='cerca film, serie tv o personaggi...' onClick={redirectToSearch} className='w-[90%] bg-[#ffffff] rounded-full p-2 text-black' />
+            </div>
             <FilteredSection myArray={trendWeek} title={'Questa settimana'} type={trendWeek.map(e => e.media_type)} />
             <FilteredSection myArray={trendDay} title={'Selezione di oggi'} type={trendWeek.map(e => e.media_type)} />
             <div className='mt-12'>

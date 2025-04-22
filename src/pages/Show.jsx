@@ -86,7 +86,7 @@ export default function Show({ type }) {
                 setCompany(res.data.production_companies)
                 setCountry(res.data.production_countries)
                 setSeason(res.data.seasons)
-                console.log('Show Page', res.data)
+                // console.log('Show Page', res.data)
                 setLoading(false)
             })
             .catch(err => {
@@ -121,7 +121,7 @@ export default function Show({ type }) {
             .then(res => {
                 setIdWatch(res.data.map(e => e.id_watch));
                 setSlug(res.data.map(e => e.title_slug))
-                console.log('Fetch watch id', res.data.map(e => e.title_slug))
+                // console.log('Fetch watch id', res.data.map(e => e.title_slug))
             })
             .catch(err => {
                 console.log('Error fetch watch id', err)
