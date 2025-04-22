@@ -287,11 +287,11 @@ export default function Show({ type }) {
                                     <p>Vedi tutto</p>
                                 </Link>
                             </div>
-                            <div className={`${theme === 'dark' ? 'contain-btn-dettails-dark' : 'contain-btn-dettails'} w-[47%] sm:w-[30%] text-center my-3`}>
+                            {/* <div className={`${theme === 'dark' ? 'contain-btn-dettails-dark' : 'contain-btn-dettails'} w-[47%] sm:w-[30%] text-center my-3`}>
                                 <Link to={`https://streamingcommunity.airforce/watch/${idWatch}${slug ? '-' + slug : ''}`} >
                                     <p>guarda ora </p>
                                 </Link>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
 
