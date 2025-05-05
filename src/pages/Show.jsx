@@ -530,7 +530,12 @@ export default function Show({ type }) {
                                 </div>}
 
                             {/* EPISODES */}
-                            <Episodes id={id} type={type} episodeFiltered={episodeFiltered} selectedSeason={selectedSeason} seasonNumber={seasonNumber} />
+                            <Episodes
+                                id={id}
+                                type={type}
+                                episodeFiltered={episodeFiltered}
+                                selectedSeason={selectedSeason}
+                                seasonNumber={seasonNumber} />
                         </div>
                     </>
                 }

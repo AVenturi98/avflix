@@ -48,7 +48,7 @@ const Carousel = ({ images }) => {
                                 <img
                                     src={image.profile_path ? `https://image.tmdb.org/t/p/w500${image.profile_path}` : '/placeholder/PersonPlaceholder.png'}
                                     alt={image.name}
-                                    className="cast-img h-[290px] rounded-br-full rounded-bl-full rounded-tl-full" />
+                                    className="cast-img h-[220px] sm:h-[290px] rounded-br-full rounded-bl-full rounded-tl-full" />
                                 <div className="cast-info">
                                     <h3 className="font-bold">{image.name}</h3>
                                     <p className="font-medium italic">Popularity:

@@ -30,6 +30,10 @@ export default function AllMovieTv() {
         fetchSectionID('person', id, 'combined_credits', () => { }, setAllShows)
     }, [id])
 
+    React.useEffect(() => {
+        console.log('select', mediaTypeSelected)
+    }, [mediaTypeSelected])
+
     // get Unique Media Type
     const uniqueType = allShows.cast.filter((v, i, a) => a.findIndex(t => (t.media_type === v.media_type)) === i)
 
