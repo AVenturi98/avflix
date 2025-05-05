@@ -100,7 +100,7 @@ export default function Episodes({ id, type, episodeFiltered, seasonNumber, sele
                                     {e.overview &&
                                         <div>
                                             <h3 className='font-extrabold'>Trama</h3>
-                                            <p className='text-center border-2 border-green-500 p-2 rounded-4xl'>{overTextLong(e.overview, 50) + ' '}
+                                            <p className='text-center border-2 border-green-500 p-2 rounded-4xl'>{!mobileWidth ? overTextLong(e.overview, 50) + '...' : e.overview}
                                                 {!mobileWidth &&
                                                     <span className='text-green-400'>
                                                         <button type="button" onClick={() => setReadMore(true)}> leggi tutto</button>
