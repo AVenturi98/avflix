@@ -87,9 +87,14 @@ export default function Home() {
                         const logoEn = res.data.logos.find(logo => logo.iso_639_1 === 'en');
                         const logoIt = res.data.logos.find(logo => logo.iso_639_1 === 'it');
 
+
                         setLogo(prevLogos => {
                             const updatedLogos = [...prevLogos];
                             updatedLogos[index] = logoIt || logoEn || logoOriginal; // Usa il logo originale, altrimenti fallback su italiano o inglese
+                            console.log(updatedLogos[index])
+
+                            if (!updatedLogos) return ''
+
                             return updatedLogos;
                         });
                     })

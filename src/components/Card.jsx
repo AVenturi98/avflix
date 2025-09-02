@@ -47,7 +47,7 @@ export default function Card({
     media_type,
     titled }) {
 
-    const { id, title, name, original_language, vote_average } = item
+    const { id, title, name, original_language, vote_average } = item || {};
 
     const { mobileWidth, titleSlug, overTextSmall, overTextLong } = React.useContext(GlobalContext)
 
@@ -77,7 +77,7 @@ export default function Card({
                                 <div className='flex justify-center items-center gap-5'>
                                     <div className='font-semibold'>Lingua Originale:</div>
                                     <span>
-                                        <Flags lang={original_language} />
+                                        <Flags lang={typeof original_language === 'string' ? original_language : ''} />
                                     </span>
                                 </div>}
                             <div>{overviewSmall ? overTextSmall(overviewSmall) : ''}</div>
@@ -86,7 +86,7 @@ export default function Card({
                                 <div className='flex justify-center items-center gap-3'>
                                     <VoteStar vote={vote_average} />
                                     <span className='opacity-70'>
-                                        ({vote_average.toFixed(1)})
+                                        ({typeof vote_average === 'number' ? vote_average.toFixed(1) : 'N/A'})
                                     </span>
                                 </div>}
                         </div> : ''}
