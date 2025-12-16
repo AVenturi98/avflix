@@ -63,7 +63,6 @@ export default function Show({ type }) {
     const [loading, setLoading] = React.useState(true) // Add loading state
 
     const [idWatch, setIdWatch] = React.useState('') // Get Id Watch
-    const [slug, setSlug] = React.useState('') // Get Slug
 
 
 
@@ -88,6 +87,7 @@ export default function Show({ type }) {
                 setSeason(res.data.seasons)
                 // console.log('Show Page', res.data)
                 setLoading(false)
+                setIdWatch(res.data.id) //set Id Watch
             })
             .catch(err => {
                 console.error('Error fetch movie to Show Page', err);
@@ -115,18 +115,18 @@ export default function Show({ type }) {
             })
     }
 
-    // Fetch get id watch
-    function fetchWatchId() {
-        axios.get(`http://localhost:3033/${id}}`)
-            .then(res => {
-                setIdWatch(res.data.map(e => e.id_watch));
-                setSlug(res.data.map(e => e.title_slug))
-                // console.log('Fetch watch id', res.data.map(e => e.title_slug))
-            })
-            .catch(err => {
-                console.log('Error fetch watch id', err)
-            })
-    }
+    FIXME:// Fetch get id watch
+    // function fetchWatchId() {
+    //     axios.get(`http://localhost:3033/${id}}`)
+    //         .then(res => {
+    //             setIdWatch(res.data.map(e => e.id_watch));
+    //             // setSlug(res.data.map(e => e.title_slug))
+    //             // console.log('Fetch watch id', res.data.map(e => e.title_slug))
+    //         })
+    //         .catch(err => {
+    //             console.log('Error fetch watch id', err)
+    //         })
+    // }
 
     React.useEffect(() => {
 
@@ -136,8 +136,6 @@ export default function Show({ type }) {
         fetchVideos(type, id, () => { })
         fetchSectionID(type, id, 'similar', setSimilar) // handle similar content
         fetchSectionID(type, id, 'recommendations', setRecommendations) // handle recommendations content
-
-        fetchWatchId()
 
         document.documentElement.scrollTop = 0
 
@@ -287,11 +285,20 @@ export default function Show({ type }) {
                                     <p>Vedi tutto</p>
                                 </Link>
                             </div>
-                            {/* <div className={`${theme === 'dark' ? 'contain-btn-dettails-dark' : 'contain-btn-dettails'} w-[47%] sm:w-[30%] text-center my-3`}>
-                                <Link to={`https://streamingcommunity.airforce/watch/${idWatch}${slug ? '-' + slug : ''}`} >
+
+
+
+                            {/* ---------------------------------- */}
+
+
+                            <div className={`${theme === 'dark' ? 'contain-btn-dettails-dark' : 'contain-btn-dettails'} w-[47%] sm:w-[30%] text-center my-3`}>
+                                <Link to={`https://vixsrc.to/movie/${idWatch}`} >
                                     <p>guarda ora </p>
                                 </Link>
-                            </div> */}
+                            </div>
+
+                            {/* --------------------------------- */}
+
                         </div>
                     </div>
 
