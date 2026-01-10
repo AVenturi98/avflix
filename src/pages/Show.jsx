@@ -287,11 +287,12 @@ export default function Show({ type }) {
                             </div>
 
                             {/* BUTTON WATCH */}
-                            <div className={`${theme === 'dark' ? 'contain-btn-dettails-dark' : 'contain-btn-dettails'} w-[47%] sm:w-[30%] text-center my-3`}>
-                                <Link to={`https://vixsrc.to/movie/${idWatch}`} >
-                                    <p>guarda ora </p>
-                                </Link>
-                            </div>
+                            {type === 'movie' &&
+                                <div className={`${theme === 'dark' ? 'contain-btn-dettails-dark' : 'contain-btn-dettails'} w-[47%] sm:w-[30%] text-center my-3`}>
+                                    <Link to={`https://vixsrc.to/movie/${idWatch}`} >
+                                        <p>guarda ora </p>
+                                    </Link>
+                                </div>}
 
                         </div>
                     </div>
@@ -536,7 +537,9 @@ export default function Show({ type }) {
                                 type={type}
                                 episodeFiltered={episodeFiltered}
                                 selectedSeason={selectedSeason}
-                                seasonNumber={seasonNumber} />
+                                seasonNumber={seasonNumber}
+                                idWatch={idWatch}
+                                theme={theme} />
                         </div>
                     </>
                 }

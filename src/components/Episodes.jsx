@@ -1,11 +1,12 @@
-import * as React from 'react'
-import axios from 'axios'
+import * as React from 'react';
+import axios from 'axios';
+import { Link } from 'react-router';
 const KEY = import.meta.env.VITE_API_KEY
 
 // Context
 import GlobalContext from '../context/GlobalContext'
 
-export default function Episodes({ id, type, episodeFiltered, seasonNumber, selectedSeason }) {
+export default function Episodes({ id, type, episodeFiltered, seasonNumber, selectedSeason, idWatch, theme }) {
 
     const { mobileWidth, overTextLong, readMore, setReadMore } = React.useContext(GlobalContext)
 
@@ -48,21 +49,32 @@ export default function Episodes({ id, type, episodeFiltered, seasonNumber, sele
             {episode &&
                 <div className='w-[100%] p-2'>
                     <h2 className='font-extrabold text-3xl my-2'>Episodi</h2>
-                    <select disabled={!selectedSeason} name="episodes" id="episodes"
-                        value={selectedEpisode}
-                        onChange={(e) => setSelectedEpisode(e.target.value)}
-                        className='mt-4 mb-6 cursor-pointer hover:bg-blue-200 p-0.5 rounded-xl border-2 border-emerald-500'>
-                        <option>{selectedSeason ? 'Episodi'
-                            : !selectedSeason ? 'Scegli prima una stagione'
-                                : episode.length = 0 ? 'Nessun episodio disponibile' : ''}</option>
-                        {episodeFiltered.map((e, i) =>
-                            <option key={i} value={i + 1}>{'Episodio ' + (i + 1)}</option>
-                        ) ||
-                            episodeFiltered[0].map((e, i) =>
+                    <div className={`flex items-${selectedEpisode ? 'start' : 'center'} gap-6`}>
+                        <select disabled={!selectedSeason} name="episodes" id="episodes"
+                            value={selectedEpisode}
+                            onChange={(e) => setSelectedEpisode(e.target.value)}
+                            className='mt-4 mb-6 cursor-pointer hover:bg-blue-200 p-0.5 rounded-xl border-2 border-emerald-500'>
+                            <option>{selectedSeason ? 'Episodi'
+                                : !selectedSeason ? 'Scegli prima una stagione'
+                                    : episode.length = 0 ? 'Nessun episodio disponibile' : ''}</option>
+                            {episodeFiltered.map((e, i) =>
                                 <option key={i} value={i + 1}>{'Episodio ' + (i + 1)}</option>
-                            )}
-                    </select>
-                    <label htmlFor="episodes" className='opacity-30 px-2'>scegli l'episodio</label>
+                            ) ||
+                                episodeFiltered[0].map((e, i) =>
+                                    <option key={i} value={i + 1}>{'Episodio ' + (i + 1)}</option>
+                                )}
+                        </select>
+                        <label htmlFor="episodes" className='grow-9'>
+                            {selectedEpisode ?
+                                <div className={`${theme === 'dark' ? 'contain-btn-dettails-dark' : 'contain-btn-dettails'} w-[47%] sm:w-[30%] text-center my-3`}>
+                                    <Link to={`https://vixsrc.to/tv/${idWatch}/${seasonNumber}/${selectedEpisode}`} >
+                                        <p>guarda ora </p>
+                                    </Link>
+                                </div>
+                                : <p className='opacity-30 px-2'>scegli l'episodio</p>
+                            }
+                        </label>
+                    </div>
 
                     <div className='text-white'>
                         {episodeFiltered.filter((e, i) => (i + 1) == selectedEpisode).map(e =>
