@@ -4,6 +4,7 @@ import './MenuMobile.css';
 
 // Logo
 import logo from '../../assets/logo.png';
+import logoName from '../../assets/name_av.png';
 
 // Icons 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -19,8 +20,9 @@ export default function MenuMobile() {
     return (
         <>
             <div className="px-6 flex justify-between items-center">
-                <Link to="/">
+                <Link to="/" className='flex justify-center items-center gap-1'>
                     <img src={logo} alt={logo} id="logo" />
+                    <img src={logoName} alt="name" id="name" />
                 </Link>
                 <div className='bars' onClick={() => setOpen(true)}>
                     <FontAwesomeIcon icon={faBars} className='text-2xl' />
