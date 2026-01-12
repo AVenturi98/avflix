@@ -23,7 +23,7 @@
 
 .bars {
     cursor: pointer;
-    color: greenyellow
+    color: white
 }
 
 .bars.active {

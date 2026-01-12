@@ -38,7 +38,7 @@ export default function Nav() {
     }, [openAside]);
 
     return (
-        <nav className="bg-sky-950 py-5 text-white">
+        <nav className="bg-sky-950 py-2 text-white">
             {mobileWidth ? (
                 <MenuMobile />
             ) : (
@@ -63,7 +63,7 @@ export default function Nav() {
                     </nav>
 
                     {/* HUM menu */}
-                    <aside ref={asideRef} className={`fixed z-99 top-0.5 right-0 bg-[#000000ef] text-white rounded-l-full h-screen flex justify-center items-center transition-all transition-discrete duration-500 ${openAside ? ' translate-0 xl:w-[30%]' : ' translate-100 w-0'}`}>
+                    <aside ref={asideRef} className={`fixed z-99 top-0.5 right-0 bg-[#000000ef] text-white rounded-l-full h-screen flex justify-center items-center transition-all transition-discrete duration-500 ${openAside ? ' translate-0 xl:w-[30%] sm:w-[50%]' : ' translate-100 w-0'}`}>
                         <button
                             type="button"
                             className={`text-[#ffff00] bg-gray-500 hover:bg-gray-400 border-2 border-amber-100 py-1 px-2 rounded-md absolute top-50 right-10 ${openAside ? 'block' : 'hidden'}`}
