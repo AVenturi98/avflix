@@ -52,7 +52,6 @@ export default function Show({ type }) {
     const [img, setImg] = React.useState([]) // set Images
 
     const [season, setSeason] = React.useState([]) // set Seasons
-    const [selectedSeason, setSelectedSeason] = React.useState('') // set Show Selected Season
     const [episode, setEpisode] = React.useState([]) // set Show Episode
 
     const [similar, setSimilar] = React.useState([]) // Set Similar Content
@@ -68,6 +67,11 @@ export default function Show({ type }) {
 
     const { id } = useParams()
     const navigate = useNavigate()
+
+    const [selectedSeason, setSelectedSeason] = React.useState(() => {
+        // Inizializza lo stato dal localStorage
+        return localStorage.getItem(`selectedSeason_${id}`) || ''
+    }) // set Show Selected Season
 
     // Globla fetch
     function fetchMovieId() {
@@ -151,6 +155,13 @@ export default function Show({ type }) {
         }
 
     }, [selectedSeason])
+
+    // Salva la stagione selezionata nel localStorage
+    React.useEffect(() => {
+        if (selectedSeason) {
+            localStorage.setItem(`selectedSeason_${id}`, selectedSeason)
+        }
+    }, [selectedSeason, id])
 
     React.useEffect(() => {
         {

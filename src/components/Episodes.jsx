@@ -11,7 +11,10 @@ export default function Episodes({ id, type, episodeFiltered, seasonNumber, sele
     const { mobileWidth, overTextLong, readMore, setReadMore } = React.useContext(GlobalContext)
 
     const [episode, setEpisode] = React.useState([]) // set Show Episode
-    const [selectedEpisode, setSelectedEpisode] = React.useState('') // set Show Selected Episode
+    const [selectedEpisode, setSelectedEpisode] = React.useState(() => {
+        // Inizializza lo stato dal localStorage
+        return localStorage.getItem(`selectedEpisode_${id}_${seasonNumber}`) || ''
+    }) // set Show Selected Episode
 
 
 
@@ -41,6 +44,19 @@ export default function Episodes({ id, type, episodeFiltered, seasonNumber, sele
         }
 
     }, [selectedSeason]);
+
+    // Salva l'episodio selezionato nel localStorage
+    React.useEffect(() => {
+        if (selectedEpisode) {
+            localStorage.setItem(`selectedEpisode_${id}_${seasonNumber}`, selectedEpisode)
+        }
+    }, [selectedEpisode, id, seasonNumber]);
+
+    // Resetta l'episodio quando cambia la stagione
+    React.useEffect(() => {
+        const savedEpisode = localStorage.getItem(`selectedEpisode_${id}_${seasonNumber}`)
+        setSelectedEpisode(savedEpisode || '')
+    }, [seasonNumber, id]);
 
 
     return (
