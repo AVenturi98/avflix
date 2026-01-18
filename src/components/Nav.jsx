@@ -1,9 +1,15 @@
 import * as React from 'react';
 import { NavLink, Link } from "react-router";
+
+// ICONS
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faFilm } from "@fortawesome/free-solid-svg-icons";
+import { faHouse } from '@fortawesome/free-solid-svg-icons';
+import { faClapperboard } from '@fortawesome/free-solid-svg-icons';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
 
 // Logo
 import logo from '../assets/logo.png';
@@ -71,14 +77,13 @@ export default function Nav() {
                             <FontAwesomeIcon icon={faX} />
                         </button>
 
-                        <div className="flex flex-col items-center gap-6 text-2xl">
-                            <NavLink to="/" onClick={() => setOpenAside(false)}>Home</NavLink>
-                            <NavLink to="/popular-movie" onClick={() => setOpenAside(false)}>Film</NavLink>
-                            <NavLink to="/popular-tv" onClick={() => setOpenAside(false)}>Serie Tv</NavLink>
-                            <NavLink to="/search" className="rounded-md py-1 px-2 hover:bg-green-400" onClick={() => setOpenAside(false)}>
-                                <FontAwesomeIcon icon={faSearch} />
-                            </NavLink>
-                            <BtnDarkMode />
+                        <div className="flex flex-col items-start gap-6 text-2xl">
+                            <NavLink to="/" onClick={() => setOpenAside(false)}><FontAwesomeIcon icon={faHouse} /> Home</NavLink>
+                            <NavLink to="/popular-movie" onClick={() => setOpenAside(false)}><FontAwesomeIcon icon={faFilm} /> Film</NavLink>
+                            <NavLink to="/popular-tv" onClick={() => setOpenAside(false)}><FontAwesomeIcon icon={faClapperboard} /> Serie Tv</NavLink>
+                            <NavLink to="/search" className="rounded-md hover:bg-green-400" onClick={() => setOpenAside(false)}><FontAwesomeIcon icon={faSearch} /> Search</NavLink>
+                            <NavLink to="/favorites" onClick={() => setOpenAside(false)}><FontAwesomeIcon icon={faHeart} /> Favorites</NavLink>
+                            <BtnDarkMode className='item-center' />
                         </div>
                     </aside>
                 </div>
