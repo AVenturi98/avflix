@@ -20,6 +20,9 @@ import MediaTaggedPerson from './pages/personPages/MediaTaggedPerson'
 import AllMovieTv from './pages/personPages/AllMovieTv'
 // Search 
 import SearchPage from './pages/SearchPage'
+//Favorites
+import Favorites from './pages/Favorites'
+
 // Errors
 import NotFound from './erros_pages/NotFound'
 
@@ -79,6 +82,9 @@ function App() {
 
                 {/* SEARCH */}
                 <Route path='/search' element={<SearchPage />} />
+
+                {/* FAVORITES */}
+                <Route path='/favorites' element={<Favorites />} />
 
               </Route>
 

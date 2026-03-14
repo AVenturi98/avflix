@@ -26,6 +26,28 @@ export function GlobalProvider({ children }) {
 
     const [readMore, setReadMore] = React.useState(false) // set Open Read More overview (seasons)
 
+    const [favorites, setFavorites] = React.useState(() => {
+        // Recupera i favorites dal localStorage o usa un array vuoto come predefinito
+        const savedFavorites = localStorage.getItem('favorites');
+        return savedFavorites ? JSON.parse(savedFavorites) : [];
+    }) // Set Favorites
+
+    // ADD favorite function 
+    const handleAddFavorite = (post) => {
+        const type = post.title ? 'movie' : 'tv'; // Determina il tipo basato su title (movie) o name (tv)
+        const item = { id: post.id, type };
+        const isFavorite = favorites.some(fav => fav.id === post.id && fav.type === type);
+        if (!isFavorite) {
+            setFavorites([...favorites, item]);
+        } else {
+            setFavorites(favorites.filter(fav => !(fav.id === post.id && fav.type === type)));
+        }
+    }
+
+    React.useEffect(() => {
+        // Salva i favorites nel localStorage ogni volta che cambiano
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+    }, [favorites]);
 
     const [theme, setTheme] = React.useState(() => {
         // Recupera il tema dal localStorage o usa 'light' come predefinito
@@ -171,6 +193,24 @@ export function GlobalProvider({ children }) {
             })
     }
 
+    // Fetch Item Details by ID and Type
+    function fetchItemDetails(type, id) {
+        return new Promise((resolve, reject) => {
+            axios.get(`https://api.themoviedb.org/3/${type}/${id}?api_key=dba9492b080738637f53df6bffa6b8c3`, {
+                params: {
+                    language: 'it-IT'
+                },
+            })
+                .then(res => {
+                    resolve(res.data);
+                })
+                .catch(err => {
+                    console.error('Error fetching item details', err);
+                    reject(err);
+                });
+        });
+    }
+
     // Fetch Credits (cast, crew)
     function fetchCreditsId(type, id) {
         const options = {
@@ -263,7 +303,7 @@ export function GlobalProvider({ children }) {
     const mobileWidth = windowWidth <= 640;
     return (
         <GlobalContext.Provider value={{
-            fetchSections, fetchMovies, fetchMedia, fetchVideos, fetchCreditsId, fetchUpComing, fetchSectionID, fetchPersonId, mobileWidth,
+            fetchSections, fetchMovies, fetchMedia, fetchVideos, fetchCreditsId, fetchUpComing, fetchSectionID, fetchItemDetails, fetchPersonId, mobileWidth,
             showMoreMovies, setShowMoreMovies,
             showMoreSeries, setShowMoreSeries,
             cast, setCast,
@@ -278,7 +318,8 @@ export function GlobalProvider({ children }) {
             loading, setLoading,
             theme, setTheme,
             overTextSmall, overTextLong,
-            readMore, setReadMore
+            readMore, setReadMore,
+            favorites, setFavorites, handleAddFavorite
         }}>
             {children}
             <BtnBackTop />

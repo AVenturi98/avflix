@@ -8,10 +8,11 @@ import logoName from '../../assets/name_av.png';
 
 // Icons 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faFilm, faSearch, faTv, faX } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faClapperboard, faFilm, faHouse, faSearch, faTv, faX } from '@fortawesome/free-solid-svg-icons';
 
 //Components
 import BtnDarkMode from '../btnTheme/BtnDarkMode';
+import { faHeart } from '@fortawesome/free-regular-svg-icons';
 
 export default function MenuMobile() {
 
@@ -30,37 +31,17 @@ export default function MenuMobile() {
 
                 {open &&
                     <div id="container_menu">
-                        <div className="flex flex-col justify-center items-center h-full">
+                        <div className="flex flex-col justify-center items-start mx-[30%] h-full text-2xl gap-7">
                             <div className='btnClose' onClick={() => setOpen(false)}>
                                 <FontAwesomeIcon icon={faX} />
                             </div>
-                            <NavLink to='/' className='text-2xl my-4' onClick={() => setOpen(false)}>
-                                Home
-                            </NavLink>
-                            <NavLink to='/search' className='text-2xl my-4' onClick={() => setOpen(false)}>
-                                <div>
-                                    Search
-                                    <span className='ml-2'>
-                                        <FontAwesomeIcon icon={faSearch} />
-                                    </span>
-                                </div>
-                            </NavLink>
-                            <NavLink to='/popular-movie' className='text-2xl my-4' onClick={() => setOpen(false)}>
-                                <div>
-                                    Film
-                                    <span className='ml-2'>
-                                        <FontAwesomeIcon icon={faFilm} />
-                                    </span>
-                                </div>
-                            </NavLink>
-                            <NavLink to='/popular-tv' className='text-2xl my-4' onClick={() => setOpen(false)}>
-                                <div>
-                                    Serie Tv
-                                    <span className='ml-2'>
-                                        <FontAwesomeIcon icon={faTv} />
-                                    </span>
-                                </div>
-                            </NavLink>
+
+                            <NavLink to="/" onClick={() => setOpen(false)}><FontAwesomeIcon icon={faHouse} /> Home</NavLink>
+                            <NavLink to="/popular-movie" onClick={() => setOpen(false)}><FontAwesomeIcon icon={faFilm} /> Film</NavLink>
+                            <NavLink to="/popular-tv" onClick={() => setOpen(false)}><FontAwesomeIcon icon={faClapperboard} /> Serie Tv</NavLink>
+                            <NavLink to="/search" className="rounded-md hover:bg-green-400" onClick={() => setOpen(false)}><FontAwesomeIcon icon={faSearch} /> Cerca</NavLink>
+                            <NavLink to="/favorites" onClick={() => setOpen(false)}><FontAwesomeIcon icon={faHeart} /> Preferiti</NavLink>
+
                             <BtnDarkMode />
                         </div>
                     </div>}

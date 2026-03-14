@@ -9,6 +9,7 @@ import ImageCollage from '../components/image-collage/ImagesCollage'
 import FilteredSection from '../components/FilteredSection'
 import Episodes from '../components/Episodes'
 import Spinner from '../components/Spinner' // Import the Spinner component
+import BtnAddFavItem from '../components/BtnAddFavItem'
 
 // Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -16,7 +17,8 @@ import {
     faClock,
     faStar,
     faStarHalfStroke,
-    faStarHalf
+    faStarHalf,
+    faHeart
 } from '@fortawesome/free-solid-svg-icons'
 import { faStar as empty } from '@fortawesome/free-regular-svg-icons'
 
@@ -47,7 +49,6 @@ export default function Show({ type }) {
     const [country, setCountry] = React.useState([]) // set Country
     const [genres, setGenres] = React.useState([]) // set Genre
 
-
     const [viewMode, setViewMode] = React.useState('immagini'); // set View Mode
     const [img, setImg] = React.useState([]) // set Images
 
@@ -62,6 +63,9 @@ export default function Show({ type }) {
     const [loading, setLoading] = React.useState(true) // Add loading state
 
     const [idWatch, setIdWatch] = React.useState('') // Get Id Watch
+
+
+    const [favorites, setFavorites] = React.useState([]) // Set Favorites
 
 
 
@@ -190,19 +194,28 @@ export default function Show({ type }) {
         return <Spinner /> // Show spinner while loading
     }
 
-
+    // ADD favorite function 
+    const handleAddFavorite = () => {
+        if (!favorites.includes(post.id)) {
+            setFavorites([...favorites, post.id])
+        } else {
+            setFavorites(favorites.filter(id => id !== post.id))
+        }
+    }
 
     return (
         <div className={theme === 'dark' ? 'dark-theme' : 'light-theme'}>
             {/* HERO SHOW */}
             <section id='hero-show' className={`relative max-w-screen mb-10 2xl:px-50 py-10 sm:py-20 lg:py-40 flex items-start flex-wrap sm:flex-nowrap ${mobileWidth ? 'justify-center gap-5 px-5' : 'px-15'} bg-gray-100 shadow-lg`}
-                style={{ backgroundImage: `linear-gradient(rgba(1, 1, 22, 0.7), rgba(1, 1, 22, 0.9)), url(https://image.tmdb.org/t/p/original${post.backdrop_path})`, backgroundSize: 'cover', backgroundPosition: 'center', zIndex: -99 }}>
+                style={{ backgroundImage: `linear-gradient(rgba(1, 1, 22, 0.7), rgba(1, 1, 22, 0.9)), url(https://image.tmdb.org/t/p/original${post.backdrop_path})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
                 <img className='w-full sm:w-48 md:w-60 lg:w-80 h-auto rounded-lg shadow-lg shadow-gray-600'
                     src={post.poster_path && !mobileWidth ? path_img + post.poster_path
                         : post.backdrop_path && mobileWidth ? path_img + post.backdrop_path
                             : !post.poster_path || !post.backdrop_path ? '/placeholder/moviesPlaceholder.png' : ''} alt={post.original_title || post.name} />
                 <div className='sm:ml-10 text-white flex flex-col gap-8 justify-start w-full sm:w-200'>
-                    <h1 className='text-5xl text-white font-extrabold mt-5 mb-2'>{post.original_title || post.name}</h1>
+                    <h1 className='text-5xl text-white font-extrabold mt-5 mb-2'>
+                        {post.original_title || post.name}
+                    </h1>
                     <div className='flex items-center justify-between grow-1'>
                         {company.length > 0 && <div className='text-lg text-white mb-4'>{company[0].name}</div>}
                         {!isNaN(vote) &&
@@ -247,6 +260,9 @@ export default function Show({ type }) {
                                 </span>
                             )}
                         </div>}
+
+                    <BtnAddFavItem post={post} />
+
                 </div>
                 {post.release_date > currentDate ?
                     <div className='absolute w-full flex justify-center top-2 left-0'>
@@ -257,6 +273,7 @@ export default function Show({ type }) {
 
             {/* CONTENT */}
             <section className='flex flex-wrap'>
+
 
                 {/* IMAGES e VIDEO */}
                 <div className={`${mobileWidth ? 'px-5 w-full' : 'px-10 w-[70%]'} grow-1`}>
@@ -569,6 +586,7 @@ export default function Show({ type }) {
             {/* UP COMING if not Up Coming Movie */}
             {upComing && post.release_date < currentDate && type === 'movie' ?
                 < FilteredSection myArray={upComing} type={type} title={'In arrivo'} /> : ''}
+
         </div>
     )
 }

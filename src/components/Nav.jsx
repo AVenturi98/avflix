@@ -81,8 +81,8 @@ export default function Nav() {
                             <NavLink to="/" onClick={() => setOpenAside(false)}><FontAwesomeIcon icon={faHouse} /> Home</NavLink>
                             <NavLink to="/popular-movie" onClick={() => setOpenAside(false)}><FontAwesomeIcon icon={faFilm} /> Film</NavLink>
                             <NavLink to="/popular-tv" onClick={() => setOpenAside(false)}><FontAwesomeIcon icon={faClapperboard} /> Serie Tv</NavLink>
-                            <NavLink to="/search" className="rounded-md hover:bg-green-400" onClick={() => setOpenAside(false)}><FontAwesomeIcon icon={faSearch} /> Search</NavLink>
-                            <NavLink to="/favorites" onClick={() => setOpenAside(false)}><FontAwesomeIcon icon={faHeart} /> Favorites</NavLink>
+                            <NavLink to="/search" className="rounded-md hover:bg-green-400" onClick={() => setOpenAside(false)}><FontAwesomeIcon icon={faSearch} /> Cerca</NavLink>
+                            <NavLink to="/favorites" onClick={() => setOpenAside(false)}><FontAwesomeIcon icon={faHeart} /> Preferiti</NavLink>
                             <BtnDarkMode className='item-center' />
                         </div>
                     </aside>
