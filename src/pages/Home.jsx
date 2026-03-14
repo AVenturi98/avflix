@@ -128,7 +128,7 @@ export default function Home() {
             </div> */}
 
             {/* INPUT */}
-            <div className='absolute top-22 left-0 sm:top-0 w-full flex justify-center z-10'>
+            <div className='absolute top-0 left-0 w-full flex justify-center z-10'>
                 <input
                     type="text"
                     placeholder='Cerca film, serie tv o personaggi...'
