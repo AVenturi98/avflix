@@ -108,7 +108,7 @@ export default function Favorites() {
             {favoriteItems.length === 0 ? (
                 <p className="text-lg text-gray-700 dark:text-gray-300 text-center">Non ci sono preferiti. Aggiungi film o serie tv!</p>
             ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                     {favoriteItems.map((item) => (
                         <div key={item.id} className="relative">
                             {selectMode && (
