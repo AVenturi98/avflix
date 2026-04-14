@@ -15,7 +15,9 @@ import GlobalContext from '../context/GlobalContext';
 import LazyLoader from '../components/LazyLoader';
 
 export default function Home() {
-    const { theme, titleSlug } = React.useContext(GlobalContext); // Access theme state
+    const { theme, titleSlug, lastWatched } = React.useContext(GlobalContext); // Access theme state
+
+    const watchedItems = Array.isArray(lastWatched) ? lastWatched : [];
 
     // Path Image Original
     const path_img_or = 'https://image.tmdb.org/t/p/original'
@@ -91,7 +93,7 @@ export default function Home() {
                         setLogo(prevLogos => {
                             const updatedLogos = [...prevLogos];
                             updatedLogos[index] = logoIt || logoEn || logoOriginal; // Usa il logo originale, altrimenti fallback su italiano o inglese
-                            console.log(updatedLogos[index])
+                            // console.log(updatedLogos[index])
 
                             if (!updatedLogos) return ''
 
@@ -153,8 +155,9 @@ export default function Home() {
                 </div>
             </Link>
 
-            <FilteredSection myArray={trendWeek} title={'Questa settimana'} type={trendWeek.map(e => e.media_type)} />
-            <FilteredSection myArray={trendDay} title={'Selezione di oggi'} type={trendWeek.map(e => e.media_type)} />
+            <FilteredSection myArray={watchedItems} title={'Dove hai guardato'} type='' />
+            <FilteredSection myArray={trendWeek || []} title={'Questa settimana'} type='' />
+            <FilteredSection myArray={trendDay || []} title={'Selezione di oggi'} type='' />
             <div className='mt-12'>
                 <TopCast myArray={trendPeople} title={'Personaggi popolari'} />
             </div>

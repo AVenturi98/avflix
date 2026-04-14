@@ -6,9 +6,9 @@ const KEY = import.meta.env.VITE_API_KEY
 // Context
 import GlobalContext from '../context/GlobalContext'
 
-export default function Episodes({ id, type, episodeFiltered, seasonNumber, selectedSeason, idWatch, theme }) {
+export default function Episodes({ id, type, post, episodeFiltered, seasonNumber, selectedSeason, idWatch, theme }) {
 
-    const { mobileWidth, overTextLong, readMore, setReadMore } = React.useContext(GlobalContext)
+    const { mobileWidth, overTextLong, readMore, setReadMore, addLastWatched } = React.useContext(GlobalContext)
 
     const [episode, setEpisode] = React.useState([]) // set Show Episode
     const [selectedEpisode, setSelectedEpisode] = React.useState(() => {
@@ -100,6 +100,14 @@ export default function Episodes({ id, type, episodeFiltered, seasonNumber, sele
                                     <Link to={`https://vixsrc.to/tv/${idWatch}/${seasonNumber}/${selectedEpisode}`} onClick={() => {
                                         if (!watchedEpisodes.includes(selectedEpisode)) {
                                             setWatchedEpisodes(prev => [...new Set([...prev, selectedEpisode])])
+                                        }
+                                        if (post && post.id) {
+                                            addLastWatched({
+                                                ...post,
+                                                media_type: type,
+                                                watchedSeason: seasonNumber,
+                                                watchedEpisode: selectedEpisode,
+                                            })
                                         }
                                     }}>
                                         <p>guarda ora </p>

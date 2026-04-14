@@ -42,7 +42,8 @@ export default function Show({ type }) {
         titleSlug,
         theme,
         overTextLong,
-        readMore, setReadMore } = React.useContext(GlobalContext)
+        readMore, setReadMore,
+        addLastWatched } = React.useContext(GlobalContext)
 
     const [post, setPost] = React.useState([]) // set Post
     const [company, setCompany] = React.useState([]) // set Company
@@ -317,7 +318,12 @@ export default function Show({ type }) {
                             {/* BUTTON WATCH */}
                             {type === 'movie' &&
                                 <div className={`${theme === 'dark' ? 'contain-btn-dettails-dark' : 'contain-btn-dettails'} w-[47%] sm:w-[30%] text-center my-3`}>
-                                    <Link to={`https://vixsrc.to/movie/${idWatch}`} >
+                                    <Link to={`https://vixsrc.to/movie/${idWatch}`} onClick={() => {
+                                        addLastWatched({
+                                            ...post,
+                                            media_type: type,
+                                        })
+                                    }}>
                                         <p>guarda ora </p>
                                     </Link>
                                 </div>}
@@ -563,6 +569,7 @@ export default function Show({ type }) {
                             <Episodes
                                 id={id}
                                 type={type}
+                                post={post}
                                 episodeFiltered={episodeFiltered}
                                 selectedSeason={selectedSeason}
                                 seasonNumber={seasonNumber}

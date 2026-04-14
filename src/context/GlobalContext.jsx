@@ -32,9 +32,18 @@ export function GlobalProvider({ children }) {
         return savedFavorites ? JSON.parse(savedFavorites) : [];
     }) // Set Favorites
 
+    const [lastWatched, setLastWatched] = React.useState(() => {
+        const savedLastWatched = localStorage.getItem('lastWatched');
+        try {
+            return savedLastWatched ? JSON.parse(savedLastWatched) : [];
+        } catch {
+            return [];
+        }
+    }) // Set Last Watched
+
     // ADD favorite function 
     const handleAddFavorite = (post) => {
-        const type = post.title ? 'movie' : 'tv'; // Determina il tipo basato su title (movie) o name (tv)
+        const type = post.title ? 'movie' : 'tv';
         const item = { id: post.id, type };
         const isFavorite = favorites.some(fav => fav.id === post.id && fav.type === type);
         if (!isFavorite) {
@@ -44,10 +53,28 @@ export function GlobalProvider({ children }) {
         }
     }
 
+    const addLastWatched = (item = {}) => {
+        if (!item?.id) return;
+        const watchedItem = {
+            ...item,
+            media_type: item.media_type || (item.title ? 'movie' : 'tv'),
+            watchedAt: new Date().toISOString(),
+        };
+
+        setLastWatched(prev => [
+            watchedItem,
+            ...prev.filter(w => w.id !== watchedItem.id || w.media_type !== watchedItem.media_type)
+        ].slice(0, 20));
+    }
+
     React.useEffect(() => {
         // Salva i favorites nel localStorage ogni volta che cambiano
         localStorage.setItem('favorites', JSON.stringify(favorites));
     }, [favorites]);
+
+    React.useEffect(() => {
+        localStorage.setItem('lastWatched', JSON.stringify(lastWatched));
+    }, [lastWatched]);
 
     const [theme, setTheme] = React.useState(() => {
         // Recupera il tema dal localStorage o usa 'light' come predefinito
@@ -319,7 +346,8 @@ export function GlobalProvider({ children }) {
             theme, setTheme,
             overTextSmall, overTextLong,
             readMore, setReadMore,
-            favorites, setFavorites, handleAddFavorite
+            favorites, setFavorites, handleAddFavorite,
+            lastWatched, addLastWatched
         }}>
             {children}
             <BtnBackTop />

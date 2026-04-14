@@ -11,6 +11,7 @@ import GlobalContext from '../context/GlobalContext'
 
 export default function FilteredSection({ myArray = [], type, title, init, fin, viewmorePerson, id }) {
 
+    const fallbackType = Array.isArray(type) ? type[0] : type;
 
     // Path Image
     const path_img = 'https://image.tmdb.org/t/p/w500'
@@ -37,7 +38,7 @@ export default function FilteredSection({ myArray = [], type, title, init, fin, 
                         </div>
                         <div className='flex items-center grow-1 gap-2 sm:gap-5 overflow-x-auto overflow-y-hidden sm:pb-8 px-2'>
                             {myArray.slice(init, fin).map((e, i) =>
-                                <Card key={i} type={!e.media_type ? type : e.media_type} item={e}
+                                <Card key={i} type={!e.media_type ? fallbackType : e.media_type} item={e}
                                     image={e.poster_path ? path_img + e.poster_path : '/placeholder/moviesPlaceholder.png'}
                                     language={e.title && e.title.length > 35 && e.name && e.name.length > 35 ? false : true}
                                     stars={e.title && e.title.length > 60 || e.name && e.name.length > 60 ? false : true}
