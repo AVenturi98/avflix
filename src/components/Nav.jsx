@@ -25,7 +25,9 @@ export default function Nav() {
     const { mobileWidth } = React.useContext(GlobalContext);
 
     const [openAside, setOpenAside] = React.useState(false);
+    const [showNav, setShowNav] = React.useState(true);
     const asideRef = React.useRef(null);
+    const lastScrollY = React.useRef(0);
 
     React.useEffect(() => {
         const handleClickOutside = (event) => {
@@ -43,8 +45,23 @@ export default function Nav() {
         };
     }, [openAside]);
 
+    React.useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+            if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+                setShowNav(false);
+            } else {
+                setShowNav(true);
+            }
+            lastScrollY.current = currentScrollY;
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
     return (
-        <nav className="bg-sky-950 py-2 text-white">
+        <nav className={`fixed inset-x-0 top-0 z-50 bg-sky-950 py-2 text-white transition-transform duration-300 ${showNav ? 'translate-y-0' : '-translate-y-full'}`}>
             {mobileWidth ? (
                 <MenuMobile />
             ) : (
