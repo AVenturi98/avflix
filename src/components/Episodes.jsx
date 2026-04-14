@@ -15,7 +15,13 @@ export default function Episodes({ id, type, episodeFiltered, seasonNumber, sele
         // Inizializza lo stato dal localStorage
         return localStorage.getItem(`selectedEpisode_${id}_${seasonNumber}`) || ''
     }) // set Show Selected Episode
-
+    const [watchedEpisodes, setWatchedEpisodes] = React.useState(() => {
+        try {
+            return JSON.parse(localStorage.getItem(`watchedEpisodes_${id}_${seasonNumber}`)) || []
+        } catch {
+            return []
+        }
+    }) // set watched episodes after click
 
 
     // Seasons-Episodes fetch (only tv)
@@ -52,6 +58,10 @@ export default function Episodes({ id, type, episodeFiltered, seasonNumber, sele
         }
     }, [selectedEpisode, id, seasonNumber]);
 
+    React.useEffect(() => {
+        localStorage.setItem(`watchedEpisodes_${id}_${seasonNumber}`, JSON.stringify(watchedEpisodes))
+    }, [watchedEpisodes, id, seasonNumber]);
+
     // Resetta l'episodio quando cambia la stagione
     React.useEffect(() => {
         const savedEpisode = localStorage.getItem(`selectedEpisode_${id}_${seasonNumber}`)
@@ -72,18 +82,26 @@ export default function Episodes({ id, type, episodeFiltered, seasonNumber, sele
                             className='mt-4 mb-6 cursor-pointer hover:bg-blue-200 p-0.5 rounded-xl border-2 border-emerald-500'>
                             <option>{selectedSeason ? 'Episodi'
                                 : !selectedSeason ? 'Scegli prima una stagione'
-                                    : episode.length = 0 ? 'Nessun episodio disponibile' : ''}</option>
-                            {episodeFiltered.map((e, i) =>
-                                <option key={i} value={i + 1}>{'Episodio ' + (i + 1)}</option>
-                            ) ||
-                                episodeFiltered[0].map((e, i) =>
-                                    <option key={i} value={i + 1}>{'Episodio ' + (i + 1)}</option>
-                                )}
+                                    : episode.length === 0 ? 'Nessun episodio disponibile' : ''}</option>
+                            {episodeFiltered.map((e, i) => {
+                                const value = String(i + 1)
+                                const checked = watchedEpisodes.includes(value)
+                                return <option key={i} value={value}>{'Episodio ' + value + (checked ? ' ✓' : '')}</option>
+                            }) ||
+                                episodeFiltered[0].map((e, i) => {
+                                    const value = String(i + 1)
+                                    const checked = watchedEpisodes.includes(value)
+                                    return <option key={i} value={value}>{'Episodio ' + value + (checked ? ' ✓' : '')}</option>
+                                })}
                         </select>
                         <label htmlFor="episodes" className='grow-9'>
                             {selectedEpisode ?
                                 <div className={`${theme === 'dark' ? 'contain-btn-dettails-dark' : 'contain-btn-dettails'} w-[47%] sm:w-[30%] text-center my-3`}>
-                                    <Link to={`https://vixsrc.to/tv/${idWatch}/${seasonNumber}/${selectedEpisode}`} >
+                                    <Link to={`https://vixsrc.to/tv/${idWatch}/${seasonNumber}/${selectedEpisode}`} onClick={() => {
+                                        if (!watchedEpisodes.includes(selectedEpisode)) {
+                                            setWatchedEpisodes(prev => [...new Set([...prev, selectedEpisode])])
+                                        }
+                                    }}>
                                         <p>guarda ora </p>
                                     </Link>
                                 </div>
