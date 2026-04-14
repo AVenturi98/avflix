@@ -15,9 +15,7 @@ import GlobalContext from '../context/GlobalContext';
 import LazyLoader from '../components/LazyLoader';
 
 export default function Home() {
-    const { theme, titleSlug, lastWatched } = React.useContext(GlobalContext); // Access theme state
-
-    const watchedItems = Array.isArray(lastWatched) ? lastWatched : [];
+    const { theme, titleSlug, lastWatched = [] } = React.useContext(GlobalContext); // Access theme state
 
     // Path Image Original
     const path_img_or = 'https://image.tmdb.org/t/p/original'
@@ -34,6 +32,7 @@ export default function Home() {
     const [loading, setLoading] = React.useState(true) // Add loading state
     const [currentSlide, setCurrentSlide] = React.useState(0); // Stato per il carosello
     const [fade, setFade] = React.useState(false); // Stato per la dissolvenza
+    const [showInput, setShowInput] = React.useState(true); // Stato per mostrare l'input solo a capo pagina
 
     React.useEffect(() => {
         const timer = setTimeout(() => {
@@ -58,6 +57,15 @@ export default function Home() {
         }, 7000);
 
         return () => clearInterval(interval) // Pulisci l'intervallo quando il componente viene smontato
+    }, []);
+
+    React.useEffect(() => {
+        const handleScroll = () => {
+            setShowInput(window.scrollY === 0);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
     const currentContent = trendDay[currentSlide] || {}; // Ottieni il contenuto corrente del carosello
@@ -130,7 +138,7 @@ export default function Home() {
             </div> */}
 
             {/* INPUT */}
-            <div className='absolute top-0 left-0 w-full flex justify-center z-10'>
+            <div className={`absolute top-0 left-0 w-full flex justify-center ${showInput ? 'z-50' : 'z-10'}`}>
                 <input
                     type="text"
                     placeholder='Cerca film, serie tv o personaggi...'
@@ -155,9 +163,9 @@ export default function Home() {
                 </div>
             </Link>
 
-            <FilteredSection myArray={watchedItems} title={'Dove hai guardato'} type='' />
-            <FilteredSection myArray={trendWeek || []} title={'Questa settimana'} type='' />
-            <FilteredSection myArray={trendDay || []} title={'Selezione di oggi'} type='' />
+            <FilteredSection myArray={lastWatched || []} title={'Dove hai guardato'} type={(lastWatched || []).map(e => e.media_type)} />
+            <FilteredSection myArray={trendWeek || []} title={'Questa settimana'} type={(trendWeek || []).map(e => e.media_type)} />
+            <FilteredSection myArray={trendDay || []} title={'Selezione di oggi'} type={(trendDay || []).map(e => e.media_type)} />
             <div className='mt-12'>
                 <TopCast myArray={trendPeople} title={'Personaggi popolari'} />
             </div>
