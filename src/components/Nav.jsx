@@ -82,6 +82,7 @@ export default function Nav() {
                         <nav className='cursor-context-menu flex justify-around'>
                             <button
                                 type="button"
+                                className='rounded-md p-2 transition-colors duration-200 hover:bg-sky-800'
                                 onClick={() => {
                                     if (openAside) setOpenAside(false)
                                     else setOpenAside(true)
@@ -97,7 +98,7 @@ export default function Nav() {
             </nav>
 
             {/* HUM menu */}
-            <aside ref={asideRef} className={`fixed z-[100] top-0.5 right-0 bg-[#000000ef] text-white rounded-l-full h-screen flex justify-center items-center transition-all transition-discrete duration-500 ${openAside ? ' translate-0 xl:w-[30%] sm:w-[50%]' : ' translate-100 w-0'}`}>
+            <aside ref={asideRef} className={`fixed z-[100] top-0.5 right-0 bg-[#000000ef] text-white rounded-l-full h-screen flex justify-center items-center transition-all transition-discrete duration-500 ${openAside ? 'translate-0 xl:w-[30%] sm:w-[50%] pointer-events-auto' : 'translate-100 w-0 pointer-events-none'}`}>
                 <button
                     type="button"
                     className={`text-[#ffff00] bg-gray-500 hover:bg-gray-400 border-2 border-amber-100 py-1 px-2 rounded-md absolute top-50 right-10 ${openAside ? 'block' : 'hidden'}`}
@@ -106,11 +107,11 @@ export default function Nav() {
                 </button>
 
                 <div className="flex flex-col items-start gap-6 text-2xl">
-                    <NavLink to="/" onClick={() => setOpenAside(false)}><FontAwesomeIcon icon={faHouse} /> Home</NavLink>
-                    <NavLink to="/popular-movie" onClick={() => setOpenAside(false)}><FontAwesomeIcon icon={faFilm} /> Film</NavLink>
-                    <NavLink to="/popular-tv" onClick={() => setOpenAside(false)}><FontAwesomeIcon icon={faClapperboard} /> Serie Tv</NavLink>
-                    <NavLink to="/search" className="rounded-md hover:bg-green-400" onClick={() => setOpenAside(false)}><FontAwesomeIcon icon={faSearch} /> Cerca</NavLink>
-                    <NavLink to="/favorites" onClick={() => setOpenAside(false)}><FontAwesomeIcon icon={faHeart} /> Preferiti</NavLink>
+                    <NavLink to="/" className="rounded-md px-3 py-1 transition-colors duration-200 hover:bg-slate-700" onClick={() => setOpenAside(false)}><FontAwesomeIcon icon={faHouse} /> Home</NavLink>
+                    <NavLink to="/popular-movie" className="rounded-md px-3 py-1 transition-colors duration-200 hover:bg-slate-700" onClick={() => setOpenAside(false)}><FontAwesomeIcon icon={faFilm} /> Film</NavLink>
+                    <NavLink to="/popular-tv" className="rounded-md px-3 py-1 transition-colors duration-200 hover:bg-slate-700" onClick={() => setOpenAside(false)}><FontAwesomeIcon icon={faClapperboard} /> Serie Tv</NavLink>
+                    <NavLink to="/search" className="rounded-md px-3 py-1 transition-colors duration-200 hover:bg-slate-400" onClick={() => setOpenAside(false)}><FontAwesomeIcon icon={faSearch} /> Cerca</NavLink>
+                    <NavLink to="/favorites" className="rounded-md px-3 py-1 transition-colors duration-200 hover:bg-slate-700" onClick={() => setOpenAside(false)}><FontAwesomeIcon icon={faHeart} /> Preferiti</NavLink>
                     <BtnDarkMode className='item-center' />
                 </div>
             </aside>
