@@ -23,6 +23,29 @@ export default function Episodes({ id, type, post, episodeFiltered, seasonNumber
         }
     }) // set watched episodes after click
 
+    const episodesList = episodeFiltered?.length ? episodeFiltered : episode
+    const episodeCount = episodesList.length
+    const selectedEpisodeNumber = selectedEpisode ? Number(selectedEpisode) : 0
+
+    const handlePrevEpisode = () => {
+        if (episodeCount === 0) return
+        if (!selectedSeason) return
+        if (!selectedEpisodeNumber) {
+            setSelectedEpisode(String(episodeCount))
+            return
+        }
+        setSelectedEpisode(String(selectedEpisodeNumber === 1 ? episodeCount : selectedEpisodeNumber - 1))
+    }
+
+    const handleNextEpisode = () => {
+        if (episodeCount === 0) return
+        if (!selectedSeason) return
+        if (!selectedEpisodeNumber) {
+            setSelectedEpisode('1')
+            return
+        }
+        setSelectedEpisode(String(selectedEpisodeNumber === episodeCount ? 1 : selectedEpisodeNumber + 1))
+    }
 
     // Seasons-Episodes fetch (only tv)
     function fetchEpisodes() {
@@ -76,24 +99,33 @@ export default function Episodes({ id, type, post, episodeFiltered, seasonNumber
                 <div className='w-[100%] p-2'>
                     <h2 className='font-extrabold text-3xl my-2'>Episodi</h2>
                     <div className={`flex items-${selectedEpisode ? 'start' : 'center'} gap-6`}>
-                        <select disabled={!selectedSeason} name="episodes" id="episodes"
-                            value={selectedEpisode}
-                            onChange={(e) => setSelectedEpisode(e.target.value)}
-                            className='mt-4 mb-6 cursor-pointer hover:bg-blue-200 p-0.5 rounded-xl border-2 border-emerald-500'>
-                            <option>{selectedSeason ? 'Episodi'
-                                : !selectedSeason ? 'Scegli prima una stagione'
-                                    : episode.length === 0 ? 'Nessun episodio disponibile' : ''}</option>
-                            {episodeFiltered.map((e, i) => {
-                                const value = String(i + 1)
-                                const checked = watchedEpisodes.includes(value)
-                                return <option key={i} value={value}>{'Episodio ' + value + (checked ? ' ✓' : '')}</option>
-                            }) ||
-                                episodeFiltered[0].map((e, i) => {
+                        <div className='flex items-center gap-2 mt-4 mb-6'>
+                            <button type='button'
+                                disabled={!selectedSeason || episodeCount === 0}
+                                onClick={handlePrevEpisode}
+                                className={`min-w-[3rem] rounded-xl px-2 py-0.2 disabled:cursor-not-allowed disabled:opacity-50 ${theme === 'dark' ? 'contain-btn-dettails-dark' : 'contain-btn-dettails'}`}>
+                                <p className='m-0'>‹</p>
+                            </button>
+                            <select disabled={!selectedSeason} name="episodes" id="episodes"
+                                value={selectedEpisode}
+                                onChange={(e) => setSelectedEpisode(e.target.value)}
+                                className='cursor-pointer hover:bg-blue-200 p-0.5 rounded-xl border-2 border-emerald-500'>
+                                <option>{selectedSeason ? 'Episodi'
+                                    : !selectedSeason ? 'Scegli prima una stagione'
+                                        : episode.length === 0 ? 'Nessun episodio disponibile' : ''}</option>
+                                {episodesList.map((e, i) => {
                                     const value = String(i + 1)
                                     const checked = watchedEpisodes.includes(value)
                                     return <option key={i} value={value}>{'Episodio ' + value + (checked ? ' ✓' : '')}</option>
                                 })}
-                        </select>
+                            </select>
+                            <button type='button'
+                                disabled={!selectedSeason || episodeCount === 0}
+                                onClick={handleNextEpisode}
+                                className={`min-w-[3rem] rounded-xl px-2 py-0.2 disabled:cursor-not-allowed disabled:opacity-50 ${theme === 'dark' ? 'contain-btn-dettails-dark' : 'contain-btn-dettails'}`}>
+                                <p className='m-0'>›</p>
+                            </button>
+                        </div>
                         <label htmlFor="episodes" className='grow-9'>
                             {selectedEpisode ?
                                 <div className={`${theme === 'dark' ? 'contain-btn-dettails-dark' : 'contain-btn-dettails'} w-[47%] sm:w-[30%] text-center my-3`}>
@@ -119,7 +151,7 @@ export default function Episodes({ id, type, post, episodeFiltered, seasonNumber
                     </div>
 
                     <div className='text-white'>
-                        {episodeFiltered.filter((e, i) => (i + 1) == selectedEpisode).map(e =>
+                        {episodesList.filter((e, i) => (i + 1) == selectedEpisode).map(e =>
                             <div key={e.id} className='flex gap-5 rounded-xl' style={{
                                 backgroundImage: `linear-gradient(rgba(1, 1, 22, 0.6), rgba(1, 1, 22, ${readMore && !mobileWidth ? '1' : '0.8'})), url(${'https://image.tmdb.org/t/p/w500' + e.still_path})`,
                                 backgroundPosition: 'center center', backgroundSize: 'cover'
