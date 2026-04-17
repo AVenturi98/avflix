@@ -584,11 +584,11 @@ export default function Show({ type }) {
             {upComing && post.release_date > currentDate && type === 'movie' ?
                 < FilteredSection myArray={upComing} type={type} title={'In arrivo'} /> : ''}
 
-            {/* SIMILAR  */}
-            < FilteredSection myArray={similar} type={type} title={'Correlati'} />
-
             {/* RECOMMENDATIONS */}
-            < FilteredSection myArray={recommendations} type={type} title={'Suggeriti'} />
+            < FilteredSection myArray={recommendations} type={type} title={'Correlati'} />
+
+            {/* SIMILAR  */}
+            < FilteredSection myArray={similar} type={type} title={'Suggeriti'} />
 
             {/* UP COMING if not Up Coming Movie */}
             {upComing && post.release_date < currentDate && type === 'movie' ?
