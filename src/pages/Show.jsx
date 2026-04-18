@@ -45,6 +45,7 @@ export default function Show({ type }) {
         readMore, setReadMore,
         addLastWatched } = React.useContext(GlobalContext)
 
+
     const [post, setPost] = React.useState([]) // set Post
     const [company, setCompany] = React.useState([]) // set Company
     const [country, setCountry] = React.useState([]) // set Country
@@ -204,6 +205,7 @@ export default function Show({ type }) {
         }
     }
 
+    console.log('POST', post)
     return (
         <div className={theme === 'dark' ? 'dark-theme' : 'light-theme'}>
             {/* HERO SHOW */}
@@ -238,9 +240,9 @@ export default function Show({ type }) {
                     <div className='flex gap-5'>
                         <div>
                             {!undefined && post.release_date ?
-                                new Date(post.release_date).toLocaleDateString() :
+                                new Date(post.release_date).toLocaleDateString('it-IT') :
                                 !undefined && post.first_air_date || post.last_air_date ?
-                                    new Date(post.first_air_date).toLocaleDateString() + ' - ' + new Date(post.last_air_date).toLocaleDateString() : ''}
+                                    new Date(post.first_air_date).toLocaleDateString('it-IT') + ' - ' + new Date(post.last_air_date).toLocaleDateString('it-IT') : ''}
                         </div>
                         -
                         <div>
@@ -407,20 +409,20 @@ export default function Show({ type }) {
                         post.release_date ?
                         <>
                             <h3 className='font-semibold text-lg my-1'>Data d'uscita</h3>
-                            <p>{new Date(post.release_date).toLocaleDateString()}</p>
+                            <p>{new Date(post.release_date).toLocaleDateString('it-IT')}</p>
                         </> :
                         post.first_air_date || post.last_air_date && !undefined && !null && !isNaN(post.first_air_date) && !isNaN(post.last_air_date) ?
                             <>
                                 <h3 className='font-semibold text-lg my-1'>Data primo/ultimo episodio</h3>
-                                <p>{new Date(post.first_air_date).toLocaleDateString() + ' - ' + new Date(post.last_air_date).toLocaleDateString()}</p>
+                                <p>{new Date(post.first_air_date).toLocaleDateString('it-IT') + ' - ' + new Date(post.last_air_date).toLocaleDateString('it-IT')}</p>
                             </> : !post.first_air_date || post.last_air_date && !undefined && !null && !isNaN(post.last_air_date) ?
                                 <>
                                     <h3 className='font-semibold text-lg my-1'>Data ultimo episodio</h3>
-                                    <p>{post.last_air_date}</p>
+                                    <p>{new Date(post.last_air_date).toLocaleDateString('it-IT')}</p>
                                 </> : post.first_air_date || !post.last_air_date && !undefined && !null && !isNaN(post.first_air_date) ?
                                     <>
                                         <h3 className='font-semibold text-lg my-1'>Data primo episodio</h3>
-                                        <p>{post.first_air_date}</p>
+                                        <p>{new Date(post.first_air_date).toLocaleDateString('it-IT')}</p>
                                     </> : 'Non disponibile'
                     }
 

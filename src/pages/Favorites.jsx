@@ -121,6 +121,9 @@ export default function Favorites() {
                             )}
                             <Card
                                 item={item}
+                                release_date={item.release_date}
+                                first_air_date={item.first_air_date}
+                                runtime={item.runtime}
                                 type={item.title ? 'movie' : 'tv'}
                                 image={item.poster_path ? 'https://image.tmdb.org/t/p/w500' + item.poster_path : '/placeholder/moviesPlaceholder.png'}
                             />

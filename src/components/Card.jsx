@@ -9,6 +9,10 @@ import Typography from '@mui/joy/Typography';
 import { CircularProgress } from '@mui/joy'
 import { useCountUp } from 'use-count-up'
 
+// Icons
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faClock } from '@fortawesome/free-solid-svg-icons'
+
 // Context
 import GlobalContext from '../context/GlobalContext'
 
@@ -47,7 +51,7 @@ export default function Card({
     media_type,
     titled }) {
 
-    const { id, title, name, original_language, vote_average } = item || {};
+    const { id, title, name, original_language, vote_average, release_date, first_air_date, number_of_episodes, runtime } = item || {};
 
     const { mobileWidth, titleSlug, overTextSmall, overTextLong } = React.useContext(GlobalContext)
 
@@ -82,6 +86,11 @@ export default function Card({
                                 </div>}
                             <div>{overviewSmall ? overTextSmall(overviewSmall) : ''}</div>
                             <div>{overviewLong ? overTextLong(overviewLong, 20) : ''}</div>
+                            <div>{release_date ? new Date(release_date).toLocaleDateString('it-IT') : ''}</div>
+                            <div>{first_air_date ? new Date(first_air_date).toLocaleDateString('it-IT') : ''}</div>
+                            <div>{number_of_episodes ? `${number_of_episodes} episodi` : ''}</div>
+                            <div>{runtime ? `${runtime} minuti` : ''}</div>
+
                             {showVote &&
                                 <div className='flex justify-center items-center gap-3'>
                                     <VoteStar vote={vote_average} />

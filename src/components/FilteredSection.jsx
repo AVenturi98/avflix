@@ -40,8 +40,11 @@ export default function FilteredSection({ myArray = [], type, title, init, fin, 
                             {myArray.slice(init, fin).map((e, i) =>
                                 <Card key={i} type={!e.media_type ? fallbackType : e.media_type} item={e}
                                     image={e.poster_path ? path_img + e.poster_path : '/placeholder/moviesPlaceholder.png'}
-                                    language={e.title && e.title.length > 35 && e.name && e.name.length > 35 ? false : true}
-                                    stars={e.title && e.title.length > 60 || e.name && e.name.length > 60 ? false : true}
+                                    realese_date={e.release_date}
+                                    first_air_date={e.first_air_date}
+                                    runtime={e.runtime}
+                                    // language={e.title && e.title.length > 35 && e.name && e.name.length > 35 ? false : true}
+                                    // stars={e.title && e.title.length > 60 || e.name && e.name.length > 60 ? false : true}
                                     styleCard={mobileWidth ? 'w-[150px]' : 'w-[200px]'}
                                     styleImg={mobileWidth ? 'w-xs h-[220px]' : 'w-[200px] h-[300px]'} />
                             )}
