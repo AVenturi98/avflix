@@ -5,8 +5,6 @@ import GlobalContext from '../context/GlobalContext';
 
 export default function FilteredGenres({ myArray = [], check, init = Number, finish = Number }) {
 
-    const fallbackType = Array.isArray(type) ? type[0] : type;
-
     const { mobileWidth } = React.useContext(GlobalContext)
 
     // Path Image
