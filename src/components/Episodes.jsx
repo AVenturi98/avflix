@@ -23,6 +23,9 @@ export default function Episodes({ id, type, post, episodeFiltered, seasonNumber
         }
     }) // set watched episodes after click
 
+    const seasonNumberRef = React.useRef(seasonNumber)
+    const selectedEpisodeSeasonRef = React.useRef(seasonNumber)
+
     const episodesList = episodeFiltered?.length ? episodeFiltered : episode
     const episodeCount = episodesList.length
     const selectedEpisodeNumber = selectedEpisode ? Number(selectedEpisode) : 0
@@ -76,19 +79,34 @@ export default function Episodes({ id, type, post, episodeFiltered, seasonNumber
 
     // Salva l'episodio selezionato nel localStorage
     React.useEffect(() => {
+        if (selectedEpisodeSeasonRef.current !== seasonNumber) {
+            selectedEpisodeSeasonRef.current = seasonNumber
+            return
+        }
         if (selectedEpisode) {
             localStorage.setItem(`selectedEpisode_${id}_${seasonNumber}`, selectedEpisode)
         }
     }, [selectedEpisode, id, seasonNumber]);
 
     React.useEffect(() => {
+        if (seasonNumberRef.current !== seasonNumber) {
+            seasonNumberRef.current = seasonNumber
+            return
+        }
         localStorage.setItem(`watchedEpisodes_${id}_${seasonNumber}`, JSON.stringify(watchedEpisodes))
     }, [watchedEpisodes, id, seasonNumber]);
 
-    // Resetta l'episodio quando cambia la stagione
+    // Carica selezione e episodi guardati quando cambia stagione
     React.useEffect(() => {
         const savedEpisode = localStorage.getItem(`selectedEpisode_${id}_${seasonNumber}`)
         setSelectedEpisode(savedEpisode || '')
+
+        try {
+            const savedWatched = JSON.parse(localStorage.getItem(`watchedEpisodes_${id}_${seasonNumber}`))
+            setWatchedEpisodes(savedWatched || [])
+        } catch {
+            setWatchedEpisodes([])
+        }
     }, [seasonNumber, id]);
 
 
