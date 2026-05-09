@@ -69,7 +69,7 @@ export default function Nav() {
 
     return (
         <>
-            <nav className={`fixed top-0 w-full ${showNav ? 'z-50' : 'z-0'} bg-sky-950 text-white transition-transform duration-300 ${showNav ? 'translate-y-0' : '-translate-y-full'}`}>
+            <nav className={`fixed top-0 w-full bg-sky-950 text-white transition-transform duration-300 ${mobileWidth ? mobileWidth : showNav ? 'z-50 translate-y-0' : 'z-0 -translate-y-full'} `}>
                 {mobileWidth ? (
                     <MenuMobile />
                 ) : (
